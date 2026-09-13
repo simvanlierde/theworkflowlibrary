@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thank you | The Workflow Library</title>
+<meta name="description" content="Your download.">
+<link rel="canonical" href="https://theworkflowlibrary.com/thanks.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<meta name="robots" content="noindex">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
+  <nav>
+    <a href="/#library">Library</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/changelog.html">Changelog</a>
+    <a class="btn small" href="#free">Get 5 free specs</a>
+  </nav>
+</header>
+
+<section class="hero small">
+  <h1>Thank you. Your download is ready.</h1>
+  <p class="lead">Your Stripe receipt is on its way by email. The button below serves the pack for the product you bought, straight from our storage, and it keeps working for later updates.</p>
+  <p><a class="btn primary" id="dl" href="#">Download your pack</a></p>
+  <p class="muted small" id="dl-note">Preparing your link...</p>
+  <p class="muted small">Problem? Write to <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a> with your receipt. New specs land every Friday, see the <a href="/changelog.html">changelog</a>.</p>
+</section>
+<script>
+(function(){
+  var s = new URLSearchParams(location.search).get('s') || '';
+  var w = "";
+  var a = document.getElementById('dl'), n = document.getElementById('dl-note');
+  if (!s) { n.textContent = 'No purchase session found in this link. Open the link from your Stripe confirmation page or email us.'; a.style.display='none'; return; }
+  if (!w) { n.textContent = 'Downloads open shortly after launch. Keep your receipt, we email every buyer the pack within 24 hours.'; a.style.display='none'; return; }
+  a.href = w + '/download?s=' + encodeURIComponent(s); n.textContent = 'If the download does not start, click the button again in a minute.';
+})();
+</script>
+
+<footer>
+  <p>Built by an independent HubSpot consultant in Brussels, after ten years of implementations.</p>
+  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+</footer>
+</body>
+</html>

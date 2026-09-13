@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Renewal deal auto-creation from contract end date | The Workflow Library</title>
+<meta name="description" content="Outcome. A renewal deal is created and associated to the account automatically 90 days before the contract ends, pre-filled with amount and owner, so no re">
+<link rel="canonical" href="https://theworkflowlibrary.com/w/renewal-expansion-001.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="Renewal deal auto-creation from contract end date"><meta property="og:description" content="Outcome. A renewal deal is created and associated to the account automatically 90 days before the contract ends, pre-filled with amount and owner, so no re"><meta property="og:image" content="https://theworkflowlibrary.com/og/renewal-expansion-001.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/renewal-expansion-001.png">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
+  <nav>
+    <a href="/#library">Library</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/changelog.html">Changelog</a>
+    <a class="btn small" href="#free">Get 5 free specs</a>
+  </nav>
+</header>
+
+<main class="fiche">
+  <p class="crumb"><a href="/">Library</a> / <a href="/#library?cat=renewal-expansion">Renewal and expansion</a> / renewal-expansion-001</p>
+  <h1>Renewal deal auto-creation from contract end date</h1>
+  <p class="meta"><a class="badge cat" href="/#library?cat=renewal-expansion">Renewal and expansion</a> <span class="badge tier tier-professional">Sales Hub Professional</span> <span class="badge">Company</span> <span class="badge">Intermediate</span> <span class="badge">~45 min to build</span></p>
+  <article>
+  <p><strong>Outcome.</strong> A renewal deal is created and associated to
+the account automatically 90 days before the contract ends, pre-filled
+with amount and owner, so no renewal depends on someone remembering a
+date.</p>
+<div class="wfmap"><div class="wfmap-head"><span>Workflow map</span><span class="muted small">Enrollment, branches and actions at a glance</span></div><pre class="mermaid">flowchart TD
+    A[Company: Customer, Contract End Date < 90 days, no renewal deal yet] --> B[Set Renewal Deal Created = true]
+    B --> C[Create renewal deal, associate to company]
+    C --> D[Create task for owner: confirm details]
+    D --> E[Notify owner]</pre>
+</div><h2 id="when-to-use-it-when-not-to">When to use it / when not to</h2>
+<ul>
+<li>Use it when contract end dates already live in a property and
+renewal deals get created late or inconsistently.</li>
+<li>Use it for accounts with one contract and one renewal event per
+cycle.</li>
+<li>Do not use it for accounts with multiple co-termed contracts or
+product lines. One company-level date cannot represent several renewal
+events; see the bundle variant.</li>
+<li>Do not use it if Contract End Date is not reliably populated. This
+workflow reacts to a date, it does not calculate one.</li>
+</ul>
+
+  </article>
+  
+<section class="locked">
+  <div class="locked-card">
+    <h3>What the full spec adds</h3>
+    <ul class="inside"><li><b>Prerequisites</b>: 6 items, every property with its internal name, type and options</li><li><b>Enrollment</b>: trigger, criteria as ticked in the UI, re-enrollment rule, suppression</li><li><b>Steps</b>: 4 numbered actions with their parameters, branches and delays</li><li><b>Known pitfalls</b>: 5 traps seen in production</li><li><b>Test plan</b>, <b>Variants</b> and the <b>YAML build spec</b></li><li><b>Files</b>: PDF, Markdown, properties JSON to create the fields in one API call</li></ul>
+    <div class="cta-row">
+      <a class="btn" href="#buy-category">Renewal and expansion pack, 39 EUR</a>
+      <a class="btn primary" href="#buy-full">Full library, 149 EUR</a>
+    </div>
+    <p class="muted small">One-time payment. Includes every spec added to the pack later, up to the full 500. Consultants: <a href="/#pricing">Everything, forever</a> adds the agency licence for unlimited client portals.</p>
+  </div>
+</section>
+  
+<div class="teaser" data-spec="renewal-expansion-001">
+  <div class="teaser-left">
+    <span class="teaser-tag">Everything add-on</span>
+    <b>Install this workflow in my portal</b>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+  </div>
+  <button class="btn teaser-btn" type="button">Install in my portal</button>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20renewal-expansion-001">Tell us which portal</a> if you want to be in the pilot.</div>
+</div>
+  <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/renewal-expansion-002.html"><img src="/og/renewal-expansion-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Renewal reminder cascade to CSM/AM (90/60/30 days before contract end)</b><span class="muted small">Renewal and expansion &middot; Sales Hub Professional</span></a><a class="rel" href="/w/renewal-expansion-003.html"><img src="/og/renewal-expansion-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>NPS detractor auto-creates internal alert task</b><span class="muted small">Renewal and expansion &middot; Service Hub Professional</span></a><a class="rel" href="/w/renewal-expansion-004.html"><img src="/og/renewal-expansion-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Churn risk score from usage decline and support ticket volume</b><span class="muted small">Renewal and expansion &middot; Service Hub Professional</span></a><a class="rel" href="/w/renewal-expansion-005.html"><img src="/og/renewal-expansion-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Upsell opportunity deal creation from product usage threshold</b><span class="muted small">Renewal and expansion &middot; Sales Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Grace period tracking after contract expiration before deactivation</b><span class="muted small">Renewal and expansion &middot; Sales Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Renewal forecast rollup property for finance reporting</b><span class="muted small">Renewal and expansion &middot; Sales Hub Professional</span></div></div></section>
+</main>
+<script>
+document.querySelectorAll('.teaser').forEach(t => {
+  const btn = t.querySelector('.teaser-btn'), th = t.querySelector('.teaser-thanks');
+  btn.addEventListener('click', () => {
+    btn.disabled = true; btn.textContent = 'Interest recorded'; th.hidden = false;
+    const ep = "";
+    const payload = JSON.stringify({ event: 'install_click', spec: t.dataset.spec, path: location.pathname, ts: Date.now() });
+    try { if (ep) navigator.sendBeacon(ep, payload); } catch (e) {}
+    try { if (window.goatcounter) window.goatcounter.count({ path: 'install-click/' + t.dataset.spec, event: true }); } catch (e) {}
+    try { if (window.plausible) window.plausible('install_click', { props: { spec: t.dataset.spec } }); } catch (e) {}
+    try { const k = 'fc_install_clicks'; const a = JSON.parse(localStorage.getItem(k) || '[]'); a.push(t.dataset.spec); localStorage.setItem(k, JSON.stringify(a)); } catch (e) {}
+  });
+});
+</script>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { fontFamily: "Nunito Sans, sans-serif", fontSize: "15px", primaryColor: "#EEF1FF", primaryBorderColor: "#8B9BFF", primaryTextColor: "#1B1D2A", lineColor: "#5B6CFF", secondaryColor: "#EFFBF7", tertiaryColor: "#FFF5F7", edgeLabelBackground: "#ffffff" }, flowchart: { curve: "basis", padding: 12, nodeSpacing: 40, rankSpacing: 46 } });
+</script>
+
+<footer>
+  <p>Built by an independent HubSpot consultant in Brussels, after ten years of implementations.</p>
+  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ticket priority auto-set from source and keyword match | The Workflow Library</title>
+<meta name="description" content="Outcome. Every new ticket gets a priority value the moment it is created, based on where it came from and words in the subject line, instead of a rep guess">
+<link rel="canonical" href="https://theworkflowlibrary.com/w/tickets-sla-002.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="Ticket priority auto-set from source and keyword match"><meta property="og:description" content="Outcome. Every new ticket gets a priority value the moment it is created, based on where it came from and words in the subject line, instead of a rep guess"><meta property="og:image" content="https://theworkflowlibrary.com/og/tickets-sla-002.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/tickets-sla-002.png">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
+  <nav>
+    <a href="/#library">Library</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/changelog.html">Changelog</a>
+    <a class="btn small" href="#free">Get 5 free specs</a>
+  </nav>
+</header>
+
+<main class="fiche">
+  <p class="crumb"><a href="/">Library</a> / <a href="/#library?cat=tickets-sla">Tickets and SLA</a> / tickets-sla-002</p>
+  <h1>Ticket priority auto-set from source and keyword match</h1>
+  <p class="meta"><a class="badge cat" href="/#library?cat=tickets-sla">Tickets and SLA</a> <span class="badge tier tier-professional">Service Hub Professional</span> <span class="badge">Ticket</span> <span class="badge">Simple</span> <span class="badge">~25 min to build</span></p>
+  <article>
+  <p><strong>Outcome.</strong> Every new ticket gets a priority value the
+moment it is created, based on where it came from and words in the
+subject line, instead of a rep guessing at triage.</p>
+<div class="wfmap"><div class="wfmap-head"><span>Workflow map</span><span class="muted small">Enrollment, branches and actions at a glance</span></div><pre class="mermaid">flowchart TD
+    A[Ticket created] --> B{Subject contains urgency keywords?}
+    B -->|yes| C[Priority = High, flag Needs review]
+    B -->|no| D{Subject contains billing keywords?}
+    D -->|yes| E[Priority = Medium]
+    D -->|no| F{Source = Chat?}
+    F -->|yes| G[Priority = Medium]
+    F -->|no| H[Priority = Low]</pre>
+</div><h2 id="when-to-use-it-when-not-to">When to use it / when not to</h2>
+<ul>
+<li>Use it when priority is currently set manually and inconsistently,
+or left blank until someone opens the ticket.</li>
+<li>Use it when a handful of keywords (outage, down, cannot login,
+refund) reliably signal urgency in your support volume.</li>
+<li>Do not use it as your only signal for genuinely critical issues.
+Keyword match is a first pass, not a guarantee; pair it with a human
+review step for anything auto-set to Urgent, see tickets-sla-008.</li>
+<li>Do not use it if your ticket subjects are free text with no
+consistent vocabulary (for example, a live chat that auto-generates
+generic subjects). Route on source and category property instead.</li>
+</ul>
+
+  </article>
+  
+<section class="locked">
+  <div class="locked-card">
+    <h3>What the full spec adds</h3>
+    <ul class="inside"><li><b>Prerequisites</b>: 4 items, every property with its internal name, type and options</li><li><b>Enrollment</b>: trigger, criteria as ticked in the UI, re-enrollment rule, suppression</li><li><b>Steps</b>: 4 numbered actions with their parameters, branches and delays</li><li><b>Known pitfalls</b>: 4 traps seen in production</li><li><b>Test plan</b>, <b>Variants</b> and the <b>YAML build spec</b></li><li><b>Files</b>: PDF, Markdown, properties JSON to create the fields in one API call</li></ul>
+    <div class="cta-row">
+      <a class="btn" href="#buy-category">Tickets and SLA pack, 39 EUR</a>
+      <a class="btn primary" href="#buy-full">Full library, 149 EUR</a>
+    </div>
+    <p class="muted small">One-time payment. Includes every spec added to the pack later, up to the full 500. Consultants: <a href="/#pricing">Everything, forever</a> adds the agency licence for unlimited client portals.</p>
+  </div>
+</section>
+  
+<div class="teaser" data-spec="tickets-sla-002">
+  <div class="teaser-left">
+    <span class="teaser-tag">Everything add-on</span>
+    <b>Install this workflow in my portal</b>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+  </div>
+  <button class="btn teaser-btn" type="button">Install in my portal</button>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20tickets-sla-002">Tell us which portal</a> if you want to be in the pilot.</div>
+</div>
+  <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/tickets-sla-004.html"><img src="/og/tickets-sla-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>CSAT survey sent automatically when a ticket is closed</b><span class="muted small">Tickets and SLA &middot; Service Hub Starter</span></a><a class="rel" href="/w/tickets-sla-005.html"><img src="/og/tickets-sla-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Ticket escalation to manager when SLA time-to-close is breached</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></a><a class="rel" href="/w/tickets-sla-001.html"><img src="/og/tickets-sla-001.png" alt="" loading="lazy"><span class="badge free">Free</span><b>Round-robin ticket assignment by team/queue</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></a><a class="rel" href="/w/tickets-sla-003.html"><img src="/og/tickets-sla-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>SLA &quot;Time to first response&quot; breach alert to owner and manager</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Ticket routing by category/product property to a specialized queue</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>After-hours escalation to an on-call rep via schedule property</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></div></div></section>
+</main>
+<script>
+document.querySelectorAll('.teaser').forEach(t => {
+  const btn = t.querySelector('.teaser-btn'), th = t.querySelector('.teaser-thanks');
+  btn.addEventListener('click', () => {
+    btn.disabled = true; btn.textContent = 'Interest recorded'; th.hidden = false;
+    const ep = "";
+    const payload = JSON.stringify({ event: 'install_click', spec: t.dataset.spec, path: location.pathname, ts: Date.now() });
+    try { if (ep) navigator.sendBeacon(ep, payload); } catch (e) {}
+    try { if (window.goatcounter) window.goatcounter.count({ path: 'install-click/' + t.dataset.spec, event: true }); } catch (e) {}
+    try { if (window.plausible) window.plausible('install_click', { props: { spec: t.dataset.spec } }); } catch (e) {}
+    try { const k = 'fc_install_clicks'; const a = JSON.parse(localStorage.getItem(k) || '[]'); a.push(t.dataset.spec); localStorage.setItem(k, JSON.stringify(a)); } catch (e) {}
+  });
+});
+</script>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { fontFamily: "Nunito Sans, sans-serif", fontSize: "15px", primaryColor: "#EEF1FF", primaryBorderColor: "#8B9BFF", primaryTextColor: "#1B1D2A", lineColor: "#5B6CFF", secondaryColor: "#EFFBF7", tertiaryColor: "#FFF5F7", edgeLabelBackground: "#ffffff" }, flowchart: { curve: "basis", padding: 12, nodeSpacing: 40, rankSpacing: 46 } });
+</script>
+
+<footer>
+  <p>Built by an independent HubSpot consultant in Brussels, after ten years of implementations.</p>
+  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+</footer>
+</body>
+</html>

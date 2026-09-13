@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stale deal alert: no activity in 14 days | The Workflow Library</title>
+<meta name="description" content="Outcome. Reps and their managers get notified automatically when an open deal has had no logged activity for 14 days, so deals stop dying quietly in the pi">
+<link rel="canonical" href="https://theworkflowlibrary.com/w/deal-hygiene-001.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="Stale deal alert: no activity in 14 days"><meta property="og:description" content="Outcome. Reps and their managers get notified automatically when an open deal has had no logged activity for 14 days, so deals stop dying quietly in the pi"><meta property="og:image" content="https://theworkflowlibrary.com/og/deal-hygiene-001.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/deal-hygiene-001.png">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
+  <nav>
+    <a href="/#library">Library</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/changelog.html">Changelog</a>
+    <a class="btn small" href="#free">Get 5 free specs</a>
+  </nav>
+</header>
+
+<main class="fiche">
+  <p class="crumb"><a href="/">Library</a> / <a href="/#library?cat=deal-hygiene">Deal hygiene</a> / deal-hygiene-001</p>
+  <h1>Stale deal alert: no activity in 14 days</h1>
+  <p class="meta"><a class="badge cat" href="/#library?cat=deal-hygiene">Deal hygiene</a> <span class="badge tier tier-professional">Sales Hub Professional</span> <span class="badge">Deal</span> <span class="badge">Intermediate</span> <span class="badge">~30 min to build</span></p>
+  <article>
+  <p><strong>Outcome.</strong> Reps and their managers get notified
+automatically when an open deal has had no logged activity for 14 days,
+so deals stop dying quietly in the pipeline.</p>
+<div class="wfmap"><div class="wfmap-head"><span>Workflow map</span><span class="muted small">Enrollment, branches and actions at a glance</span></div><pre class="mermaid">flowchart TD
+    A[Deal enrolls: stage open, no activity 14d+] --> B{Stale Deal Flag = true?}
+    B -->|yes| Z[Exit, already flagged]
+    B -->|no| C[Set Stale Deal Flag = true]
+    C --> D[Create task for owner]
+    D --> E[Notify owner]
+    E --> F[Delay 14 days]
+    F --> G{Still stale after 28 days total?}
+    G -->|yes| H[Notify manager - escalation]
+    G -->|no| I[Reset Stale Deal Flag = false, exit]</pre>
+</div><h2 id="when-to-use-it-when-not-to">When to use it / when not to</h2>
+<ul>
+<li>Use it when forecast reviews keep surfacing deals nobody touched in
+weeks.</li>
+<li>Use it to enforce a minimum touch cadence on mid-funnel stages
+(demo, proposal, negotiation).</li>
+<li>Do not use a flat 14-day threshold across every stage. Long-cycle
+stages (legal review, procurement) need a longer threshold or an
+exclusion, or the alert becomes noise reps ignore.</li>
+<li>Do not use this as the only signal for deal health. Pair it with
+amount and stage in a combined risk score (see deal-hygiene-021) once
+the base version is stable.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Property: <code>Stale Deal Flag</code> (internal name
+<code>stale_deal_flag</code>), object deal, field type single checkbox.
+Why: prevents the workflow from re-notifying every time the filter is
+re-evaluated before the deal actually goes quiet again.</li>
+<li>Confirm the native property <code>Last Activity Date</code>
+(internal name <code>notes_last_updated</code>, the same on contacts,
+companies, deals and tickets, see
+https://developers.hubspot.com/changelog/updates-to-next-activity-and-last-activity-property-groups)
+is present and populated by logged engagements (calls, emails, meetings)
+associated to the deal record, not only to the contact.</li>
+<li>List of pipeline stages to exclude from this workflow (typically
+Closed Won, Closed Lost, and any stage that is expected to sit dormant,
+such as "Legal Review").</li>
+<li>Property: <code>Manager</code> (internal name <code>manager</code>),
+object deal, field type HubSpot user, optional and used only by the
+escalation step, or HubSpot Teams hierarchy (nested team hierarchies
+need an Enterprise subscription and there is no native "notify the
+owner's manager" action, so on Professional the Manager property is the
+only route,
+https://knowledge.hubspot.com/user-management/create-and-manage-teams).
+A HubSpot user type property cannot be created through the batch
+properties API; create it once in Settings &gt; Objects &gt; Deals &gt;
+Properties.</li>
+</ul>
+<h2 id="enrollment">Enrollment</h2>
+<ul>
+<li>Trigger type: filter-based, with re-enrollment on.</li>
+<li>Criteria: <code>Deal stage</code> is not any of [Closed Won, Closed
+Lost] AND <code>Last Activity Date</code> is more than 14 days ago AND
+<code>Stale Deal Flag</code> is not equal to true.</li>
+<li>Re-enrollment: yes, re-evaluate when <code>Last Activity Date</code>
+changes. This lets a deal re-enter the workflow once it goes quiet again
+after a fresh touch.</li>
+<li>Suppression / exclusions: static list or property filter excluding
+sandbox/test pipelines (see deal-hygiene-038), and excluding any stage
+explicitly marked as long-dormant.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<ol type="1">
+<li>If/then branch: <code>Stale Deal Flag</code> is equal to true
+<ul>
+<li>Yes: exit workflow (already flagged, avoid duplicate
+notifications)</li>
+<li>No: continue</li>
+</ul></li>
+<li>Set property value: <code>Stale Deal Flag</code> = true</li>
+<li>Create task: type "To-do", title "Deal stale - no activity 14+ days:
+{{deal.dealname}}", assigned to record owner, due in 1 business day</li>
+<li>Send internal email notification to: record owner, subject "No
+activity on {{deal.dealname}} in 14+ days"</li>
+<li>Delay for 14 days</li>
+<li>If/then branch: <code>Last Activity Date</code> is still more than
+14 days ago AND <code>Deal stage</code> is still not Closed Won/Closed
+Lost
+<ul>
+<li>Yes: Send internal email notification to: manager property (or Teams
+hierarchy contact), subject "Escalation: {{deal.dealname}} stale for 28+
+days"</li>
+<li>No: Set property value: <code>Stale Deal Flag</code> = false, then
+exit</li>
+</ul></li>
+</ol>
+<h2 id="known-pitfalls">Known pitfalls</h2>
+<ul>
+<li><code>Last Activity Date</code> on deals only updates from
+engagements logged against the deal record itself. A call logged only on
+the associated contact does not always roll up to the deal An activity
+logged on a contact is auto-associated only to the contact's primary
+company and its five most recent open deals, and only if the deal was
+already associated to the contact before logging
+(https://knowledge.hubspot.com/records/associate-activities-with-records).</li>
+<li>Re-enrollment loops: because step 2 sets
+<code>Stale Deal Flag</code> in the same run, the enrollment criteria
+(<code>Stale Deal Flag</code> not equal true) prevents an immediate
+re-trigger, but only if the criteria snapshot is taken before the
+property write. Test this explicitly.</li>
+<li>Escalating to "manager" has no native lookup on Sales Hub
+Professional. Without a populated <code>Manager</code> property or
+Enterprise Teams hierarchy, this step silently fails to resolve a
+recipient.</li>
+<li>Activating the workflow does not retroactively enroll existing stale
+deals unless "enroll existing records that match" is checked at
+activation time.</li>
+<li>Due dates on tasks use the portal's default timezone, which can be
+misleading for distributed teams.</li>
+</ul>
+<h2 id="test-plan">Test plan</h2>
+<ol type="1">
+<li>Create a test deal in an open, non-excluded stage and leave
+<code>Last Activity Date</code> blank or older than 14 days.</li>
+<li>Activate the workflow with "enroll existing records" checked, or
+wait for the next evaluation cycle.</li>
+<li>Open Automation &gt; Workflows &gt; this workflow &gt; History tab,
+confirm the deal enrolled and each action shows success.</li>
+<li>Check the deal record's timeline for the created task and the
+internal notification event.</li>
+<li>Log a call against the deal, confirm <code>Last Activity Date</code>
+updates, then confirm <code>Stale Deal Flag</code> resets to false after
+the escalation branch resolves on the next cycle.</li>
+</ol>
+<h2 id="variants">Variants</h2>
+<ul>
+<li>Ticket version: same structure applied to tickets with no activity,
+for the tickets-sla category.</li>
+<li>Company-level version: flag companies with no open-deal activity
+instead of individual deals.</li>
+<li>Slack instead of email: route the notification through the Slack
+integration action if connected (the action is "Send a Slack
+notification" under Integrated apps &gt; Slack in the action panel,
+available once the Slack integration is connected,
+https://knowledge.hubspot.com/integrations/how-do-i-use-the-slack-integration).</li>
+</ul>
+<h2 id="build-spec">Build spec</h2>
+<pre class="yaml"><code>trigger:
+  type: filter_based
+  reenrollment: true
+  reenrollment_property: notes_last_updated
+  object: deal
+  criteria:
+    - property: dealstage
+      operator: not_in
+      value: [closedwon, closedlost]
+    - property: notes_last_updated
+      operator: more_than_days_ago
+      value: 14
+    - property: stale_deal_flag
+      operator: not_equal
+      value: true
+actions:
+  - type: if_then_branch
+    condition: stale_deal_flag == true
+    if_true:
+      - type: exit_workflow
+    if_false:
+      - type: set_property_value
+        property: stale_deal_flag
+        value: true
+      - type: create_task
+        task_type: todo
+        title: &quot;Deal stale - no activity 14+ days: {{deal.dealname}}&quot;
+        assigned_to: record_owner
+        due: +1_business_day
+      - type: send_internal_email_notification
+        to: record_owner
+        subject: &quot;No activity on {{deal.dealname}} in 14+ days&quot;
+      - type: delay
+        duration: 14_days
+      - type: if_then_branch
+        condition: notes_last_updated more_than_days_ago 14 AND dealstage not_in [closedwon, closedlost]
+        if_true:
+          - type: send_internal_email_notification
+            to: manager_property
+            subject: &quot;Escalation: {{deal.dealname}} stale for 28+ days&quot;
+        if_false:
+          - type: set_property_value
+            property: stale_deal_flag
+            value: false</code></pre>
+
+  </article>
+  <div class="note free">This spec is one of the five free ones, complete as shown. <a href="#free">Download all 5 free specs</a> as PDF, Markdown and properties JSON. Paid packs add the same files for every spec in the pack, plus the custom coded actions.</div>
+  
+<div class="teaser" data-spec="deal-hygiene-001">
+  <div class="teaser-left">
+    <span class="teaser-tag">Everything add-on</span>
+    <b>Install this workflow in my portal</b>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+  </div>
+  <button class="btn teaser-btn" type="button">Install in my portal</button>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20deal-hygiene-001">Tell us which portal</a> if you want to be in the pilot.</div>
+</div>
+  <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/deal-hygiene-002.html"><img src="/og/deal-hygiene-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Task creation when deal enters a pipeline stage</b><span class="muted small">Deal hygiene &middot; Sales Hub Professional</span></a><a class="rel" href="/w/deal-hygiene-003.html"><img src="/og/deal-hygiene-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Overdue close date notification</b><span class="muted small">Deal hygiene &middot; Sales Hub Professional</span></a><a class="rel" href="/w/deal-hygiene-004.html"><img src="/og/deal-hygiene-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Require and capture win/loss reason on Closed Lost</b><span class="muted small">Deal hygiene &middot; Sales Hub Professional</span></a><a class="rel" href="/w/deal-hygiene-005.html"><img src="/og/deal-hygiene-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Auto-set forecast category based on deal stage</b><span class="muted small">Deal hygiene &middot; Sales Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Days-in-current-stage property tracker</b><span class="muted small">Deal hygiene &middot; Sales Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Exclude sandbox and test deals from hygiene reporting</b><span class="muted small">Deal hygiene &middot; Sales Hub Professional</span></div></div></section>
+</main>
+<script>
+document.querySelectorAll('.teaser').forEach(t => {
+  const btn = t.querySelector('.teaser-btn'), th = t.querySelector('.teaser-thanks');
+  btn.addEventListener('click', () => {
+    btn.disabled = true; btn.textContent = 'Interest recorded'; th.hidden = false;
+    const ep = "";
+    const payload = JSON.stringify({ event: 'install_click', spec: t.dataset.spec, path: location.pathname, ts: Date.now() });
+    try { if (ep) navigator.sendBeacon(ep, payload); } catch (e) {}
+    try { if (window.goatcounter) window.goatcounter.count({ path: 'install-click/' + t.dataset.spec, event: true }); } catch (e) {}
+    try { if (window.plausible) window.plausible('install_click', { props: { spec: t.dataset.spec } }); } catch (e) {}
+    try { const k = 'fc_install_clicks'; const a = JSON.parse(localStorage.getItem(k) || '[]'); a.push(t.dataset.spec); localStorage.setItem(k, JSON.stringify(a)); } catch (e) {}
+  });
+});
+</script>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { fontFamily: "Nunito Sans, sans-serif", fontSize: "15px", primaryColor: "#EEF1FF", primaryBorderColor: "#8B9BFF", primaryTextColor: "#1B1D2A", lineColor: "#5B6CFF", secondaryColor: "#EFFBF7", tertiaryColor: "#FFF5F7", edgeLabelBackground: "#ffffff" }, flowchart: { curve: "basis", padding: 12, nodeSpacing: 40, rankSpacing: 46 } });
+</script>
+
+<footer>
+  <p>Built by an independent HubSpot consultant in Brussels, after ten years of implementations.</p>
+  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+</footer>
+</body>
+</html>

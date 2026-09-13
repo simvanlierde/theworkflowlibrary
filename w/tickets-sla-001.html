@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round-robin ticket assignment by team/queue | The Workflow Library</title>
+<meta name="description" content="Outcome. New tickets are split into queues by pipeline or category and each queue rotates assignment evenly across its rep pool, so no ticket sits unowned.">
+<link rel="canonical" href="https://theworkflowlibrary.com/w/tickets-sla-001.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="Round-robin ticket assignment by team/queue"><meta property="og:description" content="Outcome. New tickets are split into queues by pipeline or category and each queue rotates assignment evenly across its rep pool, so no ticket sits unowned."><meta property="og:image" content="https://theworkflowlibrary.com/og/tickets-sla-001.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/tickets-sla-001.png">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
+  <nav>
+    <a href="/#library">Library</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/changelog.html">Changelog</a>
+    <a class="btn small" href="#free">Get 5 free specs</a>
+  </nav>
+</header>
+
+<main class="fiche">
+  <p class="crumb"><a href="/">Library</a> / <a href="/#library?cat=tickets-sla">Tickets and SLA</a> / tickets-sla-001</p>
+  <h1>Round-robin ticket assignment by team/queue</h1>
+  <p class="meta"><a class="badge cat" href="/#library?cat=tickets-sla">Tickets and SLA</a> <span class="badge tier tier-professional">Service Hub Professional</span> <span class="badge">Ticket</span> <span class="badge">Intermediate</span> <span class="badge">~40 min to build</span></p>
+  <article>
+  <p><strong>Outcome.</strong> New tickets are split into queues by
+pipeline or category and each queue rotates assignment evenly across its
+rep pool, so no ticket sits unowned.</p>
+<div class="wfmap"><div class="wfmap-head"><span>Workflow map</span><span class="muted small">Enrollment, branches and actions at a glance</span></div><pre class="mermaid">flowchart TD
+    A[Ticket created, queue known] --> B{Ticket queue value?}
+    B -->|billing| C[Rotate to Billing pool]
+    B -->|technical| D[Rotate to Technical pool]
+    B -->|general| E[Rotate to General pool]
+    B -->|blank / unknown| F[Notify support ops + add to Needs manual triage list]
+    C --> G[Set routed date, notify new owner]
+    D --> G
+    E --> G</pre>
+</div><h2 id="when-to-use-it-when-not-to">When to use it / when not to</h2>
+<ul>
+<li>Use it when support has 2+ reps per queue (billing, technical,
+general) and tickets currently get triaged by hand.</li>
+<li>Use it when tickets come in faster than a manager can eyeball and
+assign them one by one.</li>
+<li>Do not use it if a queue has a single rep. Use a plain
+<code>Set property value</code> (ticket owner) action instead, see
+Variants.</li>
+<li>Do not use it for VIP or named accounts that need a fixed owner.
+Exclude those first with a list-based suppression, see
+tickets-sla-020.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Property: <code>Ticket queue</code> (internal name
+<code>ticket_queue</code>), object ticket, field type dropdown select,
+options matching your queues (for example <code>billing</code>,
+<code>technical</code>, <code>general</code>). Why: this is the field
+the branch logic reads. Populate it via a support form hidden field, a
+chatflow routing question, or a workflow that infers it from
+subject/category (see tickets-sla-007 or tickets-sla-023 for the
+classification logic upstream of this workflow).</li>
+<li>A rotation pool per queue: either an active HubSpot Team per queue,
+or a manually maintained list of reps. Why:
+<code>Rotate record to owner</code> needs a defined, static set of
+owners to rotate across.</li>
+<li>Confirm every rep in a rotation pool has an active seat. A
+deactivated rep in the list is skipped by the rotate record owner action
+and shows with a red border in routing rules, so the rotation keeps
+working on the remaining active seats
+(https://knowledge.hubspot.com/user-management/remove-hubspot-users).</li>
+<li>A connected support inbox and at least one ticket pipeline already
+in use, so tickets exist to test against.</li>
+<li>Property: <code>Ticket routed date</code> (internal name
+<code>ticket_routed_date</code>), object ticket, field type date picker.
+Why: it stamps the moment a ticket was routed, used for SLA timing and
+rotation reporting.</li>
+</ul>
+<h2 id="enrollment">Enrollment</h2>
+<ul>
+<li>Trigger type: event-based.</li>
+<li>Criteria: <code>Ticket created</code> AND
+<code>Ticket queue is known</code> (value present).</li>
+<li>Re-enrollment: off. A ticket should not re-roll owner assignment
+every time an unrelated property changes; unintended reassignment
+mid-conversation confuses the customer and the rep.</li>
+<li>Suppression: static list
+<code>VIP accounts - manual ticket assignment</code> excluded via
+enrollment filter <code>Associated company not in list</code>.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<ol type="1">
+<li>If/then branch: <code>Ticket queue</code> is <code>billing</code>
+<ul>
+<li>Rotate record to owner: pool = Billing team rotation</li>
+<li>Set property value: <code>Ticket routed date</code> = current
+date</li>
+<li>Send internal email notification to: ticket owner, subject "New
+ticket assigned: {{ticket.subject}}"</li>
+</ul></li>
+<li>If/then branch: <code>Ticket queue</code> is <code>technical</code>
+<ul>
+<li>Same 3 actions as above, pool = Technical team rotation</li>
+</ul></li>
+<li>If/then branch: <code>Ticket queue</code> is <code>general</code>
+<ul>
+<li>Same 3 actions as above, pool = General team rotation</li>
+</ul></li>
+<li>Else branch (queue unknown or blank)
+<ul>
+<li>Send internal email notification to support ops distribution owner:
+"Ticket with no queue value: {{ticket.hs_object_id}}"</li>
+<li>Add to static list: "Needs manual triage"</li>
+</ul></li>
+</ol>
+<h2 id="known-pitfalls">Known pitfalls</h2>
+<ul>
+<li><code>Rotate record to owner</code> rotates evenly at the moment it
+fires. Adding or removing a rep from a pool does not rebalance tickets
+already assigned.</li>
+<li>If <code>Ticket queue</code> is set by a chatflow routing question,
+it only fires for chat-originated tickets. Email and form-originated
+tickets need a separate classification step upstream, or they land in
+the Else branch.</li>
+<li>Re-enrollment left on will re-roll an already-assigned,
+already-worked ticket to a new owner the next time queue is edited. Keep
+it off unless reassignment is the intent.</li>
+<li>Rotation pools built as manual lists do not update when someone
+joins or leaves the team. Review membership monthly, or use an active
+HubSpot Team as the pool where the tier allows it.</li>
+<li>Business hours are not applied automatically. A ticket created at 2
+a.m. still rotates immediately unless you add a business-hours
+condition, see tickets-sla-016.</li>
+</ul>
+<h2 id="test-plan">Test plan</h2>
+<ol type="1">
+<li>Create 3 test tickets, one per queue value, via the support form or
+by setting the property manually.</li>
+<li>Open workflow history (Automation &gt; Workflows &gt; this workflow
+&gt; History tab) and confirm each ticket enrolled within a minute.</li>
+<li>Check each ticket record's timeline for the owner assignment event
+and confirm it matches the expected pool.</li>
+<li>Confirm the internal email notification arrived in the assigned
+rep's inbox.</li>
+<li>Create one ticket with <code>Ticket queue</code> left blank and
+confirm it lands in the "Needs manual triage" list with the ops
+notification sent.</li>
+</ol>
+<h2 id="variants">Variants</h2>
+<ul>
+<li>Single rep per queue: replace <code>Rotate record to owner</code>
+with <code>Set property value</code> (ticket owner = fixed rep).</li>
+<li>Chat-originated tickets only: trigger on <code>Ticket created</code>
+filtered to <code>Ticket source = Chat</code>, skip the queue property
+and route directly by chatflow inbox.</li>
+<li>Weighted by current open-ticket load instead of even split: see the
+weighted rotation pattern in lead-routing-014.</li>
+</ul>
+<h2 id="build-spec">Build spec</h2>
+<pre class="yaml"><code>trigger:
+  type: event-based
+  event: ticket_created
+  criteria:
+    - ticket_queue: is_known
+  reenrollment: false
+  suppression_list: &quot;VIP accounts - manual ticket assignment&quot;
+branches:
+  - condition: ticket_queue == &quot;billing&quot;
+    actions:
+      - type: rotate_record_to_owner
+        pool: &quot;Billing team rotation&quot;
+      - type: set_property_value
+        property: ticket_routed_date
+        value: current_date
+      - type: send_internal_email_notification
+        to: ticket_owner
+        subject: &quot;New ticket assigned: {{ticket.subject}}&quot;
+  - condition: ticket_queue == &quot;technical&quot;
+    actions: [same_as_above, pool: &quot;Technical team rotation&quot;]
+  - condition: ticket_queue == &quot;general&quot;
+    actions: [same_as_above, pool: &quot;General team rotation&quot;]
+  - condition: else
+    actions:
+      - type: send_internal_email_notification
+        to: support_ops_owner
+        subject: &quot;Ticket with no queue value: {{ticket.hs_object_id}}&quot;
+      - type: add_to_static_list
+        list: &quot;Needs manual triage&quot;</code></pre>
+
+  </article>
+  <div class="note free">This spec is one of the five free ones, complete as shown. <a href="#free">Download all 5 free specs</a> as PDF, Markdown and properties JSON. Paid packs add the same files for every spec in the pack, plus the custom coded actions.</div>
+  
+<div class="teaser" data-spec="tickets-sla-001">
+  <div class="teaser-left">
+    <span class="teaser-tag">Everything add-on</span>
+    <b>Install this workflow in my portal</b>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+  </div>
+  <button class="btn teaser-btn" type="button">Install in my portal</button>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20tickets-sla-001">Tell us which portal</a> if you want to be in the pilot.</div>
+</div>
+  <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/tickets-sla-002.html"><img src="/og/tickets-sla-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Ticket priority auto-set from source and keyword match</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></a><a class="rel" href="/w/lead-routing-005.html"><img src="/og/lead-routing-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Reassign lead when owner has no activity within X hours (SLA breach)</b><span class="muted small">Lead routing &middot; Sales Hub Professional</span></a><a class="rel" href="/w/lead-routing-002.html"><img src="/og/lead-routing-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>New lead auto-assignment by owner rotation (Rotate record to owner action)</b><span class="muted small">Lead routing &middot; Sales Hub Professional</span></a><a class="rel" href="/w/lead-routing-001.html"><img src="/og/lead-routing-001.png" alt="" loading="lazy"><span class="badge free">Free</span><b>Round-robin lead assignment by territory</b><span class="muted small">Lead routing &middot; Sales Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>SLA clock pause while ticket status is &quot;Waiting on contact&quot;</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Auto-reopen ticket when contact replies after closure</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></div></div></section>
+</main>
+<script>
+document.querySelectorAll('.teaser').forEach(t => {
+  const btn = t.querySelector('.teaser-btn'), th = t.querySelector('.teaser-thanks');
+  btn.addEventListener('click', () => {
+    btn.disabled = true; btn.textContent = 'Interest recorded'; th.hidden = false;
+    const ep = "";
+    const payload = JSON.stringify({ event: 'install_click', spec: t.dataset.spec, path: location.pathname, ts: Date.now() });
+    try { if (ep) navigator.sendBeacon(ep, payload); } catch (e) {}
+    try { if (window.goatcounter) window.goatcounter.count({ path: 'install-click/' + t.dataset.spec, event: true }); } catch (e) {}
+    try { if (window.plausible) window.plausible('install_click', { props: { spec: t.dataset.spec } }); } catch (e) {}
+    try { const k = 'fc_install_clicks'; const a = JSON.parse(localStorage.getItem(k) || '[]'); a.push(t.dataset.spec); localStorage.setItem(k, JSON.stringify(a)); } catch (e) {}
+  });
+});
+</script>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { fontFamily: "Nunito Sans, sans-serif", fontSize: "15px", primaryColor: "#EEF1FF", primaryBorderColor: "#8B9BFF", primaryTextColor: "#1B1D2A", lineColor: "#5B6CFF", secondaryColor: "#EFFBF7", tertiaryColor: "#FFF5F7", edgeLabelBackground: "#ffffff" }, flowchart: { curve: "basis", padding: 12, nodeSpacing: 40, rankSpacing: 46 } });
+</script>
+
+<footer>
+  <p>Built by an independent HubSpot consultant in Brussels, after ten years of implementations.</p>
+  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+</footer>
+</body>
+</html>

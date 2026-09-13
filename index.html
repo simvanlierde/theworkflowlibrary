@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Workflow Library: 500 ready-to-implement HubSpot workflows</title>
+<meta name="description" content="HubSpot workflows, documented to the point you can build each one in under an hour.">
+<link rel="canonical" href="https://theworkflowlibrary.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="The Workflow Library: 500 ready-to-implement HubSpot workflows"><meta property="og:description" content="HubSpot workflows, documented to the point you can build each one in under an hour."><meta property="og:image" content="https://theworkflowlibrary.com/og/home.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/home.png">
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
+  <nav>
+    <a href="/#library">Library</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/changelog.html">Changelog</a>
+    <a class="btn small" href="#free">Get 5 free specs</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <h1>HubSpot workflows, documented to the point you can build each one in under an hour.</h1>
+  <p class="lede">A library of ready-to-implement workflow specs for HubSpot admins, RevOps teams and consultants. 50 full specs live today, 500 by December 2026.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="#free">Get 5 free specs</a>
+    <a class="btn" href="#library">Browse the library</a>
+  </div>
+  <p class="muted small">50 full specs live &middot; 500 in the catalogue &middot; <b>30 new specs every Friday</b> until the catalogue is complete in December 2026 &middot; no HubSpot login needed</p>
+</section>
+
+<section class="what">
+  <h2>What one spec looks like</h2>
+  <div class="anatomy">
+    <div class="anatomy-map">
+      <div class="wfmap"><div class="wfmap-head"><span>Workflow map</span><span class="muted small">lead-routing-001, rendered from the spec</span></div>
+<pre class="mermaid">
+flowchart TD
+    A[Contact created / Territory set] --> B{Territory value?}
+    B -->|north-america| C[Rotate to NA pool]
+    B -->|emea| D[Rotate to EMEA pool]
+    B -->|apac| E[Rotate to APAC pool]
+    B -->|blank| F[Notify sales ops, add to manual routing list]
+    C --> G[Set routed date, notify owner, create call task]
+    D --> G
+    E --> G
+</pre></div>
+      <p class="muted small">Every spec ships with its flowchart. Below the map: the exact enrollment criteria, then each action with its parameters.</p>
+    </div>
+    <ol class="anatomy-steps">
+      <li><b>Outcome</b><span>One sentence: what the team gets once it runs.</span></li>
+      <li><b>When to use it, when not to</b><span>The cases where this workflow is the wrong tool.</span></li>
+      <li><b>Prerequisites</b><span>Every property to create first: label, internal name, type, options.</span></li>
+      <li><b>Enrollment</b><span>Trigger type, criteria as you tick them in the UI, re-enrollment, suppression.</span></li>
+      <li><b>Steps</b><span>Numbered HubSpot actions with parameters, branches and delays.</span></li>
+      <li><b>Diagram</b><span>The flowchart above, for the build and for the client deck.</span></li>
+      <li><b>Known pitfalls</b><span>Re-enrollment loops, timing traps, tier limits that bite in production.</span></li>
+      <li><b>Test plan</b><span>How to prove it works in a test portal, and where to look.</span></li>
+      <li><b>Variants and build spec</b><span>Other objects or tiers, plus a YAML spec of trigger and actions.</span></li>
+    </ol>
+  </div>
+  <figure class="shot">
+    <img src="/assets/spec-preview.png" alt="First page of a The Workflow Library spec as PDF" loading="lazy">
+    <figcaption>The PDF version of <a href="/w/lead-routing-001.html">Round-robin lead assignment by territory</a>, one of the five free specs. Same content as the web page and the Markdown file.</figcaption>
+  </figure>
+  <p class="muted">Honest about tiers: each spec states the minimum hub and tier, and flags anything that only works on Operations Hub or Enterprise.</p>
+</section>
+
+<section id="library" class="library">
+  <h2>The library</h2>
+  <div class="toolbar">
+    <input id="q" type="search" placeholder="Search the catalogue (stale deal, round robin, GDPR...)">
+    <div class="chips"><button class="chip active" data-cat="">All</button><button class="chip" data-cat="lead-routing">Lead routing</button><button class="chip" data-cat="lead-nurturing">Lead nurturing</button><button class="chip" data-cat="deal-hygiene">Deal hygiene</button><button class="chip" data-cat="customer-onboarding">Customer onboarding</button><button class="chip" data-cat="tickets-sla">Tickets and SLA</button><button class="chip" data-cat="data-quality">Data quality</button><button class="chip" data-cat="marketing-ops">Marketing ops</button><button class="chip" data-cat="sales-ops">Sales ops</button><button class="chip" data-cat="renewal-expansion">Renewal and expansion</button><button class="chip" data-cat="reporting-alerts">Reporting and alerts</button></div>
+    <label class="toggle"><input type="checkbox" id="onlyfull" checked> Full specs only</label>
+  </div>
+  <div class="cards"><a class="card" href="#library?cat=lead-routing"><h3>Lead routing</h3><p>Assignment, rotation, territories, first-contact SLAs.</p><p class="counts"><span class="badge free">1 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=lead-nurturing"><h3>Lead nurturing</h3><p>Drips, re-engagement, webinar and content tracks.</p><p class="counts"><span class="badge free">0 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=deal-hygiene"><h3>Deal hygiene</h3><p>Stages, close dates, stale deals, win/loss, forecast.</p><p class="counts"><span class="badge free">1 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=customer-onboarding"><h3>Customer onboarding</h3><p>Handoffs, kickoffs, checklists, milestones.</p><p class="counts"><span class="badge free">0 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=tickets-sla"><h3>Tickets and SLA</h3><p>Routing, priorities, escalation, CSAT, reopening.</p><p class="counts"><span class="badge free">1 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=data-quality"><h3>Data quality</h3><p>Dedup, normalization, required fields, associations.</p><p class="counts"><span class="badge free">1 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=marketing-ops"><h3>Marketing ops</h3><p>Lifecycle, MQL/SQL, consent, lists, attribution.</p><p class="counts"><span class="badge free">1 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=sales-ops"><h3>Sales ops</h3><p>Sequences, meetings, quotes, tasks, handoffs.</p><p class="counts"><span class="badge free">0 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=renewal-expansion"><h3>Renewal and expansion</h3><p>Renewals, upsell triggers, churn signals, NPS.</p><p class="counts"><span class="badge free">0 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a><a class="card" href="#library?cat=reporting-alerts"><h3>Reporting and alerts</h3><p>Digests, timestamps, counters, anomaly alerts.</p><p class="counts"><span class="badge free">0 free</span><span class="badge full">5 full</span><span class="badge planned">50 planned</span></p></a></div>
+  <div class="tblwrap"><table id="tbl"><thead><tr><th>Workflow</th><th>Category</th><th>Object</th><th>Minimum tier</th><th>Level</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  <p id="count" class="muted small"></p>
+</section>
+
+<section id="pricing" class="pricing">
+  <h2>Pricing</h2>
+  <div class="grid4 plans">
+    <div class="plan">
+      <h3>Category pack</h3>
+      <p class="price">39 EUR <span>one-time</span></p>
+      <p>Every spec in one category, today and as they publish (50 per category by December 2026). PDF, Markdown, properties JSON, custom code, web access.</p>
+      <a class="btn" href="#buy-category">Choose a category</a>
+    </div>
+    <div class="plan">
+      <h3>Full library</h3>
+      <p class="price">149 EUR <span>one-time</span></p>
+      <p>All 10 categories, all 500 specs as they land, same files. Lifetime updates to the specs. For one team, on the portals it works on.</p>
+      <a class="btn" href="#buy-full">Get the full library</a>
+    </div>
+    <div class="plan featured">
+      <span class="ribbon">For consultants and agencies</span>
+      <h3>Everything, forever</h3>
+      <p class="price">449 EUR <span>one-time, first 20 buyers, then 599 EUR</span></p>
+      <p>The full library plus the agency licence: unlimited client portals. YAML build specs for every workflow, request-a-spec 3 a year, and first access to the portal installer when it ships. Nothing to renew.</p>
+      <a class="btn primary" href="#buy-everything">Get everything (20 launch seats left)</a>
+    </div>
+    <div class="plan">
+      <h3>Pro</h3>
+      <p class="price">249 EUR <span>per year</span></p>
+      <p>Same rights as Everything, paid yearly: agency licence, build specs, request-a-spec 12 a year. Cancel any time, keep what you downloaded.</p>
+      <a class="btn" href="#buy-pro">Go Pro</a>
+    </div>
+  </div>
+  <p class="muted small">Prices exclude VAT where applicable. 14-day refund, no questions asked. Payments handled by Lemon Squeezy.</p>
+</section>
+
+<section id="free" class="freepack">
+  <h2>Five specs, free</h2>
+  <p>One per core category, complete and unlocked: <a href="/w/lead-routing-001.html">lead-routing-001</a>, <a href="/w/deal-hygiene-001.html">deal-hygiene-001</a>, <a href="/w/data-quality-001.html">data-quality-001</a>, <a href="/w/tickets-sla-001.html">tickets-sla-001</a>, <a href="/w/marketing-ops-001.html">marketing-ops-001</a>. Download them as a pack and judge the depth yourself.</p>
+  <a class="btn primary" href="#free">Download the free pack</a>
+</section>
+
+<section id="faq" class="faq">
+  <h2>FAQ</h2>
+  <details><summary>Is this a HubSpot app or a template I import?</summary><p>Neither. It is documentation precise enough to build the workflow yourself in 20 to 60 minutes, in any portal, without giving anyone access. A portal installer through the Automation API is on the roadmap; Everything and Pro buyers get it first if it ships.</p></details>
+  <details><summary>Which HubSpot tier do I need?</summary><p>Every spec states its minimum hub and tier. Most need Professional, because Starter only ships simple automation. Anything that needs Operations Hub (format data, custom code) or Enterprise is labelled as such.</p></details>
+  <details><summary>How are the specs written?</summary><p>From public HubSpot documentation and ten years of implementation work. Where a behaviour could not be confirmed against the current UI, the spec says so inline rather than guessing.</p></details>
+  <details><summary>How often do new specs ship?</summary><p>Thirty every Friday, three per category, until the catalogue of 500 is complete (end of December 2026). Each batch is dated in the changelog. Buyers of a pack receive the new specs of that pack at no extra cost.</p></details>
+  <details><summary>What do I get after paying?</summary><p>A download with PDF and Markdown versions of every spec in your pack, plus web access. New specs added to your pack are sent to the same email.</p></details>
+  <details><summary>Can my agency use this with clients?</summary><p>Yes. The licence covers use on any portal you work on. It does not cover reselling or republishing the specs themselves.</p></details>
+</section>
+</main>
+<script src="/assets/library.js"></script>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { fontFamily: "Nunito Sans, sans-serif", fontSize: "15px", primaryColor: "#EEF1FF", primaryBorderColor: "#8B9BFF", primaryTextColor: "#1B1D2A", lineColor: "#5B6CFF", secondaryColor: "#EFFBF7", tertiaryColor: "#FFF5F7", edgeLabelBackground: "#ffffff" }, flowchart: { curve: "basis", padding: 12, nodeSpacing: 40, rankSpacing: 46 } });
+</script>
+
+<footer>
+  <p>Built by an independent HubSpot consultant in Brussels, after ten years of implementations.</p>
+  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+</footer>
+</body>
+</html>

@@ -35,7 +35,7 @@
 <script>
 (function(){
   var s = new URLSearchParams(location.search).get('s') || '';
-  var w = "";
+  var w = "https://twl-checkout.theworkflowlibrary.workers.dev";
   var a = document.getElementById('dl'), n = document.getElementById('dl-note');
   if (!s) { n.textContent = 'No purchase session found in this link. Open the link from your Stripe confirmation page or email us.'; a.style.display='none'; return; }
   if (!w) { n.textContent = 'Downloads open shortly after launch. Keep your receipt, we email every buyer the pack within 24 hours.'; a.style.display='none'; return; }

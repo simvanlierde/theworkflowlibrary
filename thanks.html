@@ -25,21 +25,73 @@
   </nav>
 </header>
 
-<section class="hero small">
-  <h1>Thank you. Your download is ready.</h1>
-  <p class="lead">Your Stripe receipt is on its way by email. The button below serves the pack for the product you bought, straight from our storage, and it keeps working for later updates.</p>
-  <p><a class="btn primary" id="dl" href="#">Download your pack</a></p>
-  <p class="muted small" id="dl-note">Preparing your link...</p>
-  <p class="muted small">Problem? Write to <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a> with your receipt. New specs land every Friday, see the <a href="/changelog.html">changelog</a>.</p>
+<main class="fiche thanks">
+<style>
+.thanks{max-width:760px}
+.thanks .card-ok{margin:48px 0 24px;border:1px solid var(--rule);border-radius:18px;padding:36px 36px 28px;background:#fff;box-shadow:0 18px 40px rgba(27,29,42,.08)}
+.thanks .check{width:56px;height:56px;border-radius:50%;background:#EFFBF7;border:2px solid var(--mint);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.thanks .check svg{width:28px;height:28px}
+.thanks h1{font-size:2rem;margin:0 0 8px}
+.thanks .lede{margin:0 0 22px}
+.thanks .order{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:16px 18px;border-radius:12px;background:var(--band2);margin:0 0 22px;font-size:.95rem}
+.thanks .order b{font-family:"Bricolage Grotesque",sans-serif}
+.thanks .order .r{text-align:right;color:#3F4254}
+.thanks .cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.thanks .btn.primary{padding:14px 26px;font-size:1.05rem}
+.thanks .inside{margin:0;padding-left:20px;color:#3F4254}
+.thanks .inside li{margin:6px 0}
+.thanks .next{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0 40px}
+.thanks .next .card h3{font-size:.95rem}
+.thanks .state{font-size:.9rem;color:var(--muted);min-height:1.4em}
+</style>
+<section class="card-ok">
+  <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#1F8F6A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <h1>Thank you. Your pack is ready.</h1>
+  <p class="lede">Stripe emails your receipt in a minute. Your download lives at this address, keep the link: every Friday's new specs land in the same file.</p>
+  <div class="order" id="order" hidden>
+    <span>Product</span><span class="r" id="o-product"></span>
+    <span>Includes</span><span class="r" id="o-desc"></span>
+    <span>Charged</span><span class="r" id="o-amount"></span>
+    <span>Receipt to</span><span class="r" id="o-email"></span>
+  </div>
+  <div class="cta">
+    <a class="btn primary" id="dl" href="#">Download your pack (.zip)</a>
+    <span class="state" id="dl-note">Checking your purchase...</span>
+  </div>
 </section>
+<h2>What is in the zip</h2>
+<ul class="inside">
+  <li>One folder per spec: PDF and Markdown, with the YAML build spec at the end.</li>
+  <li><b>properties/</b>: JSON bodies to create the custom properties a spec needs in one API call, plus the installer script.</li>
+  <li><b>code/</b>: ready-to-paste custom coded actions, where a spec uses one.</li>
+  <li><b>workflows/</b>: the workflow itself in Automation API v4 format, switched off, with tokens for the ids that only exist in your portal, plus the installer.</li>
+  <li><b>README.md</b>: licence, support address, how updates work.</li>
+</ul>
+<div class="next">
+  <a class="card" href="/changelog.html"><h3>What ships next</h3><p>Thirty new specs every Friday until the catalogue is complete. Dated, in the changelog.</p></a>
+  <a class="card" href="/#library"><h3>Browse the catalogue</h3><p>All 500 titles with object, minimum tier and difficulty. Free maps on every page.</p></a>
+  <a class="card" href="mailto:hello@theworkflowlibrary.com"><h3>Need a spec we do not have?</h3><p>Pro and Everything include request-a-spec. Everyone else: write to us anyway.</p></a>
+</div>
+</main>
 <script>
 (function(){
   var s = new URLSearchParams(location.search).get('s') || '';
   var w = "https://twl-checkout.theworkflowlibrary.workers.dev";
   var a = document.getElementById('dl'), n = document.getElementById('dl-note');
-  if (!s) { n.textContent = 'No purchase session found in this link. Open the link from your Stripe confirmation page or email us.'; a.style.display='none'; return; }
-  if (!w) { n.textContent = 'Downloads open shortly after launch. Keep your receipt, we email every buyer the pack within 24 hours.'; a.style.display='none'; return; }
-  a.href = w + '/download?s=' + encodeURIComponent(s); n.textContent = 'If the download does not start, click the button again in a minute.';
+  function fail(msg){ n.textContent = msg; a.style.display = 'none'; }
+  if (!s) return fail('No purchase found in this link. Open the page from your Stripe confirmation, or email hello@theworkflowlibrary.com with your receipt.');
+  if (!w) return fail('Downloads open shortly after launch. Keep your receipt: every buyer gets the pack by email within 24 hours.');
+  a.href = w + '/download?s=' + encodeURIComponent(s);
+  fetch(w + '/session?s=' + encodeURIComponent(s)).then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); }).then(function(d){
+    if (!d.paid) return fail('This purchase is not confirmed yet. Refresh in a minute, or email hello@theworkflowlibrary.com.');
+    var fmt = function(c){ return (c/100).toLocaleString('en', {style:'currency', currency:(d.currency||'eur').toUpperCase()}); };
+    document.getElementById('o-product').textContent = d.product || d.tier;
+    document.getElementById('o-desc').textContent = d.description || '';
+    document.getElementById('o-amount').textContent = fmt(d.amount_total) + (d.amount_tax ? ' (incl. ' + fmt(d.amount_tax) + ' VAT)' : '');
+    document.getElementById('o-email').textContent = d.email || '';
+    document.getElementById('order').hidden = false;
+    n.textContent = d.live ? 'Verified. The file is ' + (d.pack || 'your pack') + '.' : 'Verified (test mode). The file is ' + (d.pack || 'your pack') + '.';
+  }).catch(function(){ n.textContent = 'Could not load the order summary, the download button still works.'; });
 })();
 </script>
 

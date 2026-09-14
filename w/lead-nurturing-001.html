@@ -21,7 +21,7 @@
     <a href="/#pricing">Pricing</a>
     <a href="/#faq">FAQ</a>
     <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 5 free specs</a>
+    <a class="btn small" href="#free">Get 10 free specs</a>
   </nav>
 </header>
 
@@ -62,29 +62,206 @@ lead-routing for that pattern.</li>
 another nurture track. Check the <code>nurture_track</code> property
 first.</li>
 </ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Properties to create:</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Internal name</th>
+<th>Object</th>
+<th>Field type</th>
+<th>Options</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nurture Track</td>
+<td><code>nurture_track</code></td>
+<td>contact</td>
+<td>Dropdown select</td>
+<td>Welcome, Persona, Re-engagement, None</td>
+<td>Lets other workflows see which nurture a contact is in and prevents
+overlapping enrollment.</td>
+</tr>
+<tr>
+<td>Welcome Nurture Completed</td>
+<td><code>welcome_nurture_completed</code></td>
+<td>contact</td>
+<td>Single checkbox</td>
+<td>n/a</td>
+<td>Marks graduation so downstream workflows know this step
+finished.</td>
+</tr>
+</tbody>
+</table>
+<p>Other prerequisites:</p>
+<ul>
+<li>4 marketing emails built and set to <strong>Automated</strong> type
+(a Regular/one-time email cannot be selected inside a workflow
+send-email action).</li>
+<li>The source form live, published, and connected to a form that is not
+also feeding a higher-intent workflow.</li>
+<li>A static list "Customers - Exclude from Nurture" for
+suppression.</li>
+<li>Marketing contacts tier checked: confirm there is headroom before
+turning this on for a high-volume form.</li>
+</ul>
+<h2 id="enrollment">Enrollment</h2>
+<ul>
+<li>Trigger type: event-based (form submission)</li>
+<li>Criteria: Form submission is <code>[Top-of-Funnel Form Name]</code>
+AND Lifecycle stage is not Customer AND <code>nurture_track</code> is
+not equal to Welcome</li>
+<li>Re-enrollment: no. Resubmitting the same form does not restart the
+clock while <code>welcome_nurture_completed</code> stays true.</li>
+<li>Suppression: list "Customers - Exclude from Nurture"; native
+unsubscribed-from-all-email suppression applies automatically.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<ol type="1">
+<li><strong>Set property value</strong>: <code>nurture_track</code> =
+Welcome</li>
+<li><strong>Send email</strong>: "Welcome 1 - thanks + what to
+expect"</li>
+<li><strong>Delay before executing next action</strong>: 2 days</li>
+<li><strong>If/then branch</strong>: Contact has clicked email "Welcome
+1"
+<ul>
+<li>Yes branch: 5a. <strong>Send email</strong>: "Welcome 2a - popular
+resource (engaged path)"</li>
+<li>No branch: 5b. <strong>Send email</strong>: "Welcome 2b - core value
+prop (re-hook path)"</li>
+</ul></li>
+<li><strong>Delay before executing next action</strong>: 3 days</li>
+<li><strong>Send email</strong>: "Welcome 3 - customer proof point"</li>
+<li><strong>Delay before executing next action</strong>: 4 days</li>
+<li><strong>Send email</strong>: "Welcome 4 - soft CTA to book time or
+read a case study"</li>
+<li><strong>Delay before executing next action</strong>: 3 days</li>
+<li><strong>Set property value</strong>:
+<code>welcome_nurture_completed</code> = true</li>
+<li><strong>Set property value</strong>: <code>nurture_track</code> =
+None</li>
+</ol>
+<h2 id="known-pitfalls">Known pitfalls</h2>
+<ul>
+<li>Automated emails must use the <strong>Automated</strong> email type.
+A Regular marketing email will not show up as a selectable option in the
+send-email action.</li>
+<li>The click branch should test against the specific email sent in step
+2, not a general "has ever clicked any email" property. In the branch
+criteria pick the Marketing emails filter category, select that specific
+email, then the "clicked link in email" option, so the check is scoped
+to that one send
+(https://community.hubspot.com/t5/Lists-Lead-Scoring-Workflows/I-would-like-to-create-a-branch-based-on-a-specific-link-click/td-p/840239).</li>
+<li>Contacts who unsubscribe mid-sequence stop receiving sends
+automatically, but subsequent Set property actions still run. Confirm
+that is acceptable, or add an explicit unsubscribe check branch.</li>
+<li>Re-enrollment is off by default here. If someone should restart the
+drip after re-downloading, add re-enrollment on the trigger and reset
+<code>welcome_nurture_completed</code> to false somewhere upstream.</li>
+<li>Turning this on for a large existing form can push the account over
+its marketing contacts tier. Check contact volume before
+publishing.</li>
+</ul>
+<h2 id="test-plan">Test plan</h2>
+<ol type="1">
+<li>Create a test contact with an email address you control, not
+matching any domain on the suppression list.</li>
+<li>Submit the source form as that contact.</li>
+<li>Confirm enrollment within a few minutes in Workflow history &gt;
+Enrolled, and check <code>nurture_track</code> = Welcome in the
+contact's property history.</li>
+<li>Click a link in the test Welcome 1 email, then use the workflow's
+test/fast-forward option (or wait out the real delay) to confirm the
+branch routes to 2a.</li>
+<li>After the full run, confirm <code>welcome_nurture_completed</code> =
+true and <code>nurture_track</code> = None, visible in the contact
+record's property history and in the workflow's "Contact performance"
+tab.</li>
+</ol>
+<h2 id="variants">Variants</h2>
+<ul>
+<li>Branch email 2 and 3 content by a persona property instead of click
+behavior (feeds into lead-nurturing-006).</li>
+<li>On Enterprise with Operations Hub Professional, add a webhook step
+that notifies Slack when a contact reaches step 9 with high
+engagement.</li>
+<li>Without Workflows (Starter-only account), approximate step 1-2 with
+the form's native single follow-up email and drop everything past that.
+This loses branching and timed delays.</li>
+</ul>
+<h2 id="build-spec">Build spec</h2>
+<pre class="yaml"><code>trigger:
+  type: event
+  event: form_submission
+  form: top_of_funnel_form
+filters:
+  - property: lifecycle_stage
+    operator: not_equal
+    value: customer
+  - property: nurture_track
+    operator: not_equal
+    value: welcome
+suppression_lists:
+  - &quot;Customers - Exclude from Nurture&quot;
+re_enrollment: false
+actions:
+  - type: set_property
+    property: nurture_track
+    value: welcome
+  - type: send_email
+    email: welcome_1_thanks
+  - type: delay
+    duration: 2d
+  - type: if_then_branch
+    condition:
+      type: email_clicked
+      email: welcome_1_thanks
+    yes:
+      - type: send_email
+        email: welcome_2a_engaged
+    no:
+      - type: send_email
+        email: welcome_2b_rehook
+  - type: delay
+    duration: 3d
+  - type: send_email
+    email: welcome_3_proof
+  - type: delay
+    duration: 4d
+  - type: send_email
+    email: welcome_4_cta
+  - type: delay
+    duration: 3d
+  - type: set_property
+    property: welcome_nurture_completed
+    value: true
+  - type: set_property
+    property: nurture_track
+    value: none</code></pre>
 
   </article>
-  
-<section class="locked">
-  <div class="locked-card">
-    <h3>What the full spec adds</h3>
-    <ul class="inside"><li><b>Prerequisites</b>: 4 items, every property with its internal name, type and options</li><li><b>Enrollment</b>: trigger, criteria as ticked in the UI, re-enrollment rule, suppression</li><li><b>Steps</b>: 11 numbered actions with their parameters, branches and delays</li><li><b>Known pitfalls</b>: 5 traps seen in production</li><li><b>Test plan</b>, <b>Variants</b> and the <b>YAML build spec</b></li><li><b>Files</b>: PDF, Markdown, properties JSON to create the fields in one API call</li></ul>
-    <div class="cta-row">
-      <a class="btn" href="#buy-category">Lead nurturing pack, 39 EUR</a>
-      <a class="btn primary" href="#buy-full">Full library, 149 EUR</a>
-    </div>
-    <p class="muted small">One-time payment. Includes every spec added to the pack later, up to the full 500. Consultants: <a href="/#pricing">Everything, forever</a> adds the agency licence for unlimited client portals.</p>
-  </div>
-</section>
+  <div class="note free">This spec is one of the 10 free ones, one per category, complete as shown. <a href="#free">Download all 10 free specs</a> as PDF, Markdown and properties JSON. Paid packs add the same files for every spec in the pack, plus the workflow JSON and the custom coded actions.</div>
   
 <div class="teaser" data-spec="lead-nurturing-001">
   <div class="teaser-left">
-    <span class="teaser-tag">Everything add-on</span>
+    <span class="teaser-tag">Agency add-on</span>
     <b>Install this workflow in my portal</b>
-    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Agency buyers first.</span>
   </div>
   <button class="btn teaser-btn" type="button">Install in my portal</button>
-  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20lead-nurturing-001">Tell us which portal</a> if you want to be in the pilot.</div>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Agency buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20lead-nurturing-001">Tell us which portal</a> if you want to be in the pilot.</div>
 </div>
   <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/lead-nurturing-002.html"><img src="/og/lead-nurturing-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Content download / lead magnet nurture drip</b><span class="muted small">Lead nurturing &middot; Marketing Hub Professional</span></a><a class="rel" href="/w/lead-nurturing-003.html"><img src="/og/lead-nurturing-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Webinar registration confirmation and reminder sequence</b><span class="muted small">Lead nurturing &middot; Marketing Hub Professional</span></a><a class="rel" href="/w/lead-nurturing-004.html"><img src="/og/lead-nurturing-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Post-webinar follow-up (attendee vs. no-show branch)</b><span class="muted small">Lead nurturing &middot; Marketing Hub Professional</span></a><a class="rel" href="/w/lead-nurturing-005.html"><img src="/og/lead-nurturing-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Re-engagement sequence for cold or inactive contacts</b><span class="muted small">Lead nurturing &middot; Marketing Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Wait until email opened (3-day expiry), then branch on open vs no-open</b><span class="muted small">Lead nurturing &middot; Marketing Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Wait until pricing page visited after a send, then sales alert</b><span class="muted small">Lead nurturing &middot; Marketing Hub Professional</span></div></div></section>
 </main>

@@ -21,7 +21,7 @@
     <a href="/#pricing">Pricing</a>
     <a href="/#faq">FAQ</a>
     <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 5 free specs</a>
+    <a class="btn small" href="#free">Get 10 free specs</a>
   </nav>
 </header>
 
@@ -53,29 +53,160 @@ deal. Skip straight to a checklist, see customer-onboarding-003.</li>
 deal. See customer-onboarding-005 (ticket-based) or
 customer-onboarding-038 (Enterprise custom object).</li>
 </ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Property: <code>Onboarding Owner</code> (internal name
+<code>onboarding_owner</code>), object deal, field type HubSpot user.
+Why: stores who on CS is responsible, independent from the deal owner
+(sales rep) field.</li>
+<li>Property: <code>CS Handoff Notes</code> (internal name
+<code>cs_handoff_notes</code>), object deal, field type multi-line text.
+Why: gives the rep a place to leave context (special terms, technical
+requirements, promised dates) that the notification pulls in.</li>
+<li>Property: <code>Onboarding Start Date</code> (internal name
+<code>onboarding_start_date</code>), object deal, field type date. Why:
+reporting anchor used by several other onboarding workflows.</li>
+<li>A Customer Success team configured under Settings &gt; Users &amp;
+Teams, or a fixed static list of CS reps, if you plan to use
+<code>Rotate record to owner</code> rather than a manually set owner.
+Why: the rotate action needs an explicit pool to draw from.</li>
+<li>A static list "New Customers - Handoff Queue" for reporting.</li>
+</ul>
+<h2 id="enrollment">Enrollment</h2>
+<ul>
+<li>Trigger type: filter-based (deal property change).</li>
+<li>Criteria: <code>Deal stage</code> is any of
+<code>Closed Won</code>.</li>
+<li>Re-enrollment: yes, on <code>Deal stage</code> becoming Closed Won
+again (covers a deal that reopens and re-closes). Off for the same
+closed-won value without a reopen in between, HubSpot workflows only
+re-enroll on a genuine value change by default HubSpot re-enrolls a
+record each time it goes from not matching to matching the re-enrollment
+trigger, so a reopen followed by a new Closed Won qualifies and no
+separate reopen event is needed
+(https://knowledge.hubspot.com/workflows/add-re-enrollment-triggers-to-a-workflow).</li>
+<li>Suppression / exclusions: skip deals where <code>Deal Type</code> is
+<code>Renewal</code> or <code>Amount</code> is 0. Renewal-driven
+handoffs belong in the renewal-expansion category, not here.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<ol type="1">
+<li>Trigger: <code>Deal stage</code> is any of
+<code>Closed Won</code>.</li>
+<li>Set property value: <code>Onboarding Start Date</code> = current
+date.</li>
+<li>If/then branch: <code>Onboarding Owner</code> is known
+<ul>
+<li>Yes: continue to step 4.</li>
+<li>No: <code>Rotate record to owner</code> (pool = Customer Success
+team) to set <code>Onboarding Owner</code>.</li>
+</ul></li>
+<li>Create task: type "To-do", title "Onboarding handoff review -
+{{deal.dealname}}", assigned to <code>Onboarding Owner</code>, due in 1
+business day, notes include <code>CS Handoff Notes</code>.</li>
+<li>Send internal notification email: to <code>Onboarding Owner</code>,
+subject "New customer to onboard: {{deal.dealname}}", body includes
+<code>CS Handoff Notes</code> and a link to the deal record.</li>
+<li>Add to static list: "New Customers - Handoff Queue".</li>
+</ol>
+<h2 id="known-pitfalls">Known pitfalls</h2>
+<ul>
+<li>Re-enrollment on a deal that bounces between Closed Won and an
+earlier stage repeatedly can create duplicate handoff tasks. If that
+pattern happens in your pipeline, add a suppression check on an "Already
+handed off" boolean property instead of relying on re-enrollment
+alone.</li>
+<li><code>Rotate record to owner</code> requires the team to be
+configured in Settings first and distributes based on the pool's active
+members at run time Distribution is by per-action assignment count:
+every owner starts at zero, ties are broken randomly, then that order is
+kept, and the counts reset whenever owners are added to or removed from
+the action
+(https://knowledge.hubspot.com/workflows/assign-and-rotate-record-owners-using-workflows).</li>
+<li>Internal notification emails only reach HubSpot users with a seat.
+They will not reach an external onboarding partner's inbox, use a
+regular workflow "Send email" to an associated contact for that case
+instead.</li>
+<li>The static list used for reporting must match the workflow's
+enrollment criteria exactly, or the count in reporting will drift from
+actual handoffs.</li>
+<li>If <code>CS Handoff Notes</code> is left blank by the rep, the
+notification email will look empty in that section. Consider making the
+field required at the Closed Won stage via a required-property gate on
+the pipeline stage (Sales Hub Professional stage requirements).</li>
+</ul>
+<h2 id="test-plan">Test plan</h2>
+<ol type="1">
+<li>In a test portal, create a test deal in the relevant pipeline and
+move it to Closed Won.</li>
+<li>Open Automation &gt; Workflows &gt; this workflow &gt; History,
+confirm the test deal enrolled within a minute.</li>
+<li>Check the deal record's Tasks panel for the handoff task, due the
+next business day.</li>
+<li>Confirm the internal notification email arrived in the test CS
+owner's inbox with the handoff notes populated.</li>
+<li>Confirm the deal appears in the "New Customers - Handoff Queue"
+static list.</li>
+</ol>
+<h2 id="variants">Variants</h2>
+<ul>
+<li>Create a ticket instead of a task for a structured onboarding
+project, see customer-onboarding-005.</li>
+<li>Branch by deal amount to route large deals to a dedicated onboarding
+specialist, see customer-onboarding-039 (Enterprise, hierarchical
+teams).</li>
+<li>Replace the internal notification email with a Slack message via the
+native Slack integration or a webhook (Operations Hub
+Professional).</li>
+</ul>
+<h2 id="build-spec">Build spec</h2>
+<pre class="yaml"><code>trigger:
+  type: filter-based
+  property: dealstage
+  criteria:
+    - dealstage: is_any_of [closedwon]
+    - deal_type: not_equal renewal
+    - amount: greater_than 0
+  reenrollment: true
+  reenrollment_property: dealstage
+build_actions:
+  - type: set_property_value
+    object: deal
+    property: onboarding_start_date
+    value: current_date
+  - type: if_then_branch
+    condition: onboarding_owner is_known
+    yes:
+      - goto: create_task
+    no:
+      - type: rotate_record_to_owner
+        pool: &quot;Customer Success team&quot;
+        sets_property: onboarding_owner
+  - id: create_task
+    type: create_task
+    task_type: to_do
+    title: &quot;Onboarding handoff review - {{deal.dealname}}&quot;
+    assigned_to: onboarding_owner
+    due: +1_business_day
+    notes_from_property: cs_handoff_notes
+  - type: send_internal_notification_email
+    to: onboarding_owner
+    subject: &quot;New customer to onboard: {{deal.dealname}}&quot;
+    body_includes: [cs_handoff_notes, deal_record_link]
+  - type: add_to_static_list
+    list: &quot;New Customers - Handoff Queue&quot;</code></pre>
 
   </article>
-  
-<section class="locked">
-  <div class="locked-card">
-    <h3>What the full spec adds</h3>
-    <ul class="inside"><li><b>Prerequisites</b>: 5 items, every property with its internal name, type and options</li><li><b>Enrollment</b>: trigger, criteria as ticked in the UI, re-enrollment rule, suppression</li><li><b>Steps</b>: 6 numbered actions with their parameters, branches and delays</li><li><b>Known pitfalls</b>: 5 traps seen in production</li><li><b>Test plan</b>, <b>Variants</b> and the <b>YAML build spec</b></li><li><b>Files</b>: PDF, Markdown, properties JSON to create the fields in one API call</li></ul>
-    <div class="cta-row">
-      <a class="btn" href="#buy-category">Customer onboarding pack, 39 EUR</a>
-      <a class="btn primary" href="#buy-full">Full library, 149 EUR</a>
-    </div>
-    <p class="muted small">One-time payment. Includes every spec added to the pack later, up to the full 500. Consultants: <a href="/#pricing">Everything, forever</a> adds the agency licence for unlimited client portals.</p>
-  </div>
-</section>
+  <div class="note free">This spec is one of the 10 free ones, one per category, complete as shown. <a href="#free">Download all 10 free specs</a> as PDF, Markdown and properties JSON. Paid packs add the same files for every spec in the pack, plus the workflow JSON and the custom coded actions.</div>
   
 <div class="teaser" data-spec="customer-onboarding-001">
   <div class="teaser-left">
-    <span class="teaser-tag">Everything add-on</span>
+    <span class="teaser-tag">Agency add-on</span>
     <b>Install this workflow in my portal</b>
-    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Agency buyers first.</span>
   </div>
   <button class="btn teaser-btn" type="button">Install in my portal</button>
-  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20customer-onboarding-001">Tell us which portal</a> if you want to be in the pilot.</div>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Agency buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20customer-onboarding-001">Tell us which portal</a> if you want to be in the pilot.</div>
 </div>
   <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/customer-onboarding-003.html"><img src="/og/customer-onboarding-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Onboarding checklist tasks created on deal closed won</b><span class="muted small">Customer onboarding &middot; Sales Hub Professional</span></a><a class="rel" href="/w/customer-onboarding-005.html"><img src="/og/customer-onboarding-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Onboarding project ticket created on deal closed won</b><span class="muted small">Customer onboarding &middot; Service Hub Professional</span></a><a class="rel" href="/w/customer-onboarding-002.html"><img src="/og/customer-onboarding-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Kickoff call scheduling email sent after deal closed won</b><span class="muted small">Customer onboarding &middot; Sales Hub Professional</span></a><a class="rel" href="/w/customer-onboarding-004.html"><img src="/og/customer-onboarding-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Welcome email series to new customer</b><span class="muted small">Customer onboarding &middot; Marketing Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Onboarding Project custom object instance created on closed won</b><span class="muted small">Customer onboarding &middot; Sales Hub Enterprise</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Dedicated onboarding specialist routing for enterprise deals</b><span class="muted small">Customer onboarding &middot; Sales Hub Enterprise</span></div></div></section>
 </main>

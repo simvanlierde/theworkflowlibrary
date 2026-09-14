@@ -21,7 +21,7 @@
     <a href="/#pricing">Pricing</a>
     <a href="/#faq">FAQ</a>
     <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 5 free specs</a>
+    <a class="btn small" href="#free">Get 10 free specs</a>
   </nav>
 </header>
 
@@ -58,6 +58,12 @@
     <a class="btn primary" id="dl" href="#">Download your pack (.zip)</a>
     <span class="state" id="dl-note">Checking your purchase...</span>
   </div>
+  <div class="note upgrade" id="upgrade" hidden>
+    <b>Upgrade to the full library for the difference.</b> Save this code, it is worth what you just paid on the <a href="#buy-full">Full library</a>, once, for 90 days: <code id="up-code"></code>. Enter it in the "Add promotion code" field at checkout.
+  </div>
+  <div class="note licence" id="agency-note" hidden>
+    <b>Agency licence.</b> Use these files on any client portal and hand them to clients: PDFs and Markdown in this pack carry no branding. Request-a-spec: 3 a year, 10 working days, write to <a href="mailto:hello@theworkflowlibrary.com?subject=Request%20a%20spec">hello@theworkflowlibrary.com</a>.
+  </div>
 </section>
 <h2>What is in the zip</h2>
 <ul class="inside">
@@ -70,7 +76,7 @@
 <div class="next">
   <a class="card" href="/changelog.html"><h3>What ships next</h3><p>Thirty new specs every Friday until the catalogue is complete. Dated, in the changelog.</p></a>
   <a class="card" href="/#library"><h3>Browse the catalogue</h3><p>All 500 titles with object, minimum tier and difficulty. Free maps on every page.</p></a>
-  <a class="card" href="mailto:hello@theworkflowlibrary.com"><h3>Need a spec we do not have?</h3><p>Pro and Everything include request-a-spec. Everyone else: write to us anyway.</p></a>
+  <a class="card" href="mailto:hello@theworkflowlibrary.com"><h3>Need a spec we do not have?</h3><p>Agency buyers: 3 requests a year, 10 working days. Everyone else: write to us anyway, popular requests get built.</p></a>
 </div>
 </main>
 <script>
@@ -90,6 +96,8 @@
     document.getElementById('o-amount').textContent = fmt(d.amount_total) + (d.amount_tax ? ' (incl. ' + fmt(d.amount_tax) + ' VAT)' : '');
     document.getElementById('o-email').textContent = d.email || '';
     document.getElementById('order').hidden = false;
+    if (d.upgrade_code) { document.getElementById('up-code').textContent = d.upgrade_code; document.getElementById('upgrade').hidden = false; }
+    if (d.tier === 'agency') { document.getElementById('agency-note').hidden = false; }
     n.textContent = d.live ? 'Verified. The file is ' + (d.pack || 'your pack') + '.' : 'Verified (test mode). The file is ' + (d.pack || 'your pack') + '.';
   }).catch(function(){ n.textContent = 'Could not load the order summary, the download button still works.'; });
 })();

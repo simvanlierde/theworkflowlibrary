@@ -21,7 +21,7 @@
     <a href="/#pricing">Pricing</a>
     <a href="/#faq">FAQ</a>
     <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 5 free specs</a>
+    <a class="btn small" href="#free">Get 10 free specs</a>
   </nav>
 </header>
 
@@ -49,29 +49,123 @@ See reporting-alerts-004 for the weekly digest variant.</li>
 <li>Do not treat this as your system of record. It is a notification,
 not a reporting export.</li>
 </ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Slack workspace connected to HubSpot through the native Slack
+integration (Settings &gt; Integrations &gt; Connected Apps, or
+installed from the Slack App Marketplace). The action is "Send Slack
+notification": you pick the channel from a dropdown, private channels
+only appear once the HubSpot app has been added to them, and you can
+also notify mapped users or the record owner
+(https://knowledge.hubspot.com/integrations/manage-your-notifications-in-slack).</li>
+<li>Confirm which Slack channel receives the alert (for example #wins)
+and that the connecting Slack admin has posting access there.</li>
+<li>No new custom property is strictly required. Optional: a
+<code>Deal Source</code> property if the message should include it.</li>
+</ul>
+<h2 id="enrollment">Enrollment</h2>
+<ul>
+<li>Trigger type: event-based (property change).</li>
+<li>Criteria: Deal stage is changed to Closed Won (the internal stage ID
+mapped to Closed Won in the active pipeline).</li>
+<li>Re-enrollment: no, so a deal only fires this once per win. If
+reactivation from Closed Lost is expected to count as a new win, allow
+re-enrollment on deal stage change instead of a one-time trigger.</li>
+<li>Suppression / exclusions: exclude test or sandbox pipelines with a
+pipeline filter. Optionally exclude deals below a minimum amount to keep
+the channel high-signal.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<ol type="1">
+<li>Trigger: Deal stage is changed to Closed Won, pipeline = [main
+pipeline]. <em>(check in your portal: the name of your main pipeline and
+its Closed Won stage under Settings &gt; Objects &gt; Deals &gt;
+Pipelines)</em></li>
+<li>If/then branch: Deal amount is greater than 0
+<ul>
+<li>Yes: continue</li>
+<li>No: exit workflow (a zero-value deal does not need an alert)</li>
+</ul></li>
+<li>Send Slack message to channel #wins: "{{deal.dealname}} just closed
+won for {{deal.amount}}. Owner: {{deal.hubspot_owner_id}}." The action
+is "Send Slack notification" and has a "Properties to include with
+message" picker as an alternative to inline tokens
+(https://knowledge.hubspot.com/integrations/manage-your-notifications-in-slack).
+<em>(check in your portal: send one test notification and check that the
+owner shows as a name; if it shows a number, add Deal owner through
+Properties to include with message instead)</em></li>
+<li>Set property value: <code>reporting_alerts_notified</code> (optional
+boolean helper) = true, to guard against duplicate sends if
+re-enrollment is added later.</li>
+</ol>
+<h2 id="known-pitfalls">Known pitfalls</h2>
+<ul>
+<li>The Slack action depends on an admin-level Slack connection. If that
+connecting user loses Slack access, the action can fail without an
+obvious error until someone checks workflow history.</li>
+<li>Deal stage internal IDs, not labels, drive the trigger. Renaming a
+stage label is safe, but cloning a pipeline creates new stage IDs this
+workflow will not match.</li>
+<li>Without the re-enrollment guard, later editing this workflow to
+re-enroll on every stage change can double-notify a deal that leaves and
+re-enters Closed Won.</li>
+<li>The owner token needs to resolve to a display name, not the raw
+internal owner ID, or the Slack message reads as a meaningless number.
+<em>(check in your portal: same test as above, one notification on a
+test deal)</em></li>
+</ul>
+<h2 id="test-plan">Test plan</h2>
+<ol type="1">
+<li>Create a test deal in the applicable pipeline with a non-zero
+amount.</li>
+<li>Move it to Closed Won.</li>
+<li>Open Automation &gt; Workflows &gt; this workflow &gt; History.
+Confirm enrollment and check the Slack action's status.</li>
+<li>Check the #wins Slack channel for the message within a minute or
+two.</li>
+<li>Confirm the deal's timeline shows the workflow enrollment and
+completed actions.</li>
+</ol>
+<h2 id="variants">Variants</h2>
+<ul>
+<li>Company-tier version: only fire for deals above a strategic-account
+amount threshold.</li>
+<li>Email instead of Slack: swap the action for "Send internal email
+notification" for teams without Slack.</li>
+<li>Pair with reporting-alerts-004 for a weekly rollup in addition to
+the real-time ping.</li>
+</ul>
+<h2 id="build-spec">Build spec</h2>
+<pre class="yaml"><code>trigger:
+  type: property_changed
+  object: deal
+  property: dealstage
+  new_value: closedwon
+  reenrollment: false
+actions:
+  - type: if_then_branch
+    condition: amount &gt; 0
+    if_true:
+      - type: send_slack_message
+        channel: &quot;#wins&quot;
+        message: &quot;{{deal.dealname}} just closed won for {{deal.amount}}. Owner: {{deal.owner_name}}&quot;
+      - type: set_property_value
+        property: reporting_alerts_notified
+        value: true
+    if_false:
+      - type: exit_workflow</code></pre>
 
   </article>
-  
-<section class="locked">
-  <div class="locked-card">
-    <h3>What the full spec adds</h3>
-    <ul class="inside"><li><b>Prerequisites</b>: 3 items, every property with its internal name, type and options</li><li><b>Enrollment</b>: trigger, criteria as ticked in the UI, re-enrollment rule, suppression</li><li><b>Steps</b>: 4 numbered actions with their parameters, branches and delays</li><li><b>Known pitfalls</b>: 4 traps seen in production</li><li><b>Test plan</b>, <b>Variants</b> and the <b>YAML build spec</b></li><li><b>Files</b>: PDF, Markdown, properties JSON to create the fields in one API call</li></ul>
-    <div class="cta-row">
-      <a class="btn" href="#buy-category">Reporting and alerts pack, 39 EUR</a>
-      <a class="btn primary" href="#buy-full">Full library, 149 EUR</a>
-    </div>
-    <p class="muted small">One-time payment. Includes every spec added to the pack later, up to the full 500. Consultants: <a href="/#pricing">Everything, forever</a> adds the agency licence for unlimited client portals.</p>
-  </div>
-</section>
+  <div class="note free">This spec is one of the 10 free ones, one per category, complete as shown. <a href="#free">Download all 10 free specs</a> as PDF, Markdown and properties JSON. Paid packs add the same files for every spec in the pack, plus the workflow JSON and the custom coded actions.</div>
   
 <div class="teaser" data-spec="reporting-alerts-001">
   <div class="teaser-left">
-    <span class="teaser-tag">Everything add-on</span>
+    <span class="teaser-tag">Agency add-on</span>
     <b>Install this workflow in my portal</b>
-    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Agency buyers first.</span>
   </div>
   <button class="btn teaser-btn" type="button">Install in my portal</button>
-  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20reporting-alerts-001">Tell us which portal</a> if you want to be in the pilot.</div>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Agency buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20reporting-alerts-001">Tell us which portal</a> if you want to be in the pilot.</div>
 </div>
   <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/reporting-alerts-004.html"><img src="/og/reporting-alerts-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Weekly Slack roundup: deals closed won this week (team wins digest)</b><span class="muted small">Reporting and alerts &middot; Operations Hub Professional</span></a><a class="rel" href="/w/reporting-alerts-002.html"><img src="/og/reporting-alerts-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Stage-entry timestamp properties for pipeline velocity reporting</b><span class="muted small">Reporting and alerts &middot; Sales Hub Professional</span></a><a class="rel" href="/w/reporting-alerts-003.html"><img src="/og/reporting-alerts-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Timeline note logging on critical property change (audit visibility)</b><span class="muted small">Reporting and alerts &middot; Sales Hub Professional</span></a><a class="rel" href="/w/reporting-alerts-005.html"><img src="/og/reporting-alerts-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Ticket reopen counter property (recidivism tracking for reporting)</b><span class="muted small">Reporting and alerts &middot; Operations Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Disabled workflow inventory and owner nudge (automation hygiene)</b><span class="muted small">Reporting and alerts &middot; Operations Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Duplicate trigger detection across workflows (automation hygiene)</b><span class="muted small">Reporting and alerts &middot; Operations Hub Professional</span></div></div></section>
 </main>

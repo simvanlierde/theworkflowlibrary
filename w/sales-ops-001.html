@@ -21,7 +21,7 @@
     <a href="/#pricing">Pricing</a>
     <a href="/#faq">FAQ</a>
     <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 5 free specs</a>
+    <a class="btn small" href="#free">Get 10 free specs</a>
   </nav>
 </header>
 
@@ -53,29 +53,158 @@ everyone into one generic sequence.</li>
 send from a specific HubSpot user; an unowned contact has nobody to send
 from and the action fails silently for that record.</li>
 </ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Property: <code>Lead status</code> (internal name
+<code>hs_lead_status</code>), object contact, this is a default HubSpot
+enumeration property. Add a custom option
+<code>Sales Qualified Lead</code> to it if it does not already exist.
+Why: this is the value the trigger reads.</li>
+<li>A built sequence in Sales Hub (Automation &gt; Sequences), with at
+least one email template and, optionally, manual task steps. Why: the
+enrollment action needs a live sequence to point to.</li>
+<li>Every contact that can reach this trigger must have a
+<code>Contact owner</code> set, and that owner must be an active Sales
+Hub seat with sequences access and a connected personal inbox. Why:
+<code>Enroll in sequence</code> sends from the chosen sender; no
+connected inbox means no send.</li>
+<li>Confirm the contact has a valid, opted-in email address. Sequences
+respect marketing and one-to-one email unsubscribe status.</li>
+</ul>
+<h2 id="enrollment">Enrollment</h2>
+<ul>
+<li>Trigger type: event-based.</li>
+<li>Criteria: <code>Lead status</code> property changed to value
+<code>Sales Qualified Lead</code>. Add a filter
+<code>Email address is known</code> and
+<code>Contact owner is known</code> to keep unreachable or unowned
+contacts out.</li>
+<li>Re-enrollment: on, re-enroll only if <code>Lead status</code>
+changes back to <code>Sales Qualified Lead</code> after having left that
+value first (this covers a contact that goes qualified, cools off, and
+gets re-qualified later).</li>
+<li>Suppression: exclude contacts in the static list
+<code>Do not sequence</code> and exclude anyone already in an open deal
+past the Demo stage, so an AE-owned deal in flight does not get an SDR
+sequence layered on top. Associated deal properties are available as
+enrollment filters in contact-based workflows on every tier; the only
+tier-gated triggers are page views and CTAs (Marketing Hub Professional)
+and quote-based triggers (Commerce Hub Professional)
+(https://knowledge.hubspot.com/workflows/set-filter-enrollment-triggers).</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<ol type="1">
+<li>Filter branch: <code>Contact owner</code> is known AND
+<code>Email address</code> is known.
+<ul>
+<li>If false: Send internal email notification to sales ops owner,
+subject "Qualified lead missing owner or email:
+{{contact.hs_object_id}}". End workflow for this branch.</li>
+</ul></li>
+<li>If/then branch: <code>Product interest</code> is known (see Variants
+for persona branching). For the base version, skip branching and go
+straight to step 3.</li>
+<li>Enroll in sequence: sequence = "SQL - First Outreach", sender =
+Contact owner, send sequence emails from the owner's connected
+inbox.</li>
+<li>Set property value: <code>Date entered sequence</code> = current
+date (custom property, create if it does not exist, useful for reporting
+cycle time).</li>
+<li>Create task: type "Call", title "Sequence kickoff call -
+{{contact.firstname}}", due same day, assigned to Contact owner.</li>
+</ol>
+<h2 id="known-pitfalls">Known pitfalls</h2>
+<ul>
+<li>A contact can be actively enrolled in only one sequence at a time.
+If this workflow fires while the contact is already mid-sequence from
+another workflow, enrollment is skipped, not queued. Check workflow
+history for "not enrolled - already in sequence" entries.</li>
+<li>If the contact owner's inbox connection breaks (token expired,
+mailbox disconnected), the sequence step fails silently for that contact
+and no error surfaces to the rep unless they check the sequence's own
+performance tab.</li>
+<li>Sequences do not observe deal stage automatically. Pair this with
+sales-ops-008 (auto-unenroll when a deal is created) if you do not want
+sequence emails continuing after the contact becomes an active
+deal.</li>
+<li>Adding a custom value to <code>hs_lead_status</code> changes a
+shared default property. Confirm no other workflow or report depends on
+the existing value set before adding options.</li>
+<li>Re-enrollment on a property that flips back and forth quickly
+(status bouncing) can burn through sequence steps for a contact
+repeatedly. Add a suppression list for anyone re-enrolled more than
+twice in 30 days if this becomes a problem.</li>
+</ul>
+<h2 id="test-plan">Test plan</h2>
+<ol type="1">
+<li>Create a test contact with a valid test-safe email address, set
+<code>Contact owner</code> to your own test user, and set
+<code>Lead status</code> to <code>Sales Qualified Lead</code>.</li>
+<li>Open Automation &gt; Workflows &gt; this workflow &gt; History tab,
+confirm the contact enrolled within a minute and the branch it
+took.</li>
+<li>Check the contact's record timeline for the "Enrolled in sequence"
+event and confirm the sequence name matches.</li>
+<li>Confirm the call task appears in the owner's task queue due
+today.</li>
+<li>Change <code>Lead status</code> away from and then back to
+<code>Sales Qualified Lead</code>, confirm re-enrollment behaves as
+expected (or is skipped if still mid-sequence).</li>
+</ol>
+<h2 id="variants">Variants</h2>
+<ul>
+<li>Persona-based routing: add an If/then branch on
+<code>Product interest</code> before the enroll action and point each
+branch to a different sequence (see sales-ops-043).</li>
+<li>Deal-based instead of contact-based: enroll a deal's primary contact
+when the deal enters a specific pipeline stage, same enroll action,
+trigger on deal stage instead.</li>
+<li>Team-based sender: instead of Contact owner, send from a fixed team
+inbox for high-volume SDR pods that share sequence sending.</li>
+</ul>
+<h2 id="build-spec">Build spec</h2>
+<pre class="yaml"><code>trigger:
+  type: event-based
+  event: property_changed
+  property: hs_lead_status
+  criteria:
+    - hs_lead_status: equals &quot;Sales Qualified Lead&quot;
+    - contact_owner: is_known
+    - email: is_known
+  reenrollment: true
+  reenrollment_property: hs_lead_status
+  suppression_list: &quot;Do not sequence&quot;
+actions:
+  - type: if_then_branch
+    condition: contact_owner_known AND email_known
+    if_false:
+      - type: send_internal_email_notification
+        to: sales_ops_owner
+        subject: &quot;Qualified lead missing owner or email: {{contact.hs_object_id}}&quot;
+    if_true:
+      - type: enroll_in_sequence
+        sequence: &quot;SQL - First Outreach&quot;
+        sender: contact_owner
+      - type: set_property_value
+        property: date_entered_sequence
+        value: current_date
+      - type: create_task
+        task_type: call
+        title: &quot;Sequence kickoff call - {{contact.firstname}}&quot;
+        due: today
+        assigned_to: contact_owner</code></pre>
 
   </article>
-  
-<section class="locked">
-  <div class="locked-card">
-    <h3>What the full spec adds</h3>
-    <ul class="inside"><li><b>Prerequisites</b>: 4 items, every property with its internal name, type and options</li><li><b>Enrollment</b>: trigger, criteria as ticked in the UI, re-enrollment rule, suppression</li><li><b>Steps</b>: 5 numbered actions with their parameters, branches and delays</li><li><b>Known pitfalls</b>: 5 traps seen in production</li><li><b>Test plan</b>, <b>Variants</b> and the <b>YAML build spec</b></li><li><b>Files</b>: PDF, Markdown, properties JSON to create the fields in one API call</li></ul>
-    <div class="cta-row">
-      <a class="btn" href="#buy-category">Sales ops pack, 39 EUR</a>
-      <a class="btn primary" href="#buy-full">Full library, 149 EUR</a>
-    </div>
-    <p class="muted small">One-time payment. Includes every spec added to the pack later, up to the full 500. Consultants: <a href="/#pricing">Everything, forever</a> adds the agency licence for unlimited client portals.</p>
-  </div>
-</section>
+  <div class="note free">This spec is one of the 10 free ones, one per category, complete as shown. <a href="#free">Download all 10 free specs</a> as PDF, Markdown and properties JSON. Paid packs add the same files for every spec in the pack, plus the workflow JSON and the custom coded actions.</div>
   
 <div class="teaser" data-spec="sales-ops-001">
   <div class="teaser-left">
-    <span class="teaser-tag">Everything add-on</span>
+    <span class="teaser-tag">Agency add-on</span>
     <b>Install this workflow in my portal</b>
-    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Agency buyers first.</span>
   </div>
   <button class="btn teaser-btn" type="button">Install in my portal</button>
-  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20sales-ops-001">Tell us which portal</a> if you want to be in the pilot.</div>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Agency buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20sales-ops-001">Tell us which portal</a> if you want to be in the pilot.</div>
 </div>
   <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/sales-ops-002.html"><img src="/og/sales-ops-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Notify AE by internal email when a meeting is booked on their calendar</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></a><a class="rel" href="/w/sales-ops-003.html"><img src="/og/sales-ops-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Create SDR-to-AE handoff task when a meeting is booked</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></a><a class="rel" href="/w/sales-ops-004.html"><img src="/og/sales-ops-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Notify rep when a sent quote is viewed by the buyer</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></a><a class="rel" href="/w/sales-ops-005.html"><img src="/og/sales-ops-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Notify rep and manager when a quote is e-signed</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Auto-unenroll from sequence when associated deal is created</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Enroll a contact into a persona-specific sequence based on a product-interest property</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></div></div></section>
 </main>

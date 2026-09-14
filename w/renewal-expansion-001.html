@@ -21,7 +21,7 @@
     <a href="/#pricing">Pricing</a>
     <a href="/#faq">FAQ</a>
     <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 5 free specs</a>
+    <a class="btn small" href="#free">Get 10 free specs</a>
   </nav>
 </header>
 
@@ -51,29 +51,161 @@ events; see the bundle variant.</li>
 <li>Do not use it if Contract End Date is not reliably populated. This
 workflow reacts to a date, it does not calculate one.</li>
 </ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Property: <code>Contract End Date</code> (internal name
+<code>contract_end_date</code>), object company, field type date picker.
+Why: the single source of truth this workflow reacts to.</li>
+<li>Property: <code>Renewal Deal Created</code> (internal name
+<code>renewal_deal_created</code>), object company, single checkbox.
+Why: stops the workflow from creating a second deal if the record is
+edited or re-enrolled.</li>
+<li>Property: <code>Contract Value</code> (internal name
+<code>contract_value</code>), object company, number (currency). Why:
+pre-fills the new deal's amount.</li>
+<li>Property: <code>Do Not Renew</code> (internal name
+<code>do_not_renew</code>), object company, single checkbox. Why:
+exclusion for accounts already confirmed as churning.</li>
+<li>A "Renewal" pipeline, or a dedicated "Renewal" stage in the existing
+sales pipeline, plus a "Renewal" option added to the default
+<code>Deal Type</code> property (internal name <code>dealtype</code>).
+Why: keeps renewal deals separate from new-business reporting (see
+renewal-expansion-036).</li>
+<li>Confirm the company owner property is populated for every active
+customer, since it is copied to the new deal.</li>
+</ul>
+<h2 id="enrollment">Enrollment</h2>
+<ul>
+<li>Trigger type: filter-based</li>
+<li>Criteria: <code>Lifecycle stage</code> (or a custom
+<code>Customer Status</code> property) is equal to Customer AND
+<code>Contract End Date</code> is less than 90 days away AND
+<code>Renewal Deal Created</code> is not equal to true AND
+<code>Do Not Renew</code> is not equal to true</li>
+<li>Re-enrollment: no. A single creation event is the goal;
+re-enrollment increases the risk of a duplicate deal if the flag write
+and the criteria check ever land out of order.</li>
+<li>Suppression / exclusions: <code>Do Not Renew</code> = true, and any
+static list used to mark test or sandbox accounts.</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<ol type="1">
+<li>Set property value: <code>Renewal Deal Created</code> = true</li>
+<li>Create record: object deal, name "{{company.name}} - Renewal
+{{company.contract_end_date}}", pipeline "Renewal", stage "Renewal - Not
+Started", <code>Deal Type</code> = Renewal, amount copied from
+<code>Contract Value</code>, deal owner copied from company owner,
+associated to the enrolled company. The Create record action assigns the
+new deal's owner directly through its owner setting, either "Company's
+existing owner" or a custom owner property, so no follow-up copy action
+is needed
+(https://knowledge.hubspot.com/workflows/create-records-with-workflows)</li>
+<li>Create task: type "To-do", title "Confirm renewal deal details for
+{{company.name}}", assigned to company owner, due in 2 business
+days</li>
+<li>Send internal email notification to: company owner, subject "Renewal
+deal auto-created for {{company.name}}"</li>
+</ol>
+<h2 id="known-pitfalls">Known pitfalls</h2>
+<ul>
+<li>Filter-based enrollment fires once, when a record newly matches
+"less than 90 days away." If the workflow is off when that window opens,
+the company will not enroll later without editing the date or turning
+re-enrollment on, which then risks duplicates.</li>
+<li>The Create record action exposes the enrolled company's existing
+owner as an owner option for the new deal, so the copy fallback is only
+needed if you want the owner taken from a different user property
+(https://knowledge.hubspot.com/workflows/create-records-with-workflows).</li>
+<li>One company, one contract date: accounts with several active
+contracts will only ever get one renewal deal from this version. Do not
+force multi-contract accounts through it.</li>
+<li>If <code>Contract Value</code> is stored in a non-default currency,
+confirm the new deal's currency matches before trusting the copied
+amount.</li>
+<li>Deactivating or archiving the pipeline/stage referenced in the
+Create record action silently breaks the workflow at the next run; check
+workflow health after any pipeline edit.</li>
+</ul>
+<h2 id="test-plan">Test plan</h2>
+<ol type="1">
+<li>Create a test company. Set <code>Contract End Date</code> to 89 days
+from today, lifecycle stage/customer status to Customer,
+<code>Renewal Deal Created</code> unchecked, <code>Do Not Renew</code>
+unchecked.</li>
+<li>Activate the workflow. Open Automation &gt; Workflows &gt; this
+workflow &gt; History and confirm the company enrolled.</li>
+<li>Open the company record. Confirm a new deal exists in the Renewal
+pipeline, associated to the company, with the right amount and
+owner.</li>
+<li>Confirm <code>Renewal Deal Created</code> is now true on the
+company, and that the task and internal notification appear on the
+timeline.</li>
+<li>Edit <code>Contract End Date</code> to more than 90 days out, save,
+then back to under 90 days, and confirm the company does not re-enroll
+(re-enrollment is off).</li>
+</ol>
+<h2 id="variants">Variants</h2>
+<ul>
+<li>Multi-contract accounts: enroll on a custom "Subscription" object
+instead of company, one record per contract (see
+renewal-expansion-040).</li>
+<li>Deal-based trigger: if <code>Contract End Date</code> already lives
+on an active deal rather than the company, clone that deal on the same
+90-day trigger instead of creating a fresh one.</li>
+<li>Shorter or longer window: use 30 days for monthly contracts, 90 or
+120 days for annual or multi-year contracts.</li>
+</ul>
+<h2 id="build-spec">Build spec</h2>
+<pre class="yaml"><code>trigger:
+  type: filter_based
+  reenrollment: false
+  object: company
+  criteria:
+    - property: lifecyclestage
+      operator: equal
+      value: customer
+    - property: contract_end_date
+      operator: less_than_days_away
+      value: 90
+    - property: renewal_deal_created
+      operator: not_equal
+      value: true
+    - property: do_not_renew
+      operator: not_equal
+      value: true
+actions:
+  - type: set_property_value
+    property: renewal_deal_created
+    value: true
+  - type: create_record
+    object: deal
+    name: &quot;{{company.name}} - Renewal {{company.contract_end_date}}&quot;
+    pipeline: renewal
+    stage: renewal_not_started
+    dealtype: renewal
+    amount_from_property: contract_value
+    owner_from_associated: company_owner
+    associate_to: enrolled_record
+  - type: create_task
+    task_type: todo
+    title: &quot;Confirm renewal deal details for {{company.name}}&quot;
+    assigned_to: company_owner
+    due: +2_business_days
+  - type: send_internal_email_notification
+    to: company_owner
+    subject: &quot;Renewal deal auto-created for {{company.name}}&quot;</code></pre>
 
   </article>
-  
-<section class="locked">
-  <div class="locked-card">
-    <h3>What the full spec adds</h3>
-    <ul class="inside"><li><b>Prerequisites</b>: 6 items, every property with its internal name, type and options</li><li><b>Enrollment</b>: trigger, criteria as ticked in the UI, re-enrollment rule, suppression</li><li><b>Steps</b>: 4 numbered actions with their parameters, branches and delays</li><li><b>Known pitfalls</b>: 5 traps seen in production</li><li><b>Test plan</b>, <b>Variants</b> and the <b>YAML build spec</b></li><li><b>Files</b>: PDF, Markdown, properties JSON to create the fields in one API call</li></ul>
-    <div class="cta-row">
-      <a class="btn" href="#buy-category">Renewal and expansion pack, 39 EUR</a>
-      <a class="btn primary" href="#buy-full">Full library, 149 EUR</a>
-    </div>
-    <p class="muted small">One-time payment. Includes every spec added to the pack later, up to the full 500. Consultants: <a href="/#pricing">Everything, forever</a> adds the agency licence for unlimited client portals.</p>
-  </div>
-</section>
+  <div class="note free">This spec is one of the 10 free ones, one per category, complete as shown. <a href="#free">Download all 10 free specs</a> as PDF, Markdown and properties JSON. Paid packs add the same files for every spec in the pack, plus the workflow JSON and the custom coded actions.</div>
   
 <div class="teaser" data-spec="renewal-expansion-001">
   <div class="teaser-left">
-    <span class="teaser-tag">Everything add-on</span>
+    <span class="teaser-tag">Agency add-on</span>
     <b>Install this workflow in my portal</b>
-    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Everything and Pro buyers first.</span>
+    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Agency buyers first.</span>
   </div>
   <button class="btn teaser-btn" type="button">Install in my portal</button>
-  <div class="teaser-thanks" hidden>Noted. The installer opens to Everything and Pro buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20renewal-expansion-001">Tell us which portal</a> if you want to be in the pilot.</div>
+  <div class="teaser-thanks" hidden>Noted. The installer opens to Agency buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20renewal-expansion-001">Tell us which portal</a> if you want to be in the pilot.</div>
 </div>
   <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/renewal-expansion-002.html"><img src="/og/renewal-expansion-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Renewal reminder cascade to CSM/AM (90/60/30 days before contract end)</b><span class="muted small">Renewal and expansion &middot; Sales Hub Professional</span></a><a class="rel" href="/w/renewal-expansion-003.html"><img src="/og/renewal-expansion-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>NPS detractor auto-creates internal alert task</b><span class="muted small">Renewal and expansion &middot; Service Hub Professional</span></a><a class="rel" href="/w/renewal-expansion-004.html"><img src="/og/renewal-expansion-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Churn risk score from usage decline and support ticket volume</b><span class="muted small">Renewal and expansion &middot; Service Hub Professional</span></a><a class="rel" href="/w/renewal-expansion-005.html"><img src="/og/renewal-expansion-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Upsell opportunity deal creation from product usage threshold</b><span class="muted small">Renewal and expansion &middot; Sales Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Grace period tracking after contract expiration before deactivation</b><span class="muted small">Renewal and expansion &middot; Sales Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Renewal forecast rollup property for finance reporting</b><span class="muted small">Renewal and expansion &middot; Sales Hub Professional</span></div></div></section>
 </main>

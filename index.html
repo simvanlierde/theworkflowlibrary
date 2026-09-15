@@ -120,8 +120,28 @@ flowchart TD
 
 <section id="free" class="freepack">
   <h2>Ten specs, free</h2>
-  <p>One per category, complete and unlocked: <a href="/w/lead-routing-001.html">lead-routing-001</a>, <a href="/w/lead-nurturing-001.html">lead-nurturing-001</a>, <a href="/w/deal-hygiene-001.html">deal-hygiene-001</a>, <a href="/w/customer-onboarding-001.html">customer-onboarding-001</a>, <a href="/w/tickets-sla-001.html">tickets-sla-001</a>, <a href="/w/data-quality-001.html">data-quality-001</a>, <a href="/w/marketing-ops-001.html">marketing-ops-001</a>, <a href="/w/sales-ops-001.html">sales-ops-001</a>, <a href="/w/renewal-expansion-001.html">renewal-expansion-001</a>, <a href="/w/reporting-alerts-001.html">reporting-alerts-001</a>. Download them as a pack and judge the depth yourself.</p>
-  <a class="btn primary" href="#free">Download the free pack</a>
+  <p>One per category, complete and unlocked: <a href="/w/lead-routing-001.html">lead-routing-001</a>, <a href="/w/lead-nurturing-001.html">lead-nurturing-001</a>, <a href="/w/deal-hygiene-001.html">deal-hygiene-001</a>, <a href="/w/customer-onboarding-001.html">customer-onboarding-001</a>, <a href="/w/tickets-sla-001.html">tickets-sla-001</a>, <a href="/w/data-quality-001.html">data-quality-001</a>, <a href="/w/marketing-ops-001.html">marketing-ops-001</a>, <a href="/w/sales-ops-001.html">sales-ops-001</a>, <a href="/w/renewal-expansion-001.html">renewal-expansion-001</a>, <a href="/w/reporting-alerts-001.html">reporting-alerts-001</a>. Download them as a pack (PDF, Markdown, properties JSON, workflow JSON) and judge the depth yourself.</p>
+  <form id="freeform" class="freeform" action="https://twl-checkout.theworkflowlibrary.workers.dev/subscribe" method="post" novalidate>
+    <label for="free-email" class="sr">Work email</label>
+    <input id="free-email" type="email" name="email" placeholder="you@company.com" required autocomplete="email">
+    <button class="btn primary" type="submit">Send me the free pack</button>
+    <p class="muted small" id="free-note">One email with the download link, then the Friday digest of new specs. Unsubscribe in one click, no spam.</p>
+  </form>
+  <script>
+  (function(){
+    var f=document.getElementById('freeform'), n=document.getElementById('free-note'); if(!f) return;
+    f.addEventListener('submit', function(e){
+      e.preventDefault(); var em=document.getElementById('free-email').value.trim(); if(!em){ n.textContent='Please enter your email.'; return; }
+      var src=(new URLSearchParams(location.search).get('utm_source'))||document.referrer||'site';
+      n.textContent='Sending...';
+      fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,source:src,ref:location.pathname+location.search})})
+        .then(function(r){return r.json();}).then(function(d){
+          if(d&&d.ok){ n.innerHTML='Done. <a href="'+d.download+'">Download the free pack now (.zip)</a>. The digest lands on Fridays.'; if(window.gtag) gtag('event','free_pack_signup',{source:src}); }
+          else n.textContent='That email did not go through, check it and try again.';
+        }).catch(function(){ n.textContent='Could not reach the server, try again in a minute or email hello@theworkflowlibrary.com.'; });
+    });
+  })();
+  </script>
 </section>
 
 <section id="faq" class="faq">
@@ -145,7 +165,7 @@ mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { fontFam
 </script>
 
 <footer>
-  <p>Built by an independent HubSpot consultant in Brussels, after ten years of implementations.</p>
+  <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
   <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
   <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
 </footer>

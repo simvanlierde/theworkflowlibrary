@@ -148,3 +148,5 @@ a.rel:hover{border-color:var(--peri);background:var(--band2)}
 .note.upgrade code{font-size:1.05rem;font-weight:700;background:#fff;padding:2px 8px;border-radius:6px;border:1px solid var(--peri)}
 @media (max-width:1000px){.plans.grid3{grid-template-columns:1fr}}
 .price span{display:block;margin-top:2px}
+
+.freeform{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}.freeform input{flex:1 1 260px;min-width:0;padding:12px 14px;border:1.5px solid var(--rule);border-radius:10px;font:inherit;font-size:1rem}.freeform input:focus{outline:2px solid var(--peri);outline-offset:2px}.freeform .small{flex-basis:100%;margin:6px 0 0}.sr{position:absolute;left:-9999px}

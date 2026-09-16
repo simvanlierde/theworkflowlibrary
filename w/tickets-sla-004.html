@@ -3,104 +3,166 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CSAT survey sent automatically when a ticket is closed | The Workflow Library</title>
+<title>CSAT survey sent automatically when a ticket is closed: a workflow spec for HubSpot</title>
 <meta name="description" content="Outcome. Every closed ticket automatically triggers a one-question satisfaction survey to the requester, without a rep remembering to send it.">
 <link rel="canonical" href="https://theworkflowlibrary.com/w/tickets-sla-004.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
 <meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="CSAT survey sent automatically when a ticket is closed"><meta property="og:description" content="Outcome. Every closed ticket automatically triggers a one-question satisfaction survey to the requester, without a rep remembering to send it."><meta property="og:image" content="https://theworkflowlibrary.com/og/tickets-sla-004.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/tickets-sla-004.png">
 </head>
 <body>
-<header class="top">
-  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
-  <nav>
-    <a href="/#library">Library</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/#faq">FAQ</a>
-    <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 10 free specs</a>
-  </nav>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
 </header>
 
-<main class="fiche">
-  <p class="crumb"><a href="/">Library</a> / <a href="/#library?cat=tickets-sla">Tickets and SLA</a> / tickets-sla-004</p>
-  <h1>CSAT survey sent automatically when a ticket is closed</h1>
-  <p class="meta"><a class="badge cat" href="/#library?cat=tickets-sla">Tickets and SLA</a> <span class="badge tier tier-starter">Service Hub Starter</span> <span class="badge">Ticket</span> <span class="badge">Simple</span> <span class="badge">~25 min to build</span></p>
-  <article>
-  <p><strong>Outcome.</strong> Every closed ticket automatically triggers
+<main class="wrap">
+  <p class="crumb"><a href="/#shelves">Library</a> /
+    <a href="/#shelves?cat=tickets-sla" data-filter-cat="tickets-sla">Tickets and SLA</a> / <span>tickets-sla-004</span></p>
+  <div class="spec">
+    <div class="spechead">
+      <h1>CSAT survey sent automatically when a ticket is closed</h1>
+      <div class="badgerow"><a class="b cat" href="/#shelves?cat=tickets-sla" data-filter-cat="tickets-sla">Tickets and SLA</a><span class="b meta">Ticket</span><span class="b meta">Service Hub Starter</span><span class="b meta">Simple</span><span class="b meta">~25 min to build</span><span class="b full">Full spec</span></div>
+      
+    </div>
+    <article class="prose"><p class="outcome"><strong>Outcome.</strong> Every closed ticket automatically triggers
 a one-question satisfaction survey to the requester, without a rep
 remembering to send it.</p>
-<div class="wfmap"><div class="wfmap-head"><span>Workflow map</span><span class="muted small">Enrollment, branches and actions at a glance</span></div><pre class="mermaid">flowchart TD
+<figure class="wfmap">
+  <div class="head"><b>Workflow map</b>
+    <span class="muted">Enrollment, branches and actions at a glance</span>
+    <span class="mono muted" style="margin-left:auto">tickets-sla-004</span></div>
+  <div class="canvas"><pre class="mermaid">flowchart TD
     A[Ticket status = Closed, not spam/test, not sent before] --> B[Wait 1 hour]
     B --> C{Still closed?}
     C -->|yes| D[Send CSAT survey to requester]
     D --> E[Set Survey sent date]
     C -->|no, reopened| F[Skip - reopen workflow takes over]</pre>
-</div><h2 id="when-to-use-it-when-not-to">When to use it / when not to</h2>
-<ul>
-<li>Use it when you want consistent feedback coverage on every closed
-ticket rather than ad hoc requests from reps.</li>
-<li>Use it when the goal is a running CSAT score per rep, per pipeline,
-or per ticket category.</li>
-<li>Do not use it on tickets closed as spam, duplicate, or test tickets;
-exclude those with a ticket status/category filter, see Enrollment.</li>
-<li>Do not send more than one survey to the same contact in a short
+
+    <div class="fallback" id="mmfb" hidden><img src="/og/tickets-sla-004.png" alt="The workflow map as a still image."></div>
+  </div>
+  <figcaption class="legend">
+    <i><b></b> action or delay</i>
+    <i><b style="transform:rotate(45deg);border-radius:2px"></b> branch</i>
+    <i>public on every spec, paid or not</i>
+  </figcaption>
+</figure><h2>When to use it, when not to</h2><ul class="wlist"><li class="use"><span class="m">Use</span><span>Use it when you want consistent feedback coverage on every closed
+ticket rather than ad hoc requests from reps.</span></li><li class="use"><span class="m">Use</span><span>Use it when the goal is a running CSAT score per rep, per pipeline,
+or per ticket category.</span></li><li class="not"><span class="m">Skip</span><span>Do not use it on tickets closed as spam, duplicate, or test tickets;
+exclude those with a ticket status/category filter, see Enrollment.</span></li><li class="not"><span class="m">Skip</span><span>Do not send more than one survey to the same contact in a short
 window if they have several tickets closing close together; add the
 fatigue guard from tickets-sla-038 if that overlap is common in your
-volume.</li>
-</ul>
+volume.</span></li></ul><div class="cut">
+  <div class="cuthead">
+    <b>The preview ends here. Six sections are in the library.</b>
+    <span class="mono" style="margin-left:auto">counted, not blurred</span>
+  </div>
+  <div class="inv"><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Prerequisites</span><span class="de">Every property with its label, internal name, type and options, plus the assets the workflow needs before you start.</span></span><span class="ct">5 items</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Enrollment</span><span class="de">The trigger, the criteria exactly as they are ticked in the UI, the re-enrollment rule and the suppression list.</span></span><span class="ct">4 parts</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Steps</span><span class="de">Each action in order with its parameters, its branches and its delays, written as you tick them.</span></span><span class="ct">3 numbered actions</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Known pitfalls</span><span class="de">Traps seen in production, each with what breaks and what to do instead.</span></span><span class="ct">5 pitfalls</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Test plan, variants and build spec</span><span class="de">How to prove it works in a test portal, where to look when it does not, the variants for other objects or tiers, and the YAML build spec.</span></span><span class="ct">3 variants, 3 sections</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Files</span><span class="de">The properties JSON creates the fields in one API call, the workflow JSON documents the build.</span></span><span class="ct">PDF, Markdown, JSON</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Install</span><span class="de">1 click. The installer creates the properties this spec declares and the workflow itself, switched off, then opens a task for the prerequisites that are assets rather than properties, such as a team, a static list or a marketing email. What it created is listed on the install page.</span></span><span class="ct">1 click, switched off</span></div></div>
+  <div class="unlock">
+    <a class="btn pri lg" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Full%20library&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-unlock">Unlock the full library,
+      149 EUR</a>
+    <p class="alt">or <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20tickets-sla&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-pack">the
+      tickets and sla pack, 39 EUR</a></p>
+    <p class="fine">One-time, excl. VAT. 30-day refund, no questions asked. Founding prices until 31 October, then 199 and 59 EUR. Includes every spec added later, up to the full 500, and the one-click installer on the full library. Building on client portals? The <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Agency%20licence&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date.">agency licence at 449 EUR</a> covers unlimited client portals.</p>
+  </div>
+</div></article>
+    <aside class="side"><div class="buybox">
+  <p class="lab">Unlock this spec</p>
+  <div class="p"><b>149 EUR</b><s>199 EUR</s></div>
+  <p style="font-size:13.5px;color:var(--body);margin-top:7px">Full library: all 500 specs, every file
+    format, lifetime updates. 0.30 EUR a spec.</p>
+  <p class="insline"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8.8 1.6L3.2 9.2h3.6l-.6 5.2 5.6-7.6H8.2l.6-5.2z" fill="currentColor"/></svg><span>Includes the one-click installer, up to 3 of your own
+    portals.</span></p>
+  <a class="btn pri lg" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Full%20library&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-buy-full">Get the full library</a>
+  <p class="alt">or <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20tickets-sla&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-buy-pack">the
+    tickets and sla pack, 39 EUR</a></p>
+  <p class="fine">One-time, excl. VAT. 30-day refund, no questions asked.
+    Founding price until 31 October. Agency licence at 449 EUR for
+    unlimited client portals. The installer creates the properties and the workflow, switched off, through the
+    portal owner's own authorisation screen.</p>
+</div><div class="panel"><div class="ph">Spec sheet</div><div class="sheet"><div class="r"><span class="k">Object</span><span class="v">Ticket</span></div><div class="r"><span class="k">Category</span><span class="v">Tickets and SLA</span></div><div class="r"><span class="k">Minimum tier</span><span class="v">Service Hub Starter</span></div><div class="r"><span class="k">Difficulty</span><span class="v">Simple</span></div><div class="r"><span class="k">Time to build</span><span class="v">~25 min</span></div><div class="r"><span class="k">Steps</span><span class="v">3 numbered actions</span></div><div class="r"><span class="k">Prerequisites</span><span class="v">5 properties and assets</span></div><div class="r"><span class="k">Pitfalls</span><span class="v">5 traps</span></div><div class="r"><span class="k">Install</span><span class="v">1 click, workflow switched off</span></div><div class="r"><span class="k">Spec version</span><span class="v">2026-09</span></div></div></div><div class="panel"><div class="ph">The nine sections</div><div class="sheet"><div class="r"><span class="v" style="margin-left:0">Outcome</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">When to use it, when not to</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Diagram</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Prerequisites</span><span class="v">5 items</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Enrollment</span><span class="v">4 parts</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Steps</span><span class="v">3 actions</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Known pitfalls</span><span class="v">5 traps</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Test plan</span><span class="v">1 section</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Variants and build spec</span><span class="v">3 variants, YAML</span></div></div></div></aside>
+  </div>
 
-  </article>
-  
-<section class="locked">
-  <div class="locked-card">
-    <h3>What the full spec adds</h3>
-    <ul class="inside"><li><b>Prerequisites</b>: 5 items, every property with its internal name, type and options</li><li><b>Enrollment</b>: trigger, criteria as ticked in the UI, re-enrollment rule, suppression</li><li><b>Steps</b>: 3 numbered actions with their parameters, branches and delays</li><li><b>Known pitfalls</b>: 5 traps seen in production</li><li><b>Test plan</b>, <b>Variants</b> and the <b>YAML build spec</b></li><li><b>Files</b>: PDF, Markdown, properties JSON to create the fields in one API call</li></ul>
-    <div class="cta-row">
-      <a class="btn" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20tickets-sla&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date.">Tickets and SLA pack, 39 EUR</a>
-      <a class="btn primary" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Full%20library&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date.">Full library, 149 EUR</a>
+  <section class="related shelf" aria-labelledby="rel">
+    <div class="shead">
+      <div class="t">
+        <p class="kicker">Tickets and SLA</p>
+        <h3 id="rel">Also in this section</h3>
+        <p class="countline"><em>1 free</em> <i>|</i> 5 full today <i>|</i> 45 dated for a Friday
+          <i>|</i> 50 by 25 December 2026</p>
+      </div>
+      <div class="act">
+        <span class="sellline">or the whole library, <a href="/#pricing">149 EUR</a></span>
+        <a class="btn pri" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20tickets-sla&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="related-pack">This category,
+          39 EUR</a>
+        <div class="arrows">
+          <button type="button" class="prev" aria-label="Scroll this shelf left"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" class="next" aria-label="Scroll this shelf right"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
     </div>
-    <p class="muted small">One-time, excl. VAT. Includes every spec added to the pack later, up to the full 500. Founding prices until 31 October. Building for clients? The <a href="/#pricing">Agency licence</a> covers unlimited client portals.</p>
-  </div>
-</section>
-  
-<div class="teaser" data-spec="tickets-sla-004">
-  <div class="teaser-left">
-    <span class="teaser-tag">Agency add-on</span>
-    <b>Install this workflow in my portal</b>
-    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Agency buyers first.</span>
-  </div>
-  <button class="btn teaser-btn" type="button">Install in my portal</button>
-  <div class="teaser-thanks" hidden>Noted. The installer opens to Agency buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20tickets-sla-004">Tell us which portal</a> if you want to be in the pilot.</div>
-</div>
-  <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/reporting-alerts-005.html"><img src="/og/reporting-alerts-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Ticket reopen counter property (recidivism tracking for reporting)</b><span class="muted small">Reporting and alerts &middot; Operations Hub Professional</span></a><a class="rel" href="/w/customer-onboarding-005.html"><img src="/og/customer-onboarding-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Onboarding project ticket created on deal closed won</b><span class="muted small">Customer onboarding &middot; Service Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Auto-downgrade ticket priority when a contact goes silent for X days</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Wait until customer reply (48-hour expiry), else auto-close warning</b><span class="muted small">Tickets and SLA &middot; Service Hub Professional</span></div></div></section>
+    <div class="rail" tabindex="0" role="group" aria-label="Scrollable shelf"><a class="card" href="/w/reporting-alerts-005.html"><div class="thumb"><img src="/og/reporting-alerts-005.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Ticket reopen counter property (recidivism tracking for reporting)"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Ticket reopen counter property (recidivism tracking for reporting)</div><div class="line"><span class="b cat">Reporting and alerts</span><span class="b meta">Ticket</span><span class="b meta">Intermediate</span></div><div class="tierline">Operations Hub Professional</div><div class="incl"><span>4 steps</span><span>3 prerequisites</span><span>~40 min</span></div></div></a><a class="card" href="/w/customer-onboarding-005.html"><div class="thumb"><img src="/og/customer-onboarding-005.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Onboarding project ticket created on deal closed won"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Onboarding project ticket created on deal closed won</div><div class="line"><span class="b cat">Customer onboarding</span><span class="b meta">Ticket</span><span class="b meta">Intermediate</span></div><div class="tierline">Service Hub Professional</div><div class="incl"><span>4 steps</span><span>4 prerequisites</span><span>~40 min</span></div></div></a><div class="card"><div class="thumb plan"><div class="glyph"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 3v3M16 3v3M3 9.5h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><b>Nov 27</b></div><span class="flag"><span class="b plan">Dated</span></span></div><div class="body"><div class="ttl">Auto-downgrade ticket priority when a contact goes silent for X days</div><div class="line"><span class="b cat">Tickets and SLA</span><span class="b meta">Ticket</span><span class="b meta">Intermediate</span></div><div class="tierline">Service Hub Professional</div><div class="incl"><span>6 steps</span><span>3 prerequisites</span><span>~30 min</span></div></div></div><div class="card"><div class="thumb plan"><div class="glyph"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 3v3M16 3v3M3 9.5h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><b>Sep 18</b></div><span class="flag"><span class="b plan">Dated</span></span></div><div class="body"><div class="ttl">Wait until customer reply (48-hour expiry), else auto-close warning</div><div class="line"><span class="b cat">Tickets and SLA</span><span class="b meta">Ticket</span><span class="b meta">Intermediate</span></div><div class="tierline">Service Hub Professional</div><div class="incl"><span>9 steps</span><span>4 prerequisites</span><span>~30 min</span></div></div></div><a class="seeall" href="/#shelves?cat=tickets-sla" data-filter-cat="tickets-sla"><b>All 50 in Tickets and SLA</b><span>1 free, 5 full today, 45 dated for a Friday between now and 25 December 2026.</span><span class="go">Filter the library &#8594;</span></a></div>
+  </section>
 </main>
-<script>
-document.querySelectorAll('.teaser').forEach(t => {
-  const btn = t.querySelector('.teaser-btn'), th = t.querySelector('.teaser-thanks');
-  btn.addEventListener('click', () => {
-    btn.disabled = true; btn.textContent = 'Interest recorded'; th.hidden = false;
-    const ep = "";
-    const payload = JSON.stringify({ event: 'install_click', spec: t.dataset.spec, path: location.pathname, ts: Date.now() });
-    try { if (ep) navigator.sendBeacon(ep, payload); } catch (e) {}
-    try { if (window.goatcounter) window.goatcounter.count({ path: 'install-click/' + t.dataset.spec, event: true }); } catch (e) {}
-    try { if (window.plausible) window.plausible('install_click', { props: { spec: t.dataset.spec } }); } catch (e) {}
-    try { const k = 'fc_install_clicks'; const a = JSON.parse(localStorage.getItem(k) || '[]'); a.push(t.dataset.spec); localStorage.setItem(k, JSON.stringify(a)); } catch (e) {}
-  });
-});
-</script>
+
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+<script>window.TWL={"brand":"The Workflow Library","support":"hello@theworkflowlibrary.com","worker":"https://twl-checkout.theworkflowlibrary.workers.dev","installWorker":"https://twl-install.theworkflowlibrary.workers.dev","hsForm":null};</script>
+<script src="/assets/library.js" defer></script>
 <script type="module">
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { fontFamily: "Nunito Sans, sans-serif", fontSize: "15px", primaryColor: "#EEF1FF", primaryBorderColor: "#8B9BFF", primaryTextColor: "#1B1D2A", lineColor: "#5B6CFF", secondaryColor: "#EFFBF7", tertiaryColor: "#FFF5F7", edgeLabelBackground: "#ffffff" }, flowchart: { curve: "basis", padding: 12, nodeSpacing: 40, rankSpacing: 46 } });
+try {
+  mermaid.initialize({ startOnLoad: true, theme: "base", securityLevel: "strict",
+    themeVariables: { fontFamily: "Sora, sans-serif", fontSize: "14px",
+      primaryColor: "#EFEBFD", primaryBorderColor: "#9E8BEE", primaryTextColor: "#12141C",
+      lineColor: "#5B3FD6", secondaryColor: "#F2F4F8", tertiaryColor: "#FFFFFF",
+      edgeLabelBackground: "#FFFFFF", clusterBkg: "#F2F4F8" },
+    flowchart: { curve: "basis", padding: 14, nodeSpacing: 44, rankSpacing: 46, useMaxWidth: true } });
+} catch (e) {}
+setTimeout(function () {
+  var pre = document.querySelector("pre.mermaid");
+  if (pre && !pre.querySelector("svg")) {
+    pre.hidden = true;
+    var fb = document.getElementById("mmfb");
+    if (fb) fb.hidden = false;
+  }
+}, 2400);
 </script>
-
-<footer>
-  <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
-  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
-  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
-</footer>
 </body>
 </html>

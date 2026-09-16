@@ -3,58 +3,70 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Auto-enroll contact in sales sequence when lead status becomes Sales Qualified Lead | The Workflow Library</title>
+<title>Auto-enroll contact in sales sequence when lead status becomes Sales Qualified Lead: a workflow spec for HubSpot</title>
 <meta name="description" content="Outcome. A contact starts a personal sales sequence automatically the moment a rep or a scoring rule marks them as sales-qualified, with no manual &quot;select ">
 <link rel="canonical" href="https://theworkflowlibrary.com/w/sales-ops-001.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
 <meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="Auto-enroll contact in sales sequence when lead status becomes Sales Qualified Lead"><meta property="og:description" content="Outcome. A contact starts a personal sales sequence automatically the moment a rep or a scoring rule marks them as sales-qualified, with no manual &quot;select "><meta property="og:image" content="https://theworkflowlibrary.com/og/sales-ops-001.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/sales-ops-001.png">
 </head>
 <body>
-<header class="top">
-  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
-  <nav>
-    <a href="/#library">Library</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/#faq">FAQ</a>
-    <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 10 free specs</a>
-  </nav>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
 </header>
 
-<main class="fiche">
-  <p class="crumb"><a href="/">Library</a> / <a href="/#library?cat=sales-ops">Sales ops</a> / sales-ops-001</p>
-  <h1>Auto-enroll contact in sales sequence when lead status becomes Sales Qualified Lead</h1>
-  <p class="meta"><a class="badge cat" href="/#library?cat=sales-ops">Sales ops</a> <span class="badge tier tier-professional">Sales Hub Professional</span> <span class="badge">Contact</span> <span class="badge">Simple</span> <span class="badge">~25 min to build</span></p>
-  <article>
-  <p><strong>Outcome.</strong> A contact starts a personal sales sequence
+<main class="wrap">
+  <p class="crumb"><a href="/#shelves">Library</a> /
+    <a href="/#shelves?cat=sales-ops" data-filter-cat="sales-ops">Sales ops</a> / <span>sales-ops-001</span></p>
+  <div class="spec">
+    <div class="spechead">
+      <h1>Auto-enroll contact in sales sequence when lead status becomes Sales Qualified Lead</h1>
+      <div class="badgerow"><span class="b free">Free, complete</span><a class="b cat" href="/#shelves?cat=sales-ops" data-filter-cat="sales-ops">Sales ops</a><span class="b meta">Contact</span><span class="b meta">Sales Hub Professional</span><span class="b meta">Simple</span><span class="b meta">~25 min to build</span></div>
+      <p class="freebar"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>One of the 10 free specs.</b> All nine sections are open on this page, nothing is held back. Install it into your portal against an email, or build it by hand from what you read here.</span></p>
+    </div>
+    <article class="prose"><p class="outcome"><strong>Outcome.</strong> A contact starts a personal sales sequence
 automatically the moment a rep or a scoring rule marks them as
 sales-qualified, with no manual "select and enroll" step.</p>
-<div class="wfmap"><div class="wfmap-head"><span>Workflow map</span><span class="muted small">Enrollment, branches and actions at a glance</span></div><pre class="mermaid">flowchart TD
+<figure class="wfmap">
+  <div class="head"><b>Workflow map</b>
+    <span class="muted">Enrollment, branches and actions at a glance</span>
+    <span class="mono muted" style="margin-left:auto">sales-ops-001</span></div>
+  <div class="canvas"><pre class="mermaid">flowchart TD
     A[Lead status changes to Sales Qualified Lead] --> B{Owner and email known?}
     B -->|No| C[Notify sales ops: missing owner/email]
     B -->|Yes| D[Enroll in sequence: SQL - First Outreach, sender = owner]
     D --> E[Set Date entered sequence]
     E --> F[Create call task for owner, due today]</pre>
-</div><h2 id="when-to-use-it-when-not-to">When to use it / when not to</h2>
-<ul>
-<li>Use it when SDRs currently open each qualified contact and manually
-click "Enroll in sequence." This removes that click.</li>
-<li>Use it when your <code>Lead status</code> values are consistent and
+
+    <div class="fallback" id="mmfb" hidden><img src="/og/sales-ops-001.png" alt="The workflow map as a still image."></div>
+  </div>
+  <figcaption class="legend">
+    <i><b></b> action or delay</i>
+    <i><b style="transform:rotate(45deg);border-radius:2px"></b> branch</i>
+    <i>public on every spec, paid or not</i>
+  </figcaption>
+</figure><h2>When to use it, when not to</h2><ul class="wlist"><li class="use"><span class="m">Use</span><span>Use it when SDRs currently open each qualified contact and manually
+click "Enroll in sequence." This removes that click.</span></li><li class="use"><span class="m">Use</span><span>Use it when your <code>Lead status</code> values are consistent and
 someone (rep or a scoring workflow) reliably sets the qualified
-value.</li>
-<li>Do not use it if multiple sequences could apply depending on persona
+value.</span></li><li class="not"><span class="m">Skip</span><span>Do not use it if multiple sequences could apply depending on persona
 or product interest. Branch first (see Variants) or you will enroll
-everyone into one generic sequence.</li>
-<li>Do not use it for contacts without a real owner. Sequence emails
+everyone into one generic sequence.</span></li><li class="not"><span class="m">Skip</span><span>Do not use it for contacts without a real owner. Sequence emails
 send from a specific HubSpot user; an unowned contact has nobody to send
-from and the action fails silently for that record.</li>
-</ul>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
+from and the action fails silently for that record.</span></li></ul><h2>Prerequisites</h2><ul>
 <li>Property: <code>Lead status</code> (internal name
 <code>hs_lead_status</code>), object contact, this is a default HubSpot
 enumeration property. Add a custom option
@@ -71,8 +83,7 @@ connected inbox means no send.</li>
 <li>Confirm the contact has a valid, opted-in email address. Sequences
 respect marketing and one-to-one email unsubscribe status.</li>
 </ul>
-<h2 id="enrollment">Enrollment</h2>
-<ul>
+<h2>Enrollment</h2><ul>
 <li>Trigger type: event-based.</li>
 <li>Criteria: <code>Lead status</code> property changed to value
 <code>Sales Qualified Lead</code>. Add a filter
@@ -92,8 +103,7 @@ tier-gated triggers are page views and CTAs (Marketing Hub Professional)
 and quote-based triggers (Commerce Hub Professional)
 (https://knowledge.hubspot.com/workflows/set-filter-enrollment-triggers).</li>
 </ul>
-<h2 id="steps">Steps</h2>
-<ol type="1">
+<h2>Steps</h2><ol type="1">
 <li>Filter branch: <code>Contact owner</code> is known AND
 <code>Email address</code> is known.
 <ul>
@@ -113,30 +123,21 @@ cycle time).</li>
 <li>Create task: type "Call", title "Sequence kickoff call -
 {{contact.firstname}}", due same day, assigned to Contact owner.</li>
 </ol>
-<h2 id="known-pitfalls">Known pitfalls</h2>
-<ul>
-<li>A contact can be actively enrolled in only one sequence at a time.
+<h2>Known pitfalls</h2><ul class="pit"><li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6l6.2 11.2H1.8L8 1.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.2v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>A contact can be actively enrolled in only one sequence at a time.
 If this workflow fires while the contact is already mid-sequence from
 another workflow, enrollment is skipped, not queued. Check workflow
-history for "not enrolled - already in sequence" entries.</li>
-<li>If the contact owner's inbox connection breaks (token expired,
+history for "not enrolled - already in sequence" entries.</span></li><li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6l6.2 11.2H1.8L8 1.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.2v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>If the contact owner's inbox connection breaks (token expired,
 mailbox disconnected), the sequence step fails silently for that contact
 and no error surfaces to the rep unless they check the sequence's own
-performance tab.</li>
-<li>Sequences do not observe deal stage automatically. Pair this with
+performance tab.</span></li><li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6l6.2 11.2H1.8L8 1.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.2v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Sequences do not observe deal stage automatically. Pair this with
 sales-ops-008 (auto-unenroll when a deal is created) if you do not want
 sequence emails continuing after the contact becomes an active
-deal.</li>
-<li>Adding a custom value to <code>hs_lead_status</code> changes a
+deal.</span></li><li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6l6.2 11.2H1.8L8 1.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.2v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Adding a custom value to <code>hs_lead_status</code> changes a
 shared default property. Confirm no other workflow or report depends on
-the existing value set before adding options.</li>
-<li>Re-enrollment on a property that flips back and forth quickly
+the existing value set before adding options.</span></li><li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6l6.2 11.2H1.8L8 1.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.2v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Re-enrollment on a property that flips back and forth quickly
 (status bouncing) can burn through sequence steps for a contact
 repeatedly. Add a suppression list for anyone re-enrolled more than
-twice in 30 days if this becomes a problem.</li>
-</ul>
-<h2 id="test-plan">Test plan</h2>
-<ol type="1">
+twice in 30 days if this becomes a problem.</span></li></ul><h2>Test plan</h2><ol type="1">
 <li>Create a test contact with a valid test-safe email address, set
 <code>Contact owner</code> to your own test user, and set
 <code>Lead status</code> to <code>Sales Qualified Lead</code>.</li>
@@ -151,8 +152,7 @@ today.</li>
 <code>Sales Qualified Lead</code>, confirm re-enrollment behaves as
 expected (or is skipped if still mid-sequence).</li>
 </ol>
-<h2 id="variants">Variants</h2>
-<ul>
+<h2>Variants</h2><ul>
 <li>Persona-based routing: add an If/then branch on
 <code>Product interest</code> before the enroll action and point each
 branch to a different sequence (see sales-ops-043).</li>
@@ -162,8 +162,7 @@ trigger on deal stage instead.</li>
 <li>Team-based sender: instead of Contact owner, send from a fixed team
 inbox for high-volume SDR pods that share sequence sending.</li>
 </ul>
-<h2 id="build-spec">Build spec</h2>
-<pre class="yaml"><code>trigger:
+<h2>Build spec</h2><pre class="yaml"><code>trigger:
   type: event-based
   event: property_changed
   property: hs_lead_status
@@ -193,44 +192,119 @@ actions:
         title: &quot;Sequence kickoff call - {{contact.firstname}}&quot;
         due: today
         assigned_to: contact_owner</code></pre>
-
-  </article>
-  <div class="note free">This spec is one of the 10 free ones, one per category, complete as shown. <a href="#free">Download all 10 free specs</a> as PDF, Markdown and properties JSON. Paid packs add the same files for every spec in the pack, plus the workflow JSON and the custom coded actions.</div>
-  
-<div class="teaser" data-spec="sales-ops-001">
-  <div class="teaser-left">
-    <span class="teaser-tag">Agency add-on</span>
-    <b>Install this workflow in my portal</b>
-    <span class="muted small">Two clicks: authorise your portal, confirm. Properties created, workflow delivered switched off, ready to review. Coming to Agency buyers first.</span>
+<div class="cut" style="margin-top:36px">
+  <div class="cuthead"><b>This one is free. The other 490 are not.</b>
+    <span class="mono" style="margin-left:auto">same format, every time</span></div>
+  <div class="unlock">
+    <a class="btn pri lg" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Full%20library&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-unlock">Unlock the full library,
+      149 EUR</a>
+    <p class="alt">or <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20sales-ops&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-pack">the
+      sales ops pack, 39 EUR</a></p>
+    <p class="fine">One-time, excl. VAT. 30-day refund, no questions asked. Includes every spec added
+      later, up to the full 500, and the one-click installer on the full library.</p>
   </div>
-  <button class="btn teaser-btn" type="button">Install in my portal</button>
-  <div class="teaser-thanks" hidden>Noted. The installer opens to Agency buyers first, in order of interest. <a href="mailto:hello@theworkflowlibrary.com?subject=Installer%20for%20sales-ops-001">Tell us which portal</a> if you want to be in the pilot.</div>
-</div>
-  <section class="related"><h2>Related workflows</h2><div class="relgrid"><a class="rel" href="/w/sales-ops-002.html"><img src="/og/sales-ops-002.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Notify AE by internal email when a meeting is booked on their calendar</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></a><a class="rel" href="/w/sales-ops-003.html"><img src="/og/sales-ops-003.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Create SDR-to-AE handoff task when a meeting is booked</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></a><a class="rel" href="/w/sales-ops-004.html"><img src="/og/sales-ops-004.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Notify rep when a sent quote is viewed by the buyer</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></a><a class="rel" href="/w/sales-ops-005.html"><img src="/og/sales-ops-005.png" alt="" loading="lazy"><span class="badge full">Full spec</span><b>Notify rep and manager when a quote is e-signed</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></a><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Auto-unenroll from sequence when associated deal is created</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></div><div class="rel planned"><span class="badge planned">Dec 2026</span><b>Enroll a contact into a persona-specific sequence based on a product-interest property</b><span class="muted small">Sales ops &middot; Sales Hub Professional</span></div></div></section>
+</div></article>
+    <aside class="side"><div class="buybox">
+  <p class="lab">Free spec</p>
+  <div class="p"><b>0 EUR</b></div>
+  <p style="font-size:13.5px;color:var(--body);margin-top:7px">Install it straight into your portal, or take the
+    PDF and build it by hand.</p>
+  <button class="btn pri lg" type="button" id="insbtn" data-cta="install-free-email"
+    style="width:100%;margin-top:15px">Install in my portal</button>
+  <a class="btn" href="/#free" style="width:100%;margin-top:9px" data-cta="free-pack">Get the 10 free
+    specs as a pack</a>
+  <div class="inspanel" id="inspanel" data-spec="sales-ops-001" hidden>
+    <p class="lab2">Install sales-ops-001</p>
+    <p>One email, and we send you a confirmation link. The link opens the authorisation screen where you pick the
+      portal. The installer creates the properties this spec declares and the workflow itself, switched off, and
+      opens a task for the prerequisites that are assets rather than properties. It lists what it created when
+      it is done.</p>
+    <form class="freeform" id="insform" novalidate>
+      <label class="sr" for="insmail">Your email address</label>
+      <input id="insmail" name="email" type="email" required placeholder="you@company.com" autocomplete="email">
+      <button class="btn lime" type="submit">Send the link</button>
+    </form>
+    <p class="freenote" style="margin-top:9px">No card, no password, unsubscribe in one click.</p>
+    <button class="cancel" type="button" id="inscancel">Not now, just the files</button>
+  </div>
+  <div class="insok" id="insok" hidden>
+    <p class="t2">Check your inbox.</p>
+    <p>We sent a confirmation link to the address you gave. It opens the installer and the pack of 10 free
+      specs.</p>
+    <a class="btn pri" href="/install/" data-cta="install-start">Open the installer</a>
+  </div>
+  <p class="fine">The installer creates the properties and the workflow, switched off, through the portal owner's
+    own authorisation screen. It never stores your token and never turns a workflow on.</p>
+</div><div class="panel"><div class="ph">Spec sheet</div><div class="sheet"><div class="r"><span class="k">Object</span><span class="v">Contact</span></div><div class="r"><span class="k">Category</span><span class="v">Sales ops</span></div><div class="r"><span class="k">Minimum tier</span><span class="v">Sales Hub Professional</span></div><div class="r"><span class="k">Difficulty</span><span class="v">Simple</span></div><div class="r"><span class="k">Time to build</span><span class="v">~25 min</span></div><div class="r"><span class="k">Steps</span><span class="v">5 numbered actions</span></div><div class="r"><span class="k">Prerequisites</span><span class="v">4 properties and assets</span></div><div class="r"><span class="k">Pitfalls</span><span class="v">5 traps</span></div><div class="r"><span class="k">Install</span><span class="v">1 click, workflow switched off</span></div><div class="r"><span class="k">Spec version</span><span class="v">2026-09</span></div></div></div><div class="panel"><div class="ph">The nine sections, all open</div><div class="sheet"><div class="r"><span class="v" style="margin-left:0">Outcome</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">When to use it, when not to</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Diagram</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Prerequisites</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Enrollment</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Steps</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Known pitfalls</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Test plan</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Variants and build spec</span><span class="v b free" style="padding:2px 7px">Open</span></div></div></div></aside>
+  </div>
+
+  <section class="related shelf" aria-labelledby="rel">
+    <div class="shead">
+      <div class="t">
+        <p class="kicker">Sales ops</p>
+        <h3 id="rel">Also in this section</h3>
+        <p class="countline"><em>1 free</em> <i>|</i> 5 full today <i>|</i> 45 dated for a Friday
+          <i>|</i> 50 by 25 December 2026</p>
+      </div>
+      <div class="act">
+        <span class="sellline">or the whole library, <a href="/#pricing">149 EUR</a></span>
+        <a class="btn pri" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20sales-ops&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="related-pack">This category,
+          39 EUR</a>
+        <div class="arrows">
+          <button type="button" class="prev" aria-label="Scroll this shelf left"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" class="next" aria-label="Scroll this shelf right"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="rail" tabindex="0" role="group" aria-label="Scrollable shelf"><a class="card" href="/w/sales-ops-002.html"><div class="thumb"><img src="/og/sales-ops-002.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Notify AE by internal email when a meeting is booked on their calendar"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Notify AE by internal email when a meeting is booked on their calendar</div><div class="line"><span class="b cat">Sales ops</span><span class="b meta">Contact</span><span class="b meta">Simple</span></div><div class="tierline">Sales Hub Professional</div><div class="incl"><span>5 steps</span><span>3 prerequisites</span><span>~20 min</span></div></div></a><a class="card" href="/w/sales-ops-003.html"><div class="thumb"><img src="/og/sales-ops-003.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Create SDR-to-AE handoff task when a meeting is booked"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Create SDR-to-AE handoff task when a meeting is booked</div><div class="line"><span class="b cat">Sales ops</span><span class="b meta">Contact</span><span class="b meta">Simple</span></div><div class="tierline">Sales Hub Professional</div><div class="incl"><span>6 steps</span><span>4 prerequisites</span><span>~25 min</span></div></div></a><a class="card" href="/w/sales-ops-004.html"><div class="thumb"><img src="/og/sales-ops-004.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Notify rep when a sent quote is viewed by the buyer"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Notify rep when a sent quote is viewed by the buyer</div><div class="line"><span class="b cat">Sales ops</span><span class="b meta">Deal</span><span class="b meta">Simple</span></div><div class="tierline">Sales Hub Professional</div><div class="incl"><span>4 steps</span><span>4 prerequisites</span><span>~20 min</span></div></div></a><a class="card" href="/w/sales-ops-005.html"><div class="thumb"><img src="/og/sales-ops-005.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Notify rep and manager when a quote is e-signed"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Notify rep and manager when a quote is e-signed</div><div class="line"><span class="b cat">Sales ops</span><span class="b meta">Deal</span><span class="b meta">Simple</span></div><div class="tierline">Sales Hub Professional</div><div class="incl"><span>6 steps</span><span>4 prerequisites</span><span>~20 min</span></div></div></a><div class="card"><div class="thumb plan"><div class="glyph"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 3v3M16 3v3M3 9.5h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><b>Sep 18</b></div><span class="flag"><span class="b plan">Dated</span></span></div><div class="body"><div class="ttl">Auto-unenroll from sequence when associated deal is created</div><div class="line"><span class="b cat">Sales ops</span><span class="b meta">Contact</span><span class="b meta">Intermediate</span></div><div class="tierline">Sales Hub Professional</div><div class="incl"><span>3 steps</span><span>3 prerequisites</span><span>~30 min</span></div></div></div><div class="card"><div class="thumb plan"><div class="glyph"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 3v3M16 3v3M3 9.5h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><b>Dec 11</b></div><span class="flag"><span class="b plan">Dated</span></span></div><div class="body"><div class="ttl">Enroll a contact into a persona-specific sequence based on a product-interest property</div><div class="line"><span class="b cat">Sales ops</span><span class="b meta">Contact</span><span class="b meta">Intermediate</span></div><div class="tierline">Sales Hub Professional</div><div class="incl"><span>10 steps</span><span>3 prerequisites</span><span>~35 min</span></div></div></div><a class="seeall" href="/#shelves?cat=sales-ops" data-filter-cat="sales-ops"><b>All 50 in Sales ops</b><span>1 free, 5 full today, 45 dated for a Friday between now and 25 December 2026.</span><span class="go">Filter the library &#8594;</span></a></div>
+  </section>
 </main>
-<script>
-document.querySelectorAll('.teaser').forEach(t => {
-  const btn = t.querySelector('.teaser-btn'), th = t.querySelector('.teaser-thanks');
-  btn.addEventListener('click', () => {
-    btn.disabled = true; btn.textContent = 'Interest recorded'; th.hidden = false;
-    const ep = "";
-    const payload = JSON.stringify({ event: 'install_click', spec: t.dataset.spec, path: location.pathname, ts: Date.now() });
-    try { if (ep) navigator.sendBeacon(ep, payload); } catch (e) {}
-    try { if (window.goatcounter) window.goatcounter.count({ path: 'install-click/' + t.dataset.spec, event: true }); } catch (e) {}
-    try { if (window.plausible) window.plausible('install_click', { props: { spec: t.dataset.spec } }); } catch (e) {}
-    try { const k = 'fc_install_clicks'; const a = JSON.parse(localStorage.getItem(k) || '[]'); a.push(t.dataset.spec); localStorage.setItem(k, JSON.stringify(a)); } catch (e) {}
-  });
-});
-</script>
+
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+<script>window.TWL={"brand":"The Workflow Library","support":"hello@theworkflowlibrary.com","worker":"https://twl-checkout.theworkflowlibrary.workers.dev","installWorker":"https://twl-install.theworkflowlibrary.workers.dev","hsForm":null};</script>
+<script src="/assets/library.js" defer></script>
 <script type="module">
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-mermaid.initialize({ startOnLoad: true, theme: "base", themeVariables: { fontFamily: "Nunito Sans, sans-serif", fontSize: "15px", primaryColor: "#EEF1FF", primaryBorderColor: "#8B9BFF", primaryTextColor: "#1B1D2A", lineColor: "#5B6CFF", secondaryColor: "#EFFBF7", tertiaryColor: "#FFF5F7", edgeLabelBackground: "#ffffff" }, flowchart: { curve: "basis", padding: 12, nodeSpacing: 40, rankSpacing: 46 } });
+try {
+  mermaid.initialize({ startOnLoad: true, theme: "base", securityLevel: "strict",
+    themeVariables: { fontFamily: "Sora, sans-serif", fontSize: "14px",
+      primaryColor: "#EFEBFD", primaryBorderColor: "#9E8BEE", primaryTextColor: "#12141C",
+      lineColor: "#5B3FD6", secondaryColor: "#F2F4F8", tertiaryColor: "#FFFFFF",
+      edgeLabelBackground: "#FFFFFF", clusterBkg: "#F2F4F8" },
+    flowchart: { curve: "basis", padding: 14, nodeSpacing: 44, rankSpacing: 46, useMaxWidth: true } });
+} catch (e) {}
+setTimeout(function () {
+  var pre = document.querySelector("pre.mermaid");
+  if (pre && !pre.querySelector("svg")) {
+    pre.hidden = true;
+    var fb = document.getElementById("mmfb");
+    if (fb) fb.hidden = false;
+  }
+}, 2400);
 </script>
-
-<footer>
-  <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
-  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
-  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
-</footer>
 </body>
 </html>

@@ -7,24 +7,31 @@
 <meta name="description" content="What shipped, and when.">
 <link rel="canonical" href="https://theworkflowlibrary.com/changelog.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
 
 </head>
 <body>
-<header class="top">
-  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
-  <nav>
-    <a href="/#library">Library</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/#faq">FAQ</a>
-    <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 10 free specs</a>
-  </nav>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
 </header>
-<main class="fiche"><article><h1 id="changelog">Changelog</h1>
+<main class="wrap"><div class="docpage"><h1>Changelog</h1>
+<p class="muted" style="margin-top:12px;font-size:16px">30 new specs every Friday until the catalogue of 500 is complete
+  (25 December 2026). Every batch is dated here.</p>
+<article class="prose" style="margin-top:26px"><h1 id="changelog">Changelog</h1>
 <p>What shipped, and when. Specs are dated; when HubSpot changes a
 behaviour a spec relies on, the spec is updated and the change is logged
 here.</p>
@@ -87,12 +94,35 @@ spec.</li>
 catalogue is complete at the end of December 2026. First batch: Friday
 2026-09-18.</li>
 </ul>
-</article></main>
+</article></div></main>
 
-<footer>
-  <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
-  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
-  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
 </footer>
+<script>window.TWL={"brand":"The Workflow Library","support":"hello@theworkflowlibrary.com","worker":"https://twl-checkout.theworkflowlibrary.workers.dev","installWorker":"https://twl-install.theworkflowlibrary.workers.dev","hsForm":null};</script>
+<script src="/assets/library.js" defer></script>
+
 </body>
 </html>

@@ -5,108 +5,170 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Thank you | The Workflow Library</title>
 <meta name="description" content="Your download.">
-<link rel="canonical" href="https://theworkflowlibrary.com/thanks.html">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 
 <meta name="robots" content="noindex">
 </head>
 <body>
-<header class="top">
-  <a class="logo" href="/"><span class="mark"></span>The Workflow Library</a>
-  <nav>
-    <a href="/#library">Library</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/#faq">FAQ</a>
-    <a href="/changelog.html">Changelog</a>
-    <a class="btn small" href="#free">Get 10 free specs</a>
-  </nav>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
 </header>
 
-<main class="fiche thanks">
-<style>
-.thanks{max-width:760px}
-.thanks .card-ok{margin:48px 0 24px;border:1px solid var(--rule);border-radius:18px;padding:36px 36px 28px;background:#fff;box-shadow:0 18px 40px rgba(27,29,42,.08)}
-.thanks .check{width:56px;height:56px;border-radius:50%;background:#EFFBF7;border:2px solid var(--mint);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.thanks .check svg{width:28px;height:28px}
-.thanks h1{font-size:2rem;margin:0 0 8px}
-.thanks .lede{margin:0 0 22px}
-.thanks .order{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:16px 18px;border-radius:12px;background:var(--band2);margin:0 0 22px;font-size:.95rem}
-.thanks .order b{font-family:"Bricolage Grotesque",sans-serif}
-.thanks .order .r{text-align:right;color:#3F4254}
-.thanks .cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.thanks .btn.primary{padding:14px 26px;font-size:1.05rem}
-.thanks .inside{margin:0;padding-left:20px;color:#3F4254}
-.thanks .inside li{margin:6px 0}
-.thanks .next{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:22px 0 40px}
-.thanks .next .card h3{font-size:.95rem}
-.thanks .state{font-size:.9rem;color:var(--muted);min-height:1.4em}
-</style>
-<section class="card-ok">
-  <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#1F8F6A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-  <h1>Thank you. Your pack is ready.</h1>
-  <p class="lede">Stripe emails your receipt in a minute. Your download lives at this address, keep the link: every Friday's new specs land in the same file.</p>
-  <div class="order" id="order" hidden>
-    <span>Product</span><span class="r" id="o-product"></span>
-    <span>Includes</span><span class="r" id="o-desc"></span>
-    <span>Charged</span><span class="r" id="o-amount"></span>
-    <span>Receipt to</span><span class="r" id="o-email"></span>
-  </div>
-  <div class="cta">
-    <a class="btn primary" id="dl" href="#">Download your pack (.zip)</a>
-    <span class="state" id="dl-note">Checking your purchase...</span>
-  </div>
-  <div class="note upgrade" id="upgrade" hidden>
-    <b>Upgrade to the full library for the difference.</b> Save this code, it is worth what you just paid on the <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Full%20library&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date.">Full library</a>, once, for 90 days: <code id="up-code"></code>. Enter it in the "Add promotion code" field at checkout.
-  </div>
-  <div class="note licence" id="agency-note" hidden>
-    <b>Agency licence.</b> Use these files on any client portal and hand them to clients: PDFs and Markdown in this pack carry no branding. Request-a-spec: 3 a year, 10 working days, write to <a href="mailto:hello@theworkflowlibrary.com?subject=Request%20a%20spec">hello@theworkflowlibrary.com</a>.
-  </div>
-</section>
-<h2>What is in the zip</h2>
-<ul class="inside">
-  <li>One folder per spec: PDF and Markdown, with the YAML build spec at the end.</li>
-  <li><b>properties/</b>: JSON bodies to create the custom properties a spec needs in one API call, plus the installer script.</li>
-  <li><b>code/</b>: ready-to-paste custom coded actions, where a spec uses one.</li>
-  <li><b>workflows/</b>: the workflow itself in Automation API v4 format, switched off, with tokens for the ids that only exist in your portal, plus the installer.</li>
-  <li><b>README.md</b>: licence, support address, how updates work.</li>
-</ul>
-<div class="next">
-  <a class="card" href="/changelog.html"><h3>What ships next</h3><p>Thirty new specs every Friday until the catalogue is complete. Dated, in the changelog.</p></a>
-  <a class="card" href="/#library"><h3>Browse the catalogue</h3><p>All 500 titles with object, minimum tier and difficulty. Free maps on every page.</p></a>
-  <a class="card" href="mailto:hello@theworkflowlibrary.com"><h3>Need a spec we do not have?</h3><p>Agency buyers: 3 requests a year, 10 working days. Everyone else: write to us anyway, popular requests get built.</p></a>
-</div>
-</main>
-<script>
-(function(){
-  var s = new URLSearchParams(location.search).get('s') || '';
-  var w = "https://twl-checkout.theworkflowlibrary.workers.dev";
-  var a = document.getElementById('dl'), n = document.getElementById('dl-note');
-  function fail(msg){ n.textContent = msg; a.style.display = 'none'; }
-  if (!s) return fail('No purchase found in this link. Open the page from your Stripe confirmation, or email hello@theworkflowlibrary.com with your receipt.');
-  if (!w) return fail('Downloads open shortly after launch. Keep your receipt: every buyer gets the pack by email within 24 hours.');
-  a.href = w + '/download?s=' + encodeURIComponent(s);
-  fetch(w + '/session?s=' + encodeURIComponent(s)).then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); }).then(function(d){
-    if (!d.paid) return fail('This purchase is not confirmed yet. Refresh in a minute, or email hello@theworkflowlibrary.com.');
-    var fmt = function(c){ return (c/100).toLocaleString('en', {style:'currency', currency:(d.currency||'eur').toUpperCase()}); };
-    document.getElementById('o-product').textContent = d.product || d.tier;
-    document.getElementById('o-desc').textContent = d.description || '';
-    document.getElementById('o-amount').textContent = fmt(d.amount_total) + (d.amount_tax ? ' (incl. ' + fmt(d.amount_tax) + ' VAT)' : '');
-    document.getElementById('o-email').textContent = d.email || '';
-    document.getElementById('order').hidden = false;
-    if (d.upgrade_code) { document.getElementById('up-code').textContent = d.upgrade_code; document.getElementById('upgrade').hidden = false; }
-    if (d.tier === 'agency') { document.getElementById('agency-note').hidden = false; }
-    n.textContent = d.live ? 'Verified. The file is ' + (d.pack || 'your pack') + '.' : 'Verified (test mode). The file is ' + (d.pack || 'your pack') + '.';
-  }).catch(function(){ n.textContent = 'Could not load the order summary, the download button still works.'; });
-})();
-</script>
+<main class="wrap">
+  <div class="narrow">
+  <p class="crumb"><a href="/">The Workflow Library</a> / <span>Order confirmed</span></p>
+  <div class="demobar" id="demobar" hidden><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6l6.2 11.2H1.8L8 1.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.2v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span><b>Demo mode.</b> This page is filled with a fixture,
+    no purchase was looked up.</span></div>
 
-<footer>
-  <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
-  <p class="muted">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
-  <p class="muted"><a href="/legal.html">Terms and refunds</a> &middot; <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+  <div class="pagehead" style="display:flex;gap:16px;align-items:flex-start">
+    <span class="okmark" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 16 16" fill="none"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <div>
+      <h1 id="thx-h1">Thank you. Your pack is ready.</h1>
+      <p class="sub" id="thx-sub">Stripe emails your receipt in a minute. Your download lives at this address,
+        keep the link: every Friday's new specs land in the same file.</p>
+    </div>
+  </div>
+
+  <div class="ordergrid">
+    <div>
+      <div class="pnl">
+        <div class="ph2"><h2>Your files</h2><span class="st" id="thx-st">Checking</span></div>
+        <div class="pb">
+          <p id="thx-dlnote" style="font-size:14.5px;line-height:1.62">The download holds PDF and Markdown for
+            every spec in your pack, plus the properties JSON, the workflow JSON and the custom code. New specs
+            added to your pack land in the same link every Friday.</p>
+          <div class="bigacts">
+            <a class="btn pri lg" id="dl" href="#" data-cta="thanks-download">Download your pack (.zip)</a>
+            <a class="btn lg" id="thx-instbtn" href="/install/" data-cta="thanks-install" hidden>Install in your
+              portal</a>
+          </div>
+          <p class="instate" id="dl-note" style="margin-top:11px"></p>
+          <div class="linkbox" id="thx-linkbox" hidden>
+            <span class="lb">Your signed install link</span>
+            <code id="thx-link"></code>
+          </div>
+          <p id="thx-instcopy" style="font-size:13px;color:var(--muted);margin-top:10px;line-height:1.6" hidden>
+            The installer creates the missing properties and the workflow itself, switched off, then adds one task
+            listing what the API cannot build for you. You pick the portal on the authorisation screen. No account,
+            no password, no token to paste. Anyone holding this link can install into a portal, so treat it the way
+            you treat a password.</p>
+          <div class="warnbox" id="thx-blocked" hidden><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6l6.2 11.2H1.8L8 1.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.2v3.1M8 11.2v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <div><b>A category pack is files only</b>
+              <p>The one-click installer comes with the full library and the agency licence. Use the upgrade code
+                below and it is yours, on the same order.</p></div>
+          </div>
+        </div>
+        <div class="pf"><span class="ft">Every workflow arrives switched off. The installer never turns one
+          on.</span></div>
+      </div>
+
+      <div class="upg" id="thx-upg" hidden>
+        <p style="font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--violet-d)">Upgrade code</p>
+        <p style="font-size:14.5px;color:var(--ink);font-weight:600;margin-top:7px">Move to the full library for
+          the difference.</p>
+        <code id="thx-upgcode"></code>
+        <p style="font-size:13.5px;color:var(--body);margin-top:10px;line-height:1.6" id="thx-upgnote">
+          Worth what you just paid, valid 90 days. Paste it in the promotion code field at checkout on the
+          <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Full%20library&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date.">full library</a>.</p>
+      </div>
+
+      <div class="note licence" id="agency-note" hidden>
+        <b>Agency licence.</b> Use these files on any client portal and hand them to clients: the PDFs and
+        Markdown in this pack carry no branding. Request-a-spec: 3 a year,
+        10 working days, write to
+        <a href="mailto:hello@theworkflowlibrary.com?subject=Request%20a%20spec">hello@theworkflowlibrary.com</a>.
+      </div>
+
+      <h2 style="font-size:20px;margin-top:34px">What is in the zip</h2>
+      <div class="dl">
+        <div class="row"><b>One folder per spec</b><span class="why">PDF and Markdown, with the YAML build spec
+          at the end.</span></div>
+        <div class="row"><b>properties/</b><span class="why">JSON bodies to create the custom properties a spec
+          needs in one API call, plus the installer script.</span></div>
+        <div class="row"><b>code/</b><span class="why">Ready-to-paste custom coded actions, where a spec uses
+          one.</span></div>
+        <div class="row"><b>workflows/</b><span class="why">The workflow itself in Automation API v4 format,
+          switched off, with tokens for the ids that only exist in your portal.</span></div>
+        <div class="row"><b>README.md</b><span class="why">Licence, support address, how updates work.</span></div>
+      </div>
+
+      <p class="lost">Lost your link? Write to <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a> from your purchase address
+        and we send it again. There is no account and no password to recover.</p>
+    </div>
+
+    <div>
+      <div class="panel">
+        <div class="ph">Order summary</div>
+        <div class="sheet" id="thx-order">
+          <div class="r"><span class="k">Product</span><span class="v" id="o-product">Checking</span></div>
+          <div class="r"><span class="k">Includes</span><span class="v" id="o-desc"></span></div>
+          <div class="r"><span class="k">Charged</span><span class="v" id="o-amount"></span></div>
+          <div class="r"><span class="k">Receipt to</span><span class="v" id="o-email"></span></div>
+          <div class="r"><span class="k">Refund</span><span class="v">30 days, no questions</span></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <div class="ph">Next</div>
+        <div class="sheet">
+          <div class="r"><span class="k">Fridays</span><span class="v">30 new specs</span></div>
+          <div class="r"><span class="k">Catalogue</span><span class="v"><a href="/#shelves">All 500
+            titles</a></span></div>
+          <div class="r"><span class="k">Changelog</span><span class="v"><a href="/changelog.html">What
+            shipped</a></span></div>
+        </div>
+      </div>
+      <p class="freenote" style="margin-top:14px;color:var(--muted);font-size:13px;line-height:1.6">
+        Questions go to <a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a> and get an answer from the person who wrote
+        the spec.</p>
+    </div>
+  </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
 </footer>
+<script>window.TWL={"brand":"The Workflow Library","support":"hello@theworkflowlibrary.com","worker":"https://twl-checkout.theworkflowlibrary.workers.dev","installWorker":"https://twl-install.theworkflowlibrary.workers.dev","hsForm":null};</script>
+<script src="/assets/library.js" defer></script>
+<script src="/assets/thanks.js" defer></script>
 </body>
 </html>

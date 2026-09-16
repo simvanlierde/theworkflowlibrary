@@ -96,8 +96,25 @@
   }
 
   /* --------------------------------------------------------------------- paint */
+  function licenceLabel(l) {
+    if (!l || typeof l !== "object") return l || "";
+    var t = l.tier || "";
+    if (t === "full") return "Full library";
+    if (t === "agency") return "Agency licence";
+    if (t === "category") return "Category pack" + (l.pack ? " (" + l.pack.replace(/-/g, " ") + ")" : "");
+    if (t === "free") return "Free specs";
+    return t;
+  }
   function paint() {
     var s = state || {};
+    if (s.licence && typeof s.licence === "object") {
+      var l = s.licence;
+      s.order = s.order || l.id || "";
+      s.date = s.date || l.order_date || "";
+      if (!s.portals_max && l.portals_allowed && l.portals_allowed !== "unlimited") s.portals_max = Number(l.portals_allowed) || 0;
+      if (s.portals_used == null && l.portals_used != null) s.portals_used = l.portals_used;
+      s.licence = licenceLabel(l);
+    }
     $("licline").innerHTML = s.licence
       ? "<b>" + esc(s.licence) + "</b><span class=\"dot\"></span>order " + esc(s.order || "") +
         '<span class="dot"></span>' + esc(s.date || "") +

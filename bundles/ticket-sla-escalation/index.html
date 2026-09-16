@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SLA escalation workflows for HubSpot tickets: 12 specs | The Workflow Library</title>
+<meta name="description" content="Twelve workflow specs for HubSpot ticket SLA and escalation: first response alerts, a three level ladder, clock pauses, auto close and reopen rules.">
+<link rel="canonical" href="https://theworkflowlibrary.com/bundles/ticket-sla-escalation/">
+<meta property="og:type" content="website"><meta property="og:title" content="SLA escalation workflows for HubSpot tickets: 12 specs | The Workflow Library"><meta property="og:description" content="Twelve workflow specs for HubSpot ticket SLA and escalation: first response alerts, a three level ladder, clock pauses, auto close and reopen rules."><meta property="og:url" content="https://theworkflowlibrary.com/bundles/ticket-sla-escalation/"><meta property="og:image" content="https://theworkflowlibrary.com/og/home.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:var(--amber-tint,#FBF1DC);--bb-amber-ink:var(--amber,#8A5B00);--bb-sans:var(--sans,"Sora",system-ui,sans-serif);font-family:var(--bb-sans);color:var(--bb-ink);max-width:1120px;margin:0 auto;padding:0 24px 60px}
+.bwrap p{margin:0 0 12px;line-height:1.6}.bwrap h2{font-size:1.45rem;margin:34px 0 10px}.bwrap ul{margin:0 0 12px;padding-left:20px}.bwrap li{margin:4px 0}
+.crumbs{font-size:.9rem;color:var(--bb-muted);margin:22px 0 10px}.crumbs a{color:inherit}
+.bhead h1{font-size:clamp(1.7rem,3.4vw,2.5rem);max-width:820px;margin:0 0 12px}
+.answer{font-size:1.15rem;color:var(--bb-body);max-width:760px;margin:0 0 14px}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
+.chip{display:inline-block;font-size:.85rem;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--bb-tint);color:var(--bb-violet)}
+.chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.bgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;align-items:start}
+@media (max-width:900px){.bgrid{grid-template-columns:1fr}}
+.buy{position:sticky;top:20px;border:2px solid var(--bb-violet);border-radius:16px;padding:22px;background:#fff}
+.buy .price{font-family:var(--bb-sans);font-size:2.2rem;font-weight:800;line-height:1}
+.buy .was{color:var(--bb-muted);text-decoration:line-through;font-size:1.05rem;margin-left:8px;font-weight:600}
+.buy .until{font-size:.85rem;color:var(--bb-amber-ink);font-weight:700;margin:6px 0 14px}
+.buy .btn{display:block;text-align:center;margin:0 0 10px}
+.buy ul{margin:14px 0 0;padding-left:18px;font-size:.92rem;color:var(--bb-body)}
+.buy .alt{font-size:.9rem;color:var(--bb-muted);margin-top:12px}
+.comp{margin:28px 0}
+.comp h3{font-size:1.15rem;margin:0 0 4px}
+.comp .what{color:var(--bb-body);margin:0 0 10px}
+.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.spec{display:block;border:1px solid var(--bb-rule);border-radius:12px;padding:12px 14px;color:var(--bb-ink);background:#fff;text-decoration:none}
+.spec:hover{border-color:var(--bb-violet);background:var(--bb-tint)}
+.spec b{display:block;font-size:.98rem;margin-bottom:4px}
+.spec p{margin:0 0 6px;font-size:.88rem;color:var(--bb-body)}
+.spec .row{display:flex;gap:6px;flex-wrap:wrap}
+.spec .row span{font-size:.75rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-tint);color:var(--bb-violet)}
+.spec .row span.free{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.spec .row span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
+.breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 28px}
+.brk{border-left:4px solid var(--bb-violet);background:var(--bb-tint);padding:12px 14px;border-radius:0 10px 10px 0}
+.brk b{display:block;margin-bottom:4px}
+.brk p{margin:0;font-size:.92rem;color:var(--bb-body)}
+.faq details{border-bottom:1px solid var(--bb-rule);padding:12px 0}.faq summary{font-weight:700;cursor:pointer;font-family:var(--bb-sans);font-size:1.02rem}.faq p{margin:10px 0 4px;color:var(--bb-body)}
+.relb{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+.relb a{border:1px solid var(--bb-rule);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--bb-ink);background:#fff}
+.relb a:hover{border-color:var(--bb-violet)}
+.author{margin-top:36px;padding-top:18px;border-top:1px solid var(--bb-rule);font-size:.92rem;color:var(--bb-muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theworkflowlibrary.com/"}, {"@type": "ListItem", "position": 2, "name": "Bundles", "item": "https://theworkflowlibrary.com/bundles/"}, {"@type": "ListItem", "position": 3, "name": "How do I build SLA escalation workflows for HubSpot tickets?", "item": "https://theworkflowlibrary.com/bundles/ticket-sla-escalation/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "How do I build SLA escalation workflows for HubSpot tickets?", "url": "https://theworkflowlibrary.com/bundles/ticket-sla-escalation/", "description": "Twelve workflow specs for HubSpot ticket SLA and escalation: first response alerts, a three level ladder, clock pauses, auto close and reopen rules.", "dateModified": "2026-09-16", "author": {"@type": "Organization", "name": "The Workflow Library"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 12, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Round-robin ticket assignment by team/queue", "url": "https://theworkflowlibrary.com/w/tickets-sla-001.html"}, {"@type": "ListItem", "position": 2, "name": "Ticket priority auto-set from source and keyword match", "url": "https://theworkflowlibrary.com/w/tickets-sla-002.html"}, {"@type": "ListItem", "position": 3, "name": "SLA \"Time to first response\" breach alert to owner and manager", "url": "https://theworkflowlibrary.com/w/tickets-sla-003.html"}, {"@type": "ListItem", "position": 4, "name": "CSAT survey sent automatically when a ticket is closed", "url": "https://theworkflowlibrary.com/w/tickets-sla-004.html"}, {"@type": "ListItem", "position": 5, "name": "Ticket escalation to manager when SLA time-to-close is breached", "url": "https://theworkflowlibrary.com/w/tickets-sla-005.html"}, {"@type": "ListItem", "position": 6, "name": "Auto-reopen ticket when contact replies after closure", "url": "https://theworkflowlibrary.com/w/tickets-sla-007.html"}, {"@type": "ListItem", "position": 7, "name": "Ticket routing by category/product property to a specialized queue", "url": "https://theworkflowlibrary.com/w/tickets-sla-008.html"}, {"@type": "ListItem", "position": 8, "name": "Auto-close inactive tickets after N days without a contact reply", "url": "https://theworkflowlibrary.com/w/tickets-sla-013.html"}, {"@type": "ListItem", "position": 9, "name": "Escalation ladder L1 to L2 to L3 based on elapsed unresolved time", "url": "https://theworkflowlibrary.com/w/tickets-sla-015.html"}, {"@type": "ListItem", "position": 10, "name": "Round-robin routing that respects business hours for SLA timing", "url": "https://theworkflowlibrary.com/w/tickets-sla-017.html"}, {"@type": "ListItem", "position": 11, "name": "SLA clock pause while ticket status is \"Waiting on contact\"", "url": "https://theworkflowlibrary.com/w/tickets-sla-020.html"}, {"@type": "ListItem", "position": 12, "name": "Weekend and holiday SLA suspension using a business hours schedule", "url": "https://theworkflowlibrary.com/w/tickets-sla-037.html"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why does my HubSpot ticket escalation never fire?", "acceptedAnswer": {"@type": "Answer", "text": "Usually because the pipeline has no SLA targets, so the status property the workflow watches never gets a value and nothing ever enrolls. It fails silently, with no error surfaced anywhere. The next most common cause is an escalation contact property left blank on the ticket, which sends the alert nowhere while the workflow still records a successful run."}}, {"@type": "Question", "name": "Can I pause the SLA timer while waiting on the customer?", "acceptedAnswer": {"@type": "Answer", "text": "The pause is native, but it comes from the pipeline stage being mapped to the Waiting on contact status category, not from any workflow. A stage that only looks like waiting on contact by name pauses nothing. The spec in this bundle adds what the native pause does not give you: a timestamp for each waiting round, a counter for tickets that bounce in and out, and a safeguard list for anything idle past thirty days."}}, {"@type": "Question", "name": "Do escalation delays respect business hours and holidays?", "acceptedAnswer": {"@type": "Answer", "text": "Delay actions count calendar time, so a two hour rule on a ticket that breaches at 18:00 fires at 20:00. Native SLA targets do follow the business hours schedule set on the pipeline, and the routing spec restricts enrollment to the same window so the routed timestamp agrees with the clock. Named holidays are the honest gap, and the holiday spec documents the realistic answer, which is often pausing the escalation workflows for the day."}}, {"@type": "Question", "name": "Can I build these on Service Hub Starter?", "acceptedAnswer": {"@type": "Answer", "text": "No. SLA targets and the workflows that read them are Service Hub Professional or higher, and tickets only exist where Service Hub is provisioned. The satisfaction survey spec is tagged Starter for its workflow shape, but the feedback survey tool it sends through is itself Professional and above. Treat Professional as the floor for the whole bundle."}}, {"@type": "Question", "name": "What happens when a customer replies to a closed ticket?", "acceptedAnswer": {"@type": "Answer", "text": "If the pipeline setting that reopens on reply is on, the status changes and the reopen spec takes it from there. It increments a reopen counter, tells the original owner, creates a follow up task, and flags the ticket for review on its third bounce. If that setting is off, the reply sits in the conversation thread while the ticket stays formally closed, so check the setting before building the workflow that reacts to it."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Ticket SLA and escalation bundle", "description": "Twelve workflow specs for HubSpot ticket SLA and escalation: first response alerts, a three level ladder, clock pauses, auto close and reopen rules.", "brand": {"@type": "Brand", "name": "The Workflow Library"}, "url": "https://theworkflowlibrary.com/bundles/ticket-sla-escalation/", "offers": {"@type": "Offer", "price": "69", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "priceValidUntil": "2026-10-31", "url": "https://theworkflowlibrary.com/bundles/ticket-sla-escalation/"}}</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
+</header>
+<main class="bwrap">
+
+<div class="crumbs"><a href="/">Home</a> › <a href="/bundles/">Bundles</a> › How do I build SLA escalation workflows for HubSpot tickets?</div>
+<div class="bhead">
+  <h1>How do I build SLA escalation workflows for HubSpot tickets?</h1>
+  <p class="answer">Three things, in order. Set SLA targets on the ticket pipeline first, because the breach properties stay empty without them and the workflow then enrolls nothing, silently. Then build one alert per target, first response and time to close. Then a ladder that waits two hours and six hours before climbing to a manager and a director. Service Hub Professional or higher. The trap: delays count calendar hours, so an 18:00 breach escalates at 20:00.</p>
+  <div class="meta-row"><span class="chip">12 specs</span><span class="chip tier">Minimum tier: Service Hub Professional</span><span class="chip">About 100 min for the core build</span><span class="chip">Updated 2026-09-16</span></div>
+</div>
+<div class="bgrid">
+<div>
+  <h2>What this bundle builds</h2><p>A service desk that behaves like a service desk. A ticket arrives, it
+lands in the right queue with a priority already on it, somebody is told
+before the first response target is missed and again after, and the
+clock stops while the customer is the one who owes a reply.</p>
+<p>Twelve specs cover that whole arc. Three at intake: rotation by
+queue, priority set from source and subject keywords, and routing by
+product line for teams split across products. One that restricts routing
+to the business hours window, so a ticket arriving at 2 a.m. does not
+make the morning SLA numbers look like a failure nobody caused. Two
+breach alerts, one on time to first response and one on time to close,
+each notifying a named escalation contact stored on the ticket rather
+than guessing who the manager is. A three level ladder for the High and
+Urgent tickets that stay open after a breach. Three specs on stopping
+the clock honestly: the waiting on contact pause with a round counter,
+an auto close for tickets the customer abandoned after a warning, and
+the holiday procedure. Two on what happens after the close: reopen on a
+customer reply, and the satisfaction survey.</p>
+<p>Service Hub Professional or higher, on a pipeline with SLA targets
+already configured.</p>
+
+  <h2>The components, in build order</h2><div class="comp"><h3>Intake: queue, priority, product line</h3><p class="what">Every ticket lands owned and prioritised at creation instead of waiting for someone to read it.</p><div class="specs"><a class="spec" href="/w/tickets-sla-001.html"><b>Round-robin ticket assignment by team/queue</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="free">free, complete</span></div></a><a class="spec" href="/w/tickets-sla-002.html"><b>Ticket priority auto-set from source and keyword match</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span></div></a><div class="spec"><b>Ticket routing by category/product property to a specialized queue</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-09-18</span></div></div></div></div><div class="comp"><h3>Routing that respects the clock</h3><p class="what">Restricts assignment to the business hours window, so an overnight ticket does not wreck the morning numbers.</p><div class="specs"><div class="spec"><b>Round-robin routing that respects business hours for SLA timing</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-10-09</span></div></div></div></div><div class="comp"><h3>Breach alerts, first response then close</h3><p class="what">Two workflows reading the two SLA status properties, each notifying a named escalation contact held on the ticket.</p><div class="specs"><a class="spec" href="/w/tickets-sla-003.html"><b>SLA &quot;Time to first response&quot; breach alert to owner and manager</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span></div></a><a class="spec" href="/w/tickets-sla-005.html"><b>Ticket escalation to manager when SLA time-to-close is breached</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span></div></a></div></div><div class="comp"><h3>The escalation ladder</h3><p class="what">Three levels on a fixed schedule for the High and Urgent tickets that stay open after a breach.</p><div class="specs"><div class="spec"><b>Escalation ladder L1 to L2 to L3 based on elapsed unresolved time</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-10-09</span></div></div></div></div><div class="comp"><h3>Stopping the clock honestly</h3><p class="what">Tracks each waiting on contact round, closes what the customer abandoned, and handles named holidays.</p><div class="specs"><div class="spec"><b>SLA clock pause while ticket status is &quot;Waiting on contact&quot;</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-10-16</span></div></div><div class="spec"><b>Auto-close inactive tickets after N days without a contact reply</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-10-02</span></div></div><div class="spec"><b>Weekend and holiday SLA suspension using a business hours schedule</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-11-27</span></div></div></div></div><div class="comp"><h3>After the close</h3><p class="what">Reopens on a customer reply with a bounce counter, and sends the satisfaction survey once the close looks genuine.</p><div class="specs"><div class="spec"><b>Auto-reopen ticket when contact replies after closure</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-09-18</span></div></div><a class="spec" href="/w/tickets-sla-004.html"><b>CSAT survey sent automatically when a ticket is closed</b><p></p><div class="row"><span class="tier">Service Hub Starter</span><span>ticket</span></div></a></div></div>
+  <h2>How the pieces fit together</h2><p>SLA targets first. That is a pipeline setting, not a workflow. Every
+alert in this bundle branches on a status property that stays empty
+until the targets exist, and a workflow watching an empty property
+enrolls nothing while reporting no error at all. That single ordering
+mistake is the most common reason people believe escalation is broken in
+HubSpot.</p>
+<p>Intake second: the queue property, the priority rules, the product
+line dropdown. Priority matters more than it looks, because SLA targets
+are usually set per priority level and the ladder only runs for High and
+Urgent.</p>
+<p>Then the two breach alerts. Both read the same escalation contact
+property, a HubSpot user field you have to create by hand in settings,
+since the properties API cannot create that type.</p>
+<p>The ladder sits on top of those two, and its first step is
+deliberately skippable so a portal running the first response alert does
+not send two level one notifications for the same breach. Pause, auto
+close and reopen run alongside and depend only on the status
+categories.</p>
+
+  <h2>What breaks, and how the specs prevent it</h2><div class="breaks"><div class="brk"><b>The escalation that enrolls nobody</b><p>Every alert here branches on First response SLA status or Time to close SLA status. Those properties stay empty until SLA targets are configured on the pipeline, so a workflow built first simply never enrolls anything and never throws an error. The same silent failure happens when the escalation contact field is blank: the workflow history reads as a success while the notification went to nobody.</p></div><div class="brk"><b>Delays count calendar hours, not business hours</b><p>The two hour and six hour steps in the ladder are plain elapsed time. A ticket that breaches at 18:00 escalates at 20:00, and a Friday evening breach climbs to a director over the weekend. Native SLA targets do follow the pipeline business hours schedule, which is why the routing spec restricts its own enrollment window to match. Named holidays are still a gap.</p></div><div class="brk"><b>Only a connected inbox stops the first response clock</b><p>The SLA status property updates on HubSpot&#x27;s definition of a first response, which means the first outbound reply logged through the connected channel. A reply sent from a personal mailbox, or an internal note on the ticket, does not count and the clock keeps running. The rep gets a breach alert for a ticket they answered an hour ago.</p></div></div>
+  <h2>What you get</h2><ul>
+<li>12 specs, from a 25 minute priority rule to a 45 minute three level
+ladder</li>
+<li>Each spec ships as PDF and Markdown</li>
+<li>Properties JSON: 16 ticket properties, including the two HubSpot
+user fields that have to be created in settings rather than through the
+API</li>
+<li>Workflow JSON in Automation API format, switched off on import</li>
+<li>Custom coded actions: none. Every spec is native Service Hub
+Professional</li>
+<li>A test plan per spec, with the records to create and the history tab
+to check</li>
+<li>Variants per spec, including wait until versions of the delay based
+escalations</li>
+<li>One click install for Full and Agency buyers</li>
+</ul>
+
+  <h2>Who it is for, and who should skip it</h2><p>For whoever owns the service pipeline in one portal and has been
+asked, in a meeting, why a ticket sat for two days. Also for an agency
+standing up a support desk on a new portal, since intake and breach
+alerts are the same four workflows every time, with the queue names
+changed.</p>
+<p>Skip it if your pipeline has no SLA targets and nobody is going to
+configure them, because half the bundle has nothing to read. Skip the
+business hours and holiday specs if you run support around the clock.
+And if tickets are one of several problems rather than the loud one, the
+full library works out cheaper per spec.</p>
+
+  <h2>Questions admins ask</h2><div class="faq"><details><summary>Why does my HubSpot ticket escalation never fire?</summary><p>Usually because the pipeline has no SLA targets, so the status property the workflow watches never gets a value and nothing ever enrolls. It fails silently, with no error surfaced anywhere. The next most common cause is an escalation contact property left blank on the ticket, which sends the alert nowhere while the workflow still records a successful run.</p></details><details><summary>Can I pause the SLA timer while waiting on the customer?</summary><p>The pause is native, but it comes from the pipeline stage being mapped to the Waiting on contact status category, not from any workflow. A stage that only looks like waiting on contact by name pauses nothing. The spec in this bundle adds what the native pause does not give you: a timestamp for each waiting round, a counter for tickets that bounce in and out, and a safeguard list for anything idle past thirty days.</p></details><details><summary>Do escalation delays respect business hours and holidays?</summary><p>Delay actions count calendar time, so a two hour rule on a ticket that breaches at 18:00 fires at 20:00. Native SLA targets do follow the business hours schedule set on the pipeline, and the routing spec restricts enrollment to the same window so the routed timestamp agrees with the clock. Named holidays are the honest gap, and the holiday spec documents the realistic answer, which is often pausing the escalation workflows for the day.</p></details><details><summary>Can I build these on Service Hub Starter?</summary><p>No. SLA targets and the workflows that read them are Service Hub Professional or higher, and tickets only exist where Service Hub is provisioned. The satisfaction survey spec is tagged Starter for its workflow shape, but the feedback survey tool it sends through is itself Professional and above. Treat Professional as the floor for the whole bundle.</p></details><details><summary>What happens when a customer replies to a closed ticket?</summary><p>If the pipeline setting that reopens on reply is on, the status changes and the reopen spec takes it from there. It increments a reopen counter, tells the original owner, creates a follow up task, and flags the ticket for review on its third bounce. If that setting is off, the reply sits in the conversation thread while the ticket stays formally closed, so check the setting before building the workflow that reacts to it.</p></details></div>
+  <h2>Related</h2><div class="relb"><a href="/bundles/round-robin-lead-routing/">How do I set up round robin lead assignment in HubSpot?</a><a href="/bundles/no-ops-hub-needed/">Which HubSpot workflows can I build without Operations Hub Professional?</a><a href="/bundles/ops-hub-power-pack/">What can custom coded actions do in HubSpot workflows?</a><a href="/#library?cat=tickets-sla">Tickets and SLA category</a></div>
+  <div class="author">Built by a collective of independent HubSpot consultants, ten years of implementations behind them. Searched as: hubspot ticket sla workflow, hubspot first response sla alert, hubspot pause sla timer, hubspot ticket escalation workflow, hubspot auto close inactive tickets. HubSpot calls it: Time to first response, Time to close, Waiting on contact, Rotate record to owner, Wait until event. Version 2026-09-16.</div>
+</div>
+<aside class="buy">
+  <div class="chip">12 specs</div>
+  <div class="price" style="margin-top:10px">69 EUR<span class="was">89</span></div>
+  <div class="until">Founding price until 31 October 2026, then 89 EUR</div>
+  <a class="btn pri" href="/#pricing" data-cta="bundle-buy">Get this bundle</a>
+  <a class="btn" href="/#pricing">Or the full library, 149 EUR</a>
+  <ul>
+    <li>PDF and Markdown for every spec, with the YAML build spec</li>
+    <li>Properties JSON to create the fields in one API call</li>
+    <li>Workflow JSON (Automation API format), switched off, plus custom code where a spec uses it</li>
+    <li>Test plan and known pitfalls in every spec</li>
+    <li>Updates included as specs complete every Friday</li>
+    <li>30-day refund, no questions asked. Prices exclude VAT, calculated at checkout</li>
+  </ul>
+  <p class="alt">One company, its own portals. Building on client portals? <a href="/#pricing">The Agency licence</a> includes every bundle.</p>
+  <p class="alt">Read one first: <a href="/w/tickets-sla-001.html">Round-robin ticket assignment by team/queue</a> is free and complete.</p>
+</aside>
+</div>
+</main>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+</body>
+</html>

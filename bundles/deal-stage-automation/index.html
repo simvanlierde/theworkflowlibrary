@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal stage automation in HubSpot: 9 workflow specs | The Workflow Library</title>
+<meta name="description" content="There is no next stage action in HubSpot. Nine specs that set the stage, time it, track it and catch the deals that skip or move backward.">
+<link rel="canonical" href="https://theworkflowlibrary.com/bundles/deal-stage-automation/">
+<meta property="og:type" content="website"><meta property="og:title" content="Deal stage automation in HubSpot: 9 workflow specs | The Workflow Library"><meta property="og:description" content="There is no next stage action in HubSpot. Nine specs that set the stage, time it, track it and catch the deals that skip or move backward."><meta property="og:url" content="https://theworkflowlibrary.com/bundles/deal-stage-automation/"><meta property="og:image" content="https://theworkflowlibrary.com/og/home.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:var(--amber-tint,#FBF1DC);--bb-amber-ink:var(--amber,#8A5B00);--bb-sans:var(--sans,"Sora",system-ui,sans-serif);font-family:var(--bb-sans);color:var(--bb-ink);max-width:1120px;margin:0 auto;padding:0 24px 60px}
+.bwrap p{margin:0 0 12px;line-height:1.6}.bwrap h2{font-size:1.45rem;margin:34px 0 10px}.bwrap ul{margin:0 0 12px;padding-left:20px}.bwrap li{margin:4px 0}
+.crumbs{font-size:.9rem;color:var(--bb-muted);margin:22px 0 10px}.crumbs a{color:inherit}
+.bhead h1{font-size:clamp(1.7rem,3.4vw,2.5rem);max-width:820px;margin:0 0 12px}
+.answer{font-size:1.15rem;color:var(--bb-body);max-width:760px;margin:0 0 14px}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
+.chip{display:inline-block;font-size:.85rem;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--bb-tint);color:var(--bb-violet)}
+.chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.bgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;align-items:start}
+@media (max-width:900px){.bgrid{grid-template-columns:1fr}}
+.buy{position:sticky;top:20px;border:2px solid var(--bb-violet);border-radius:16px;padding:22px;background:#fff}
+.buy .price{font-family:var(--bb-sans);font-size:2.2rem;font-weight:800;line-height:1}
+.buy .was{color:var(--bb-muted);text-decoration:line-through;font-size:1.05rem;margin-left:8px;font-weight:600}
+.buy .until{font-size:.85rem;color:var(--bb-amber-ink);font-weight:700;margin:6px 0 14px}
+.buy .btn{display:block;text-align:center;margin:0 0 10px}
+.buy ul{margin:14px 0 0;padding-left:18px;font-size:.92rem;color:var(--bb-body)}
+.buy .alt{font-size:.9rem;color:var(--bb-muted);margin-top:12px}
+.comp{margin:28px 0}
+.comp h3{font-size:1.15rem;margin:0 0 4px}
+.comp .what{color:var(--bb-body);margin:0 0 10px}
+.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.spec{display:block;border:1px solid var(--bb-rule);border-radius:12px;padding:12px 14px;color:var(--bb-ink);background:#fff;text-decoration:none}
+.spec:hover{border-color:var(--bb-violet);background:var(--bb-tint)}
+.spec b{display:block;font-size:.98rem;margin-bottom:4px}
+.spec p{margin:0 0 6px;font-size:.88rem;color:var(--bb-body)}
+.spec .row{display:flex;gap:6px;flex-wrap:wrap}
+.spec .row span{font-size:.75rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-tint);color:var(--bb-violet)}
+.spec .row span.free{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.spec .row span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
+.breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 28px}
+.brk{border-left:4px solid var(--bb-violet);background:var(--bb-tint);padding:12px 14px;border-radius:0 10px 10px 0}
+.brk b{display:block;margin-bottom:4px}
+.brk p{margin:0;font-size:.92rem;color:var(--bb-body)}
+.faq details{border-bottom:1px solid var(--bb-rule);padding:12px 0}.faq summary{font-weight:700;cursor:pointer;font-family:var(--bb-sans);font-size:1.02rem}.faq p{margin:10px 0 4px;color:var(--bb-body)}
+.relb{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+.relb a{border:1px solid var(--bb-rule);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--bb-ink);background:#fff}
+.relb a:hover{border-color:var(--bb-violet)}
+.author{margin-top:36px;padding-top:18px;border-top:1px solid var(--bb-rule);font-size:.92rem;color:var(--bb-muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theworkflowlibrary.com/"}, {"@type": "ListItem", "position": 2, "name": "Bundles", "item": "https://theworkflowlibrary.com/bundles/"}, {"@type": "ListItem", "position": 3, "name": "How do I move a deal to the next stage automatically in HubSpot?", "item": "https://theworkflowlibrary.com/bundles/deal-stage-automation/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "How do I move a deal to the next stage automatically in HubSpot?", "url": "https://theworkflowlibrary.com/bundles/deal-stage-automation/", "description": "There is no next stage action in HubSpot. Nine specs that set the stage, time it, track it and catch the deals that skip or move backward.", "dateModified": "2026-09-16", "author": {"@type": "Organization", "name": "The Workflow Library"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 9, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Task creation when a deal enters a pipeline stage", "url": "https://theworkflowlibrary.com/w/deal-hygiene-002.html"}, {"@type": "ListItem", "position": 2, "name": "Generate a playbook checklist of tasks automatically when a deal enters a new stage", "url": "https://theworkflowlibrary.com/w/sales-ops-040.html"}, {"@type": "ListItem", "position": 3, "name": "Wait until deal stage advances (14-day expiry), else nudge owner", "url": "https://theworkflowlibrary.com/w/deal-hygiene-006.html"}, {"@type": "ListItem", "position": 4, "name": "Stale deal alert: no activity in 14 days", "url": "https://theworkflowlibrary.com/w/deal-hygiene-001.html"}, {"@type": "ListItem", "position": 5, "name": "Days-in-current-stage property tracker", "url": "https://theworkflowlibrary.com/w/deal-hygiene-021.html"}, {"@type": "ListItem", "position": 6, "name": "Deal stage regression alert (moved backward)", "url": "https://theworkflowlibrary.com/w/deal-hygiene-020.html"}, {"@type": "ListItem", "position": 7, "name": "Stage-skip detection (deal jumped stages)", "url": "https://theworkflowlibrary.com/w/deal-hygiene-032.html"}, {"@type": "ListItem", "position": 8, "name": "Deal probability auto-set by stage (weighted forecast)", "url": "https://theworkflowlibrary.com/w/deal-hygiene-011.html"}, {"@type": "ListItem", "position": 9, "name": "Require and capture win/loss reason on Closed Lost", "url": "https://theworkflowlibrary.com/w/deal-hygiene-004.html"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can a workflow move a deal to the next stage when a task is completed?", "acceptedAnswer": {"@type": "Answer", "text": "Not with the nine specs on this page. They create tasks, they do not read task completion, and that gap is the single most asked version of this question. Two specs are being written for it, one for a single task and one for a full task set, and they will be added here when they are done. Until then the honest answer is that this collection times the stage move or nudges the owner, it does not consume a completed task."}}, {"@type": "Question", "name": "How do I move a deal automatically after a set number of days in a stage?", "acceptedAnswer": {"@type": "Answer", "text": "Use the wait until event pattern. The workflow waits for the deal stage to stop being the target stage and expires after 14 days. If the deal advances first, the workflow exits and nobody is bothered. If the expiry hits, it sets a guard property, creates a task and notifies the owner, then waits another 7 days before escalating. A fixed delay plus a re-check branch does the same job if your editor does not expose the wait."}}, {"@type": "Question", "name": "Why does my deal sit in a delay and never come out?", "acceptedAnswer": {"@type": "Answer", "text": "An event-based wait only watches the exact property named in its condition. If the deal is deleted or merged while it waits, the instance ends silently with no notification. A deal that leaves the stage and comes back restarts the wait from zero, which hides deals that are genuinely stuck across several short visits. Check the History tab rather than assuming the delay is still counting."}}, {"@type": "Question", "name": "Can I stop a rep from marking a deal Closed Lost without a reason?", "acceptedAnswer": {"@type": "Answer", "text": "Not with a workflow. A workflow is reactive: it notices the blank field after the stage already changed, then chases it with a notification, a task and a manager escalation one business day later. The preventive control is the native required property rule on the stage itself, set in the pipeline editor. Use both, the rule to block and the workflow to chase what slips through."}}, {"@type": "Question", "name": "Can I get a weighted forecast amount from these workflows?", "acceptedAnswer": {"@type": "Answer", "text": "No. Multiplying amount by probability is arithmetic between two properties, and workflow actions do not do that. You get the probability written onto the deal by stage, which feeds a report. For a true weighted amount, use the native Forecast tool, which already computes it at pipeline level, or a calculated property on Operations Hub."}}]}</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
+</header>
+<main class="bwrap">
+
+<div class="crumbs"><a href="/">Home</a> › <a href="/bundles/">Bundles</a> › How do I move a deal to the next stage automatically in HubSpot?</div>
+<div class="bhead">
+  <h1>How do I move a deal to the next stage automatically in HubSpot?</h1>
+  <p class="answer">HubSpot has no advance to the next stage action. A workflow writes the stage with Set property value, so you decide the trigger yourself: a property change, a form submission, or a wait until event with an expiry. Sales Hub Professional covers all nine specs here. Budget 25 to 30 minutes for the first one. The trap is renaming a stage later, which breaks the branch silently and stops the automation without an error.</p>
+  <div class="meta-row"><span class="chip">9 specs</span><span class="chip tier">Minimum tier: Sales Hub Professional</span><span class="chip">About 85 min for the core build</span><span class="chip">Updated 2026-09-16</span></div>
+</div>
+<div class="bgrid">
+<div>
+  <h2>What this bundle builds</h2><p>Nine specs for the pipeline where deals move because someone
+remembered, not because the process moved them. The starting point is an
+honest one: HubSpot has no action called advance to the next stage. What
+you get is Set property value on Deal stage, and the whole job is
+deciding what should fire it and what should happen around it.</p>
+<p>So the collection covers the four things teams actually ask for under
+the same question. Tasks that appear when a deal enters a stage, so a
+rep knows what this stage means. A timer that notices when the deal has
+not moved, with a nudge to the owner and an escalation to a manager.
+Properties that record how long the deal has been where it is, whether
+it went backward, and whether it skipped stages the reporting assumes it
+passed through. And the data the stage is supposed to capture: a
+probability for the forecast, a loss reason on Closed Lost.</p>
+<p>It fits an in-house sales operations owner on Sales Hub Professional,
+and an agency rebuilding pipeline hygiene on a new portal. No custom
+code, no Operations Hub, no extra hub.</p>
+
+  <h2>The components, in build order</h2><div class="comp"><h3>The stage change as a trigger</h3><p class="what">A deal entering a stage fires the tasks and the checklist that stage is supposed to produce.</p><div class="specs"><a class="spec" href="/w/deal-hygiene-002.html"><b>Task creation when a deal enters a pipeline stage</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span></div></a><div class="spec"><b>Generate a playbook checklist of tasks automatically when a deal enters a new stage</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-12-04</span></div></div></div></div><div class="comp"><h3>Moving the deal on time, or nudging whoever should</h3><p class="what">An event-based wait with a 14 day expiry, plus the activity-based alert for deals nobody touched.</p><div class="specs"><div class="spec"><b>Wait until deal stage advances (14-day expiry), else nudge owner</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-09-18</span></div></div><a class="spec" href="/w/deal-hygiene-001.html"><b>Stale deal alert: no activity in 14 days</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="free">free, complete</span></div></a></div></div><div class="comp"><h3>Knowing how long, and in which direction</h3><p class="what">One date property per deal for time in the current stage, plus regression and stage-skip detection.</p><div class="specs"><div class="spec"><b>Days-in-current-stage property tracker</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-10-23</span></div></div><div class="spec"><b>Deal stage regression alert (moved backward)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-10-16</span></div></div><div class="spec"><b>Stage-skip detection (deal jumped stages)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-11-13</span></div></div></div></div><div class="comp"><h3>What the stage writes on the deal</h3><p class="what">Probability by stage for the forecast, and a loss reason that does not stay blank on Closed Lost.</p><div class="specs"><div class="spec"><b>Deal probability auto-set by stage (weighted forecast)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-09-25</span></div></div><a class="spec" href="/w/deal-hygiene-004.html"><b>Require and capture win/loss reason on Closed Lost</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span></div></a></div></div>
+  <h2>How the pieces fit together</h2><p>Build the stage-entry tasks first. They are the cheapest to show a
+sales manager, and the conversation about what task belongs to which
+stage is 80 percent of the real work. The checklist spec extends the
+same branch structure once the single-task version is agreed.</p>
+<p>The timers come second, and they depend on nothing but the stage
+itself. Each one needs its own guard property, a checkbox that stops a
+second nudge firing on the same visit to the stage.</p>
+<p>The tracking specs come third because two of them share a number.
+Stage Order, the numeric stand-in for stage position, is written by the
+probability mapping and read by the regression check. The stage-skip
+spec uses the same documented stage order, in the text-snapshot form.
+Build the probability mapping before the regression alert or you will
+write the same stage list twice.</p>
+<p>The loss reason spec is independent and can go in at any point.</p>
+
+  <h2>What breaks, and how the specs prevent it</h2><div class="breaks"><div class="brk"><b>Renaming a stage breaks every branch that names it</b><p>Branch conditions hold the stage you picked when you built the workflow. Rename that stage in Settings and the condition stops matching, with no error and no warning. The deal simply falls through, the task never appears, and nobody notices until someone asks why the checklist stopped. Deleting a stage leaves the same dangling condition behind.</p></div><div class="brk"><b>Workflows cannot rank stages or subtract numbers</b><p>A branch compares a property to a value or to another property. It cannot tell that Negotiation sits after Demo, and it cannot compute a difference. That is why three of these specs maintain a Stage Order number and a snapshot property: direction of movement is detected by comparing two numbers you wrote yourself, and every valid skip pair has to be enumerated as its own branch.</p></div><div class="brk"><b>The previous stage task stays open forever</b><p>There is no native action that completes the task from the stage a deal just left. It sits open in the rep queue until someone closes it by hand. Worse, re-enrollment on stage change means a deal that bounces back and forward regenerates the same checklist, with no dedupe against the task still open from last time.</p></div></div>
+  <h2>What you get</h2><ul>
+<li>9 specs, each with outcome, prerequisites, enrollment, steps, known
+pitfalls, a test plan and variants</li>
+<li>Each spec ships as PDF and Markdown</li>
+<li>Properties JSON, 13 properties on the deal object, including the
+guard checkboxes and the snapshot fields</li>
+<li>Workflow JSON for all 9, in Automation API format, switched off on
+import</li>
+<li>No custom coded actions in this collection, everything runs on
+native workflow actions</li>
+<li>A test plan per spec, including the backward stage move that proves
+the regression branch fires</li>
+<li>Install in one click for Full and Agency buyers</li>
+</ul>
+
+  <h2>Who it is for, and who should skip it</h2><p>This is for the person who owns the pipeline on Sales Hub
+Professional and is tired of pipeline review being an archaeology
+exercise. The stage-entry tasks and the stale deal alert pay for
+themselves in the first week.</p>
+<p>Skip it if your pipeline has three stages and a small team, since a
+checklist workflow adds overhead where there is no process to hold. Skip
+it too if what you really need is the deal to advance when a task gets
+ticked. Those two specs are not written yet and this page will not
+pretend otherwise. If you want the same discipline on tickets rather
+than deals, the SLA and escalation bundle is the closer fit.</p>
+
+  <h2>Questions admins ask</h2><div class="faq"><details><summary>Can a workflow move a deal to the next stage when a task is completed?</summary><p>Not with the nine specs on this page. They create tasks, they do not read task completion, and that gap is the single most asked version of this question. Two specs are being written for it, one for a single task and one for a full task set, and they will be added here when they are done. Until then the honest answer is that this collection times the stage move or nudges the owner, it does not consume a completed task.</p></details><details><summary>How do I move a deal automatically after a set number of days in a stage?</summary><p>Use the wait until event pattern. The workflow waits for the deal stage to stop being the target stage and expires after 14 days. If the deal advances first, the workflow exits and nobody is bothered. If the expiry hits, it sets a guard property, creates a task and notifies the owner, then waits another 7 days before escalating. A fixed delay plus a re-check branch does the same job if your editor does not expose the wait.</p></details><details><summary>Why does my deal sit in a delay and never come out?</summary><p>An event-based wait only watches the exact property named in its condition. If the deal is deleted or merged while it waits, the instance ends silently with no notification. A deal that leaves the stage and comes back restarts the wait from zero, which hides deals that are genuinely stuck across several short visits. Check the History tab rather than assuming the delay is still counting.</p></details><details><summary>Can I stop a rep from marking a deal Closed Lost without a reason?</summary><p>Not with a workflow. A workflow is reactive: it notices the blank field after the stage already changed, then chases it with a notification, a task and a manager escalation one business day later. The preventive control is the native required property rule on the stage itself, set in the pipeline editor. Use both, the rule to block and the workflow to chase what slips through.</p></details><details><summary>Can I get a weighted forecast amount from these workflows?</summary><p>No. Multiplying amount by probability is arithmetic between two properties, and workflow actions do not do that. You get the probability written onto the deal by stage, which feeds a report. For a true weighted amount, use the native Forecast tool, which already computes it at pipeline level, or a calculated property on Operations Hub.</p></details></div>
+  <h2>Related</h2><div class="relb"><a href="/bundles/slack-and-notifications/">How do I send Slack notifications from HubSpot workflows?</a><a href="/bundles/ticket-sla-escalation/">How do I build SLA escalation workflows for HubSpot tickets?</a><a href="/bundles/ops-hub-power-pack/">What can custom coded actions do in HubSpot workflows?</a><a href="/#library?cat=deal-hygiene">Deal hygiene category</a><a href="/#library?cat=sales-ops">Sales ops category</a></div>
+  <div class="author">Built by a collective of independent HubSpot consultants, ten years of implementations behind them. Searched as: hubspot deal stage automation workflow, move deal to next stage automatically, hubspot stale deal alert, hubspot closed lost reason required. HubSpot calls it: Set property value, Deal stage, Wait until event happens, Pipeline automation. Version 2026-09-16.</div>
+</div>
+<aside class="buy">
+  <div class="chip">9 specs in this collection</div>
+  <div class="price" style="margin-top:10px">149 EUR</div>
+  <div class="until">The full library, all 500 specs, founding price until 31 October 2026</div>
+  <a class="btn pri" href="/#pricing" data-cta="bundle-full">Get the full library</a>
+  <ul>
+    <li>These 9 specs and 490 more, every file format</li>
+    <li>Properties JSON, workflow JSON, custom code, test plans</li>
+    <li>30-day refund. Prices exclude VAT</li>
+  </ul>
+  <p class="alt">Read one first: <a href="/w/deal-hygiene-001.html">Stale deal alert: no activity in 14 days</a> is free and complete.</p>
+</aside>
+</div>
+</main>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+</body>
+</html>

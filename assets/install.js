@@ -261,7 +261,16 @@
   function boot() {
     if (DEMO) {
       $("demobar").hidden = false;
-      FIXTURE.portal = { name: "Demo portal", tier: "Sales Hub Professional", hub_id: "00000000", tiers: { sales: "professional", marketing: "professional" } };
+      FIXTURE.portal = { name: "Demo portal", tier: "Sales Hub Professional", hub_id: "00000000",
+        tiers: { sales: "professional", marketing: "professional" },
+        // two already in the portal, so the demo shows the badge and the duplicate warning too
+        installed: [SPECS[0] && SPECS[0][0], SPECS[2] && SPECS[2][0]].filter(Boolean),
+        installed_on: (function () {
+          var o = {};
+          if (SPECS[0]) o[SPECS[0][0]] = "2026-09-12";
+          if (SPECS[2]) o[SPECS[2][0]] = "2026-09-15";
+          return o;
+        })() };
       Array.prototype.slice.call(document.querySelectorAll(".pickrow input"), 0, 6)
         .forEach(function (i) { i.checked = true; });
       setState(FIXTURE);

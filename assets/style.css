@@ -802,6 +802,8 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   background:var(--amber-tint);border:1px dashed var(--amber-rule);border-radius:var(--r);
   padding:11px 14px;font-size:13px;color:#4B4534}
 .demobar b{color:var(--ink)}
+.rescard .cav{margin:8px 0 0;padding-left:18px;font-size:13px;line-height:1.5;color:var(--ink-3,#55506a)}
+.rescard .cav li{margin:3px 0}
 .pnl.off{opacity:.55}
 .pnl.off .pb,.pnl.off .pf{pointer-events:none}
 .spin{display:inline-block;width:13px;height:13px;border-radius:50%;border:2px solid var(--violet-rule);

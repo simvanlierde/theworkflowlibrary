@@ -292,20 +292,63 @@
     if (!W || !token) return;
     $("runbtn").disabled = true;
     note("p3note", "Creating properties and workflows", true);
+    // The Worker answers in NDJSON: one line per spec as it lands, then a "done" line with the totals. Reading
+    // it as one JSON object never parsed (17/09/2026), so nothing ever appeared. Read the stream line by line
+    // and report progress as each spec arrives.
+    results = {};
+    var totals = null, done = 0;
     fetch(W + "/install/run", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ t: token, s: sid, specs: ids })
-    }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) {
-        results = {};
-        (d.results || []).forEach(function (r) { results[r.id] = r; });
-        finish(ids, d.totals);
-      })
-      .catch(function () {
-        $("runbtn").disabled = false;
-        note("p3note", "The install did not complete. Nothing is switched on in your portal. Try again, or write to " + (T.support || "us") + ".");
-      });
+    }).then(function (r) {
+      if (!r.ok) {
+        return r.json().catch(function () { return {}; }).then(function (d) {
+          throw new Error(d.message || "HTTP " + r.status);
+        });
+      }
+      if (!r.body || !r.body.getReader) {
+        // No streaming in this browser: read it whole, then split.
+        return r.text().then(function (t) { t.split("\n").forEach(handleLine); });
+      }
+      var reader = r.body.getReader(), dec = new TextDecoder(), buf = "";
+      return (function pump() {
+        return reader.read().then(function (chunk) {
+          if (chunk.done) { buf.split("\n").forEach(handleLine); return; }
+          buf += dec.decode(chunk.value, { stream: true });
+          var parts = buf.split("\n");
+          buf = parts.pop();
+          parts.forEach(handleLine);
+          return pump();
+        });
+      })();
+    }).then(function () {
+      if (!totals && !Object.keys(results).length) throw new Error("empty answer");
+      finish(ids, totals || {});
+    }).catch(function (e) {
+      $("runbtn").disabled = false;
+      note("p3note", "The install stopped: " + esc(e && e.message ? e.message : "unknown error") +
+        ". Nothing is switched on in your portal. Anything already created stays, and running it again skips it.");
+    });
+
+    function handleLine(raw) {
+      var t = String(raw || "").trim();
+      if (!t) return;
+      var d;
+      try { d = JSON.parse(t); } catch (e) { return; }
+      if (d.event === "start") {
+        note("p3note", "Creating properties and workflows in " + esc(d.portal || "your portal"), true);
+        return;
+      }
+      if (d.event === "done") { totals = d.totals || {}; return; }
+      if (d.event) return;
+      if (d.id) {
+        results[d.id] = d;
+        done += 1;
+        note("p3note", done + " of " + ids.length + " done, latest: " + esc(d.title || d.id), done < ids.length);
+        paintReview();
+      }
+    }
   }
 
   function finish(ids, totals) {
@@ -315,27 +358,44 @@
     var line = "<b>" + ids.length + "</b> " + (ids.length === 1 ? "spec" : "specs") +
       ' installed<span class="dot"></span>every workflow switched off';
     if (totals && typeof totals.properties === "number") {
+      // The Worker's own field names: ok, error, skipped, properties, lists, manual_steps.
+      var wf = totals.workflows != null ? totals.workflows : (totals.ok != null ? totals.ok : ids.length);
+      var man = totals.manual_steps != null ? totals.manual_steps : (totals.manual || 0);
       line = "<b>" + totals.properties + "</b> " +
         (totals.properties === 1 ? "property" : "properties") + ' created<span class="dot"></span><b>' +
-        (totals.workflows != null ? totals.workflows : ids.length) + "</b> " +
-        ((totals.workflows === 1 || ids.length === 1) ? "workflow" : "workflows") +
-        ' created, every one switched off<span class="dot"></span><b>' + (totals.manual || 0) + "</b> " +
-        (totals.manual === 1 ? "step" : "steps") + " left for you, listed in a task per spec";
+        wf + "</b> " + (wf === 1 ? "workflow" : "workflows") +
+        ' created, every one switched off<span class="dot"></span><b>' + man + "</b> " +
+        (man === 1 ? "step" : "steps") + " left for you, listed in a task per spec";
+      if (totals.error) line += '<span class="dot"></span><b>' + totals.error + "</b> could not be installed";
+      if (totals.skipped) line += '<span class="dot"></span><b>' + totals.skipped + "</b> skipped";
     }
     if (DEMO) line += '<span class="dot"></span>demo figures';
     $("totline").innerHTML = line;
     $("totline").hidden = false;
     $("results").innerHTML = ids.map(function (id) {
       var s = byId[id], r = results[id] || {};
-      var task = (r.manual && r.manual.length)
-        ? '<div class="task"><p class="th"><span>Task created: finish these ' + r.manual.length + ' steps</span></p><ol>' +
-          r.manual.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + "</ol></div>"
+      // The Worker names these manual_steps_list, link, caveats, and says status ok, skipped or error.
+      var steps = r.manual_steps_list || r.manual || [];
+      if (r.extra_manual_steps && r.extra_manual_steps.length) steps = steps.concat(r.extra_manual_steps);
+      var task = steps.length
+        ? '<div class="task"><p class="th"><span>Task created: finish ' +
+          (steps.length === 1 ? "this step" : "these " + steps.length + " steps") + '</span></p><ol>' +
+          steps.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("") + "</ol></div>"
         : '<p class="nothing">Anything the installer could not create is listed in a task next to the workflow ' +
           'in the portal.</p>';
-      var open = r.url ? '<a class="btn sm" href="' + esc(r.url) + '" rel="noopener" target="_blank">Open it</a>' : "";
+      var url = r.link || r.url || "";
+      var open = url ? '<a class="btn sm" href="' + esc(url) + '" rel="noopener" target="_blank">Open it</a>' : "";
+      var bad = r.status && r.status !== "ok";
+      var head = bad
+        ? '<p class="wf">' + esc(r.status === "skipped" ? "Skipped" : "Not installed") + ". " +
+          esc(r.error || "") + "</p>"
+        : '<p class="wf">' + esc(T.brand + ": " + s[1]) + " &#183; " + esc(s[3].toLowerCase()) +
+          " workflow &#183; switched off</p>";
+      var notes = (r.caveats && r.caveats.length)
+        ? '<ul class="cav">' + r.caveats.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("") + "</ul>"
+        : "";
       return '<div class="rescard"><div class="top"><b>' + esc(s[1]) + '</b><span class="sp"></span>' + open +
-        '</div><p class="wf">' + esc(T.brand + ": " + s[1]) + " &#183; " + esc(s[3].toLowerCase()) +
-        " workflow &#183; switched off</p>" + task + "</div>";
+        "</div>" + head + (bad ? "" : task + notes) + "</div>";
     }).join("");
     $("resultwrap").hidden = false;
     $("step3st").textContent = "Done";

@@ -15,45 +15,60 @@
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <style>
-.bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:var(--amber-tint,#FBF1DC);--bb-amber-ink:var(--amber,#8A5B00);--bb-sans:var(--sans,"Sora",system-ui,sans-serif);font-family:var(--bb-sans);color:var(--bb-ink);max-width:1120px;margin:0 auto;padding:0 24px 60px}
-.bwrap p{margin:0 0 12px;line-height:1.6}.bwrap h2{font-size:1.45rem;margin:34px 0 10px}.bwrap ul{margin:0 0 12px;padding-left:20px}.bwrap li{margin:4px 0}
-.tbl{overflow-x:auto}.tbl table{border-collapse:collapse;width:100%;font-size:.9rem;margin:8px 0 18px}.tbl th{text-align:left;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--bb-muted);padding:8px 10px;border-bottom:2px solid var(--bb-rule)}.tbl td{padding:8px 10px;border-bottom:1px solid var(--bb-rule);vertical-align:top;color:var(--bb-body)}
-.crumbs{font-size:.9rem;color:var(--bb-muted);margin:22px 0 10px}.crumbs a{color:inherit}
-.bhead h1{font-size:clamp(1.7rem,3.4vw,2.5rem);max-width:820px;margin:0 0 12px}
-.answer{font-size:1.15rem;color:var(--bb-body);max-width:760px;margin:0 0 14px}
-.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
-.chip{display:inline-block;font-size:.85rem;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--bb-tint);color:var(--bb-violet)}
+.bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-violet-d:#4830AE;--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:#FBF1DC;--bb-amber-ink:#8A5B00;--bb-sunk:#F3F4F8;--bb-sans:var(--sans,"Sora",system-ui,sans-serif);
+  font-family:var(--bb-sans);color:var(--bb-ink);max-width:1120px;margin:0 auto;padding:0 24px 90px}
+.bwrap p{margin:0 0 12px;line-height:1.6}.bwrap h2{font-size:1.4rem;margin:36px 0 12px;letter-spacing:-.01em}.bwrap h3{font-size:1.05rem;margin:0}.bwrap ul{margin:0 0 12px;padding-left:20px}.bwrap li{margin:4px 0}
+.crumbs{font-size:.85rem;color:var(--bb-muted);margin:20px 0 8px}.crumbs a{color:inherit}
+.bhead h1{font-size:clamp(1.7rem,3.4vw,2.4rem);max-width:800px;margin:0 0 14px;line-height:1.15}
+.tldr{border-left:4px solid var(--bb-violet);background:var(--bb-tint);padding:14px 18px;border-radius:0 12px 12px 0;max-width:760px;margin:0 0 16px}
+.tldr .lbl{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bb-violet-d);font-weight:700;margin-bottom:6px}
+.tldr p{margin:0;font-size:1.05rem;color:var(--bb-body)}
+.meta-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.chip{display:inline-block;font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bb-sunk);color:var(--bb-body)}
 .chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
-.bgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;align-items:start}
-@media (max-width:900px){.bgrid{grid-template-columns:1fr}}
-.buy{position:sticky;top:20px;border:2px solid var(--bb-violet);border-radius:16px;padding:22px;background:#fff}
-.buy .price{font-family:var(--bb-sans);font-size:2.2rem;font-weight:800;line-height:1}
-.buy .was{color:var(--bb-muted);text-decoration:line-through;font-size:1.05rem;margin-left:8px;font-weight:600}
-.buy .until{font-size:.85rem;color:var(--bb-amber-ink);font-weight:700;margin:6px 0 14px}
-.buy .btn{display:block;text-align:center;margin:0 0 10px}
-.buy ul{margin:14px 0 0;padding-left:18px;font-size:.92rem;color:var(--bb-body)}
-.buy .alt{font-size:.9rem;color:var(--bb-muted);margin-top:12px}
-.comp{margin:28px 0}
-.comp h3{font-size:1.15rem;margin:0 0 4px}
-.comp .what{color:var(--bb-body);margin:0 0 10px}
-.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.spec{display:block;border:1px solid var(--bb-rule);border-radius:12px;padding:12px 14px;color:var(--bb-ink);background:#fff;text-decoration:none}
-.spec:hover{border-color:var(--bb-violet);background:var(--bb-tint)}
-.spec b{display:block;font-size:.98rem;margin-bottom:4px}
-.spec p{margin:0 0 6px;font-size:.88rem;color:var(--bb-body)}
-.spec .row{display:flex;gap:6px;flex-wrap:wrap}
-.spec .row span{font-size:.75rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-tint);color:var(--bb-violet)}
-.spec .row span.free{background:var(--bb-lime);color:var(--bb-lime-ink)}
-.spec .row span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
-.breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 28px}
-.brk{border-left:4px solid var(--bb-violet);background:var(--bb-tint);padding:12px 14px;border-radius:0 10px 10px 0}
-.brk b{display:block;margin-bottom:4px}
-.brk p{margin:0;font-size:.92rem;color:var(--bb-body)}
-.faq details{border-bottom:1px solid var(--bb-rule);padding:12px 0}.faq summary{font-weight:700;cursor:pointer;font-family:var(--bb-sans);font-size:1.02rem}.faq p{margin:10px 0 4px;color:var(--bb-body)}
-.relb{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
-.relb a{border:1px solid var(--bb-rule);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--bb-ink);background:#fff}
-.relb a:hover{border-color:var(--bb-violet)}
-.author{margin-top:36px;padding-top:18px;border-top:1px solid var(--bb-rule);font-size:.92rem;color:var(--bb-muted)}
+.bgrid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:36px;align-items:start;margin-top:22px}
+@media (max-width:900px){.bgrid{grid-template-columns:1fr}.buy{position:static}}
+.buy{position:sticky;top:20px;border:1.5px solid var(--bb-violet);border-radius:16px;padding:20px;background:#fff;box-shadow:0 14px 34px rgba(18,20,28,.10)}
+.buy .n{font-size:.8rem;color:var(--bb-muted);font-weight:600}
+.buy .price{font-size:2.2rem;font-weight:800;line-height:1.05;margin-top:4px}
+.buy .was{color:var(--bb-muted);text-decoration:line-through;font-size:1rem;margin-left:8px;font-weight:600}
+.buy .until{font-size:.82rem;color:var(--bb-amber-ink);font-weight:700;margin:6px 0 14px}
+.buy .btn{display:block;text-align:center;margin:0 0 8px}
+.buy ul{margin:12px 0 0;padding-left:18px;font-size:.88rem;color:var(--bb-body)}.buy li{margin:3px 0}
+.buy .alt{font-size:.85rem;color:var(--bb-muted);margin:12px 0 0}
+.buy .free{margin-top:10px;padding-top:10px;border-top:1px dashed var(--bb-rule);font-size:.88rem}
+/* inventory */
+.inv{border:1px solid var(--bb-rule);border-radius:14px;overflow:hidden;margin:6px 0 8px;background:#fff}
+.inv .grp{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:10px 16px;background:var(--bb-sunk);border-top:1px solid var(--bb-rule)}
+.inv .grp:first-child{border-top:0}.inv .grp b{font-size:.92rem}.inv .grp span{font-size:.82rem;color:var(--bb-muted)}
+.inv .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center;padding:10px 16px;border-top:1px solid var(--bb-rule);text-decoration:none;color:var(--bb-ink)}
+.inv a.row:hover{background:var(--bb-tint)}
+.inv .row .t{font-weight:600;font-size:.95rem}.inv .row .o{font-size:.82rem;color:var(--bb-muted);margin-top:2px}
+.inv .tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.inv .tags span{font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-sunk);color:var(--bb-body);white-space:nowrap}
+.inv .tags span.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}.inv .tags span.free{background:var(--bb-violet);color:#fff}.inv .tags span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
+@media (max-width:640px){.inv .row{grid-template-columns:1fr}.inv .tags{justify-content:flex-start}}
+.legend{font-size:.8rem;color:var(--bb-muted);margin:0 0 4px}
+/* proof */
+.proof{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;align-items:center;border:1px solid var(--bb-rule);border-radius:14px;padding:18px;background:#fff;margin:8px 0}
+.proof img{width:100%;border:1px solid var(--bb-rule);border-radius:8px;box-shadow:0 8px 24px rgba(18,20,28,.10)}
+.proof ul{margin:8px 0 0}.proof li{margin:3px 0;font-size:.95rem}
+@media (max-width:640px){.proof{grid-template-columns:1fr}}
+/* breaks */
+.breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:8px 0 8px}
+.brk{border:1px solid var(--bb-rule);border-top:4px solid var(--bb-violet);border-radius:12px;padding:14px 16px;background:#fff}
+.brk b{display:block;margin-bottom:6px;font-size:.98rem}.brk p{margin:0;font-size:.9rem;color:var(--bb-body)}
+/* brief (long text kept for search, readable) */
+.brief{max-width:720px}.brief h2{font-size:1.25rem}
+.tbl{overflow-x:auto}.tbl table{border-collapse:collapse;width:100%;font-size:.88rem;margin:8px 0 18px}.tbl th{text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--bb-muted);padding:8px 10px;border-bottom:2px solid var(--bb-rule)}.tbl td{padding:8px 10px;border-bottom:1px solid var(--bb-rule);vertical-align:top;color:var(--bb-body)}
+/* faq */
+.faq{max-width:760px}.faq details{border:1px solid var(--bb-rule);border-radius:10px;padding:0 16px;margin:8px 0;background:#fff}.faq summary{font-weight:600;cursor:pointer;padding:12px 0;font-size:.98rem}.faq p{margin:0 0 14px;color:var(--bb-body)}
+.relb{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 0}.relb a{border:1px solid var(--bb-rule);border-radius:10px;padding:9px 13px;text-decoration:none;color:var(--bb-ink);background:#fff;font-size:.92rem}.relb a:hover{border-color:var(--bb-violet)}
+.author{margin-top:32px;padding-top:16px;border-top:1px solid var(--bb-rule);font-size:.85rem;color:var(--bb-muted)}
+/* mobile price bar */
+.mbar{display:none}
+@media (max-width:900px){.mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;gap:12px;align-items:center;justify-content:space-between;padding:10px 16px;background:#fff;border-top:1px solid var(--bb-rule);box-shadow:0 -8px 24px rgba(18,20,28,.10)}
+  .mbar .p{font-weight:800;font-size:1.15rem}.mbar .p small{font-weight:600;color:var(--bb-muted);font-size:.8rem;margin-left:6px;text-decoration:line-through}.mbar .btn{white-space:nowrap}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theworkflowlibrary.com/"}, {"@type": "ListItem", "position": 2, "name": "Bundles", "item": "https://theworkflowlibrary.com/bundles/"}, {"@type": "ListItem", "position": 3, "name": "How do I automate HubSpot workflows after a payment or invoice?", "item": "https://theworkflowlibrary.com/bundles/hubspot-payments-commerce-hub/"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "How do I automate HubSpot workflows after a payment or invoice?", "url": "https://theworkflowlibrary.com/bundles/hubspot-payments-commerce-hub/", "description": "Stamp the deal, start onboarding, set the plan from the line items. Twelve workflow specs for Commerce Hub payments, quotes, invoices and renewals.", "dateModified": "2026-09-17", "author": {"@type": "Organization", "name": "The Workflow Library"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 12, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Notify the deal owner and stamp the deal when a HubSpot payment is received (payment links and invoices)", "url": "https://theworkflowlibrary.com/w/sales-ops-049.html"}, {"@type": "ListItem", "position": 2, "name": "New customer notification to finance and billing", "url": "https://theworkflowlibrary.com/w/customer-onboarding-030.html"}, {"@type": "ListItem", "position": 3, "name": "Start customer onboarding automatically after a successful payment (Commerce Hub)", "url": "https://theworkflowlibrary.com/w/customer-onboarding-049.html"}, {"@type": "ListItem", "position": 4, "name": "Set the product plan on contacts from paid line items (payments and invoices)", "url": "https://theworkflowlibrary.com/w/data-quality-050.html"}, {"@type": "ListItem", "position": 5, "name": "Custom code validation of deal amount against line item total", "url": "https://theworkflowlibrary.com/w/data-quality-044.html"}, {"@type": "ListItem", "position": 6, "name": "Deal missing line items before close", "url": "https://theworkflowlibrary.com/w/deal-hygiene-019.html"}, {"@type": "ListItem", "position": 7, "name": "Notify rep and manager when a quote is e-signed", "url": "https://theworkflowlibrary.com/w/sales-ops-005.html"}, {"@type": "ListItem", "position": 8, "name": "Task reminder before a quote's expiration date", "url": "https://theworkflowlibrary.com/w/sales-ops-011.html"}, {"@type": "ListItem", "position": 9, "name": "Renewal deal amount pre-populated from current subscription value", "url": "https://theworkflowlibrary.com/w/renewal-expansion-012.html"}, {"@type": "ListItem", "position": 10, "name": "Subscription custom object synced with renewal deal date", "url": "https://theworkflowlibrary.com/w/renewal-expansion-041.html"}, {"@type": "ListItem", "position": 11, "name": "Payment failure or dunning event triggers renewal risk alert", "url": "https://theworkflowlibrary.com/w/renewal-expansion-028.html"}, {"@type": "ListItem", "position": 12, "name": "Webhook-triggered churn signal from external billing system", "url": "https://theworkflowlibrary.com/w/renewal-expansion-045.html"}]}}</script>
@@ -77,12 +92,29 @@
 <div class="crumbs"><a href="/">Home</a> › <a href="/bundles/">Bundles</a> › How do I automate HubSpot workflows after a payment or invoice?</div>
 <div class="bhead">
   <h1>How do I automate HubSpot workflows after a payment or invoice?</h1>
-  <p class="answer">Enroll on the payment associated to the deal or the contact, stamp a date property, then branch. That covers the owner notification, the onboarding kickoff and the plan label read from the line items. It needs Commerce Hub with a connected processor, and workflows at a Professional tier. The trap is recurring billing: one payment record per charge, so without a guard property month two notifies the owner again and restarts onboarding.</p>
-  <div class="meta-row"><span class="chip">12 specs</span><span class="chip tier">Minimum tier: Sales Hub Professional</span><span class="chip">About 120 min for the core build</span><span class="chip">Updated 2026-09-17</span></div>
+  <div class="tldr"><span class="lbl">Short answer</span><p>Enroll on the payment associated to the deal or the contact, stamp a date property, then branch. That covers the owner notification, the onboarding kickoff and the plan label read from the line items. It needs Commerce Hub with a connected processor, and workflows at a Professional tier. The trap is recurring billing: one payment record per charge, so without a guard property month two notifies the owner again and restarts onboarding.</p></div>
+  <div class="meta-row"><span class="chip">12 specs</span><span class="chip tier">Needs Sales Hub Professional or higher</span><span class="chip">About 120 min for the core build</span><span class="chip">0 free to read</span></div>
 </div>
 <div class="bgrid">
 <div>
-  <h2>What this bundle builds</h2><p>Money landing in the portal is a signal most teams waste. The receipt
+  <h2 style="margin-top:8px">The 12 specs, in build order</h2>
+  <p class="legend">Each spec states its minimum tier. Free ones open in full; the others show their public preview and the date their full spec lands.</p>
+  <div class="inv"><div class="grp"><b>Payment received to the deal</b><span>The money lands, the deal carries a date and a paid status anyone can filter on, and the owner hears about it in minutes.</span></div><div class="row"><div><div class="t">Notify the deal owner and stamp the deal when a HubSpot payment is received (payment links and invoices)</div><div class="o">When money lands through a payment link, a quote with payment, or an invoice, the deal owner gets an internal notification within minutes, and the...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span><span class="soon">full spec 12-25</span></div></div><div class="row"><div><div class="t">New customer notification to finance and billing</div><div class="o">The moment a deal closes, finance and billing get an internal notification with the contract details they need to start invoicing, instead of...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span><span class="soon">full spec 11-13</span></div></div><div class="grp"><b>Payment to onboarding</b><span>A successful payment makes the buyer a customer, books the kickoff task, opens the onboarding ticket and sends the welcome email.</span></div><div class="row"><div><div class="t">Start customer onboarding automatically after a successful payment (Commerce Hub)</div><div class="o">The minute a payment clears, the buyer becomes a customer in the CRM, the owner is told, a kickoff task and an onboarding ticket exist, and the...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>contact</span><span class="soon">full spec 12-25</span></div></div><div class="grp"><b>Line items to the product plan</b><span>Walk the payment or invoice to its line items to their products, read the plan label, and check the deal amount agrees with the total.</span></div><div class="row"><div><div class="t">Set the product plan on contacts from paid line items (payments and invoices)</div><div class="o">Every paying contact carries the plan they actually bought and the date it started, read from the line items behind their payment or invoice, so...</div></div><div class="tags"><span class="tier">Operations Hub Pro</span><span>contact</span><span class="soon">full spec 12-25</span></div></div><div class="row"><div><div class="t">Custom code validation of deal amount against line item total</div><div class="o">A deal whose amount field disagrees with the sum of its actual line items gets flagged before it reaches a forecast or a quote, instead of a...</div></div><div class="tags"><span class="tier">Operations Hub Pro</span><span>deal</span><span class="soon">full spec 12-11</span></div></div><div class="row"><div><div class="t">Deal missing line items before close</div><div class="o">A deal heading into a late stage with no line items gets caught, so the deal amount and the actual products sold line up before the deal closes.</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span><span class="soon">full spec 10-16</span></div></div><div class="grp"><b>Quotes on the way to the payment</b><span>The signature alert that starts the handoff, and the reminder that fires before a live quote expires.</span></div><a class="row" href="/w/sales-ops-005.html"><div><div class="t">Notify rep and manager when a quote is e-signed</div><div class="o">The rep and their manager both hear about a signed deal within minutes, before it surfaces on a weekly pipeline report, so the handoff to whoever...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>quote</span></div></a><div class="row"><div><div class="t">Task reminder before a quote&#x27;s expiration date</div><div class="o">A rep gets a task a few days before a live quote expires, with enough time to extend it or push for a decision before the buyer loses the ability...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>quote</span><span class="soon">full spec 09-25</span></div></div><div class="grp"><b>Renewals, subscriptions and the billing signal</b><span>Pre-fill the renewal amount, track each subscription as its own record, and react when a charge fails or dunning starts.</span></div><div class="row"><div><div class="t">Renewal deal amount pre-populated from current subscription value</div><div class="o">A new renewal deal opens with a realistic amount already filled in, taken from what the account is actually paying today, instead of a blank field...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span><span class="soon">full spec 10-02</span></div></div><div class="row"><div><div class="t">Subscription custom object synced with renewal deal date</div><div class="o">Each product a customer subscribes to has its own Subscriptions record with an end date that stays synced to whatever renewal deal covers it, so...</div></div><div class="tags"><span class="tier">Sales Hub Enterprise</span><span>custom</span><span class="soon">full spec 12-04</span></div></div><div class="row"><div><div class="t">Payment failure or dunning event triggers renewal risk alert</div><div class="o">The moment a billing system reports a failed payment or an active dunning sequence, the account owner is alerted and the account is flagged for...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>company</span><span class="soon">full spec 11-06</span></div></div><div class="row"><div><div class="t">Webhook-triggered churn signal from external billing system</div><div class="o">A failed payment, chargeback, or cancellation reported by the external billing system flags the account as at risk within minutes, instead of the...</div></div><div class="tags"><span class="tier">Operations Hub Pro</span><span>company</span><span class="soon">full spec 12-18</span></div></div></div>
+
+  <h2>What a spec looks like</h2>
+  <div class="proof">
+    <div>
+      <p>Every spec follows the same nine sections, so a team reads one and knows how to read all of them.</p>
+      <ul><li><b>Outcome</b>, when to use it and when not to</li><li><b>Prerequisites</b>: properties, lists, tiers, with the JSON to create them</li><li><b>Enrollment</b> and re-enrollment, then every <b>step</b> with its parameters</li><li><b>Known pitfalls</b>, a <b>test plan</b>, variants, and the YAML build spec</li></ul>
+    </div>
+    <img src="/assets/spec-preview.png" alt="First page of a spec" loading="lazy">
+  </div>
+
+  <h2>What breaks, and how the specs prevent it</h2>
+  <div class="breaks"><div class="brk"><b>A deal cannot read its own payment</b><p>Copy property value reads the enrolled record, so a deal workflow cannot pull the amount off the associated payment into a deal property. The payment spec says so and gives the two ways out: build the workflow on the payment object and copy down to the deal, or use a custom coded action at Operations Hub Professional. Settle that before you promise finance an amount paid to date field that is always right.</p></div><div class="brk"><b>A subscription pays every month</b><p>Recurring billing creates one payment record per charge. Without the payment received date is unknown filter, the owner gets pinged on every renewal and the paid status flips back and forth. On the onboarding side the same guard, onboarding start date is unknown, is the only thing stopping month two from restarting the kickoff for an existing customer. Do not remove either one to fix an unrelated problem.</p></div><div class="brk"><b>A refund does not undo the stamp</b><p>Refunds create their own record. The deal keeps reading paid in full, and the plan label keeps sitting on the contact, because a refunded payment can keep its paid status. Both specs carry the companion workflow in their Variants and neither pretends the base version handles it. If refunds are common for you, build the reverse before you switch the forward version on.</p></div></div>
+
+  <div class="brief">
+    <h2>What this bundle builds</h2><p>Money landing in the portal is a signal most teams waste. The receipt
 sits in a shared finance inbox, the rep finds out on Thursday,
 onboarding starts whenever someone forwards the email, and the plan the
 customer bought lives in the billing system where marketing cannot
@@ -93,18 +125,17 @@ within minutes. The same event, read on the contact, flips the lifecycle
 stage, creates the kickoff task, opens the onboarding ticket and sends
 the welcome email fifteen minutes later so it does not race the
 processor receipt. A coded action walks the payment to its line items to
-the products behind them and writes the plan label and start date onto
-the contact. Around that sit the quote alerts that precede the payment,
-the line item checks that keep the deal amount honest, and the renewal
-and dunning specs for when a charge fails.</p>
+their products, then writes the plan label and start date onto the
+contact. Around that sit the quote alerts that precede the payment, the
+line item checks that keep the deal amount honest, and the renewal and
+dunning specs for when a charge fails.</p>
 <p>The native template gallery confirms the demand: telling deal owners
 about a payment, onboarding after one, and reminding customers to renew
 each carry more than 800 installs. Setting the product plan from
 payments carries over 100. These specs go further, with guard
 properties, a partial payment branch and a failure path.</p>
 
-  <h2>The components, in build order</h2><div class="comp"><h3>Payment received to the deal</h3><p class="what">The money lands, the deal carries a date and a paid status anyone can filter on, and the owner hears about it in minutes.</p><div class="specs"><div class="spec"><b>Notify the deal owner and stamp the deal when a HubSpot payment is received (payment links and invoices)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-12-25</span></div></div><div class="spec"><b>New customer notification to finance and billing</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-11-13</span></div></div></div></div><div class="comp"><h3>Payment to onboarding</h3><p class="what">A successful payment makes the buyer a customer, books the kickoff task, opens the onboarding ticket and sends the welcome email.</p><div class="specs"><div class="spec"><b>Start customer onboarding automatically after a successful payment (Commerce Hub)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="soon">full spec 2026-12-25</span></div></div></div></div><div class="comp"><h3>Line items to the product plan</h3><p class="what">Walk the payment or invoice to its line items to their products, read the plan label, and check the deal amount agrees with the total.</p><div class="specs"><div class="spec"><b>Set the product plan on contacts from paid line items (payments and invoices)</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>contact</span><span class="soon">full spec 2026-12-25</span></div></div><div class="spec"><b>Custom code validation of deal amount against line item total</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>deal</span><span class="soon">full spec 2026-12-11</span></div></div><div class="spec"><b>Deal missing line items before close</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-10-16</span></div></div></div></div><div class="comp"><h3>Quotes on the way to the payment</h3><p class="what">The signature alert that starts the handoff, and the reminder that fires before a live quote expires.</p><div class="specs"><a class="spec" href="/w/sales-ops-005.html"><b>Notify rep and manager when a quote is e-signed</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>quote</span></div></a><div class="spec"><b>Task reminder before a quote&#x27;s expiration date</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>quote</span><span class="soon">full spec 2026-09-25</span></div></div></div></div><div class="comp"><h3>Renewals, subscriptions and the billing signal</h3><p class="what">Pre-fill the renewal amount, track each subscription as its own record, and react when a charge fails or dunning starts.</p><div class="specs"><div class="spec"><b>Renewal deal amount pre-populated from current subscription value</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-10-02</span></div></div><div class="spec"><b>Subscription custom object synced with renewal deal date</b><p></p><div class="row"><span class="tier">Sales Hub Enterprise</span><span>custom</span><span class="soon">full spec 2026-12-04</span></div></div><div class="spec"><b>Payment failure or dunning event triggers renewal risk alert</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>company</span><span class="soon">full spec 2026-11-06</span></div></div><div class="spec"><b>Webhook-triggered churn signal from external billing system</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>company</span><span class="soon">full spec 2026-12-18</span></div></div></div></div>
-  <h2>How the pieces fit together</h2><p>Start with the payment stamp on the deal. Everything downstream reads
+    <h2>How the pieces fit together</h2><p>Start with the payment stamp on the deal. Everything downstream reads
 the property it writes, and building it tells you within an hour whether
 your portal exposes payment filters on deal workflows. If it does not,
 build the payment object workflow from its Variants first and let the
@@ -122,8 +153,7 @@ total.</p>
 Dunning and the billing signal react after it, and both depend on
 something outside the portal writing a payment status property.</p>
 
-  <h2>What breaks, and how the specs prevent it</h2><div class="breaks"><div class="brk"><b>A deal cannot read its own payment</b><p>Copy property value reads the enrolled record, so a deal workflow cannot pull the amount off the associated payment into a deal property. The payment spec says so and gives the two ways out: build the workflow on the payment object and copy down to the deal, or use a custom coded action at Operations Hub Professional. Settle that before you promise finance an amount paid to date field that is always right.</p></div><div class="brk"><b>A subscription pays every month</b><p>Recurring billing creates one payment record per charge. Without the payment received date is unknown filter, the owner gets pinged on every renewal and the paid status flips back and forth. On the onboarding side the same guard, onboarding start date is unknown, is the only thing stopping month two from restarting the kickoff for an existing customer. Do not remove either one to fix an unrelated problem.</p></div><div class="brk"><b>A refund does not undo the stamp</b><p>Refunds create their own record. The deal keeps reading paid in full, and the plan label keeps sitting on the contact, because a refunded payment can keep its paid status. Both specs carry the companion workflow in their Variants and neither pretends the base version handles it. If refunds are common for you, build the reverse before you switch the forward version on.</p></div></div>
-  <h2>What you get</h2><ul>
+    <h2>What you get</h2><ul>
 <li>12 specs, each with outcome, prerequisites, enrollment, steps, known
 pitfalls, a test plan and variants</li>
 <li>Each spec ships as PDF and Markdown</li>
@@ -140,7 +170,7 @@ without associated payment filters</li>
 <li>Install in one click for Full and Agency buyers</li>
 </ul>
 
-  <h2>Who it is for, and who should skip it</h2><p>Take this if you collect money inside the portal through payment
+    <h2>Who it is for, and who should skip it</h2><p>Take this if you collect money inside the portal through payment
 links, quotes with payment or invoices, and the CRM currently learns
 about it last. Self serve and low touch businesses get the most: payment
 really is the start signal, so the onboarding spec alone removes a
@@ -152,24 +182,27 @@ billing system directly, then build the dunning and renewal specs on
 those. Skip it too on a Starter tier. Simple automation cannot run any
 of this.</p>
 
-  
+    
+  </div>
+
   <h2>Questions admins ask</h2><div class="faq"><details><summary>Do I need Commerce Hub to automate on a payment?</summary><p>You need a connected payment processor, because without one no payment record is ever created and the workflow has nothing to enroll on. Payments, quotes with payment and invoices are the Commerce tools that produce those records. Availability and the per transaction fee depend on your subscription and on the processor you connect, which the plan spec flags as something to check rather than assume, since it has changed more than once.</p></details><details><summary>Does this work outside the United States?</summary><p>There are two processing paths and only one is US only. HubSpot payments requires a business based in the United States. Everywhere else, you connect Stripe payment processing through the portal and the payment records behave the same way for automation. Both payment specs name this and mark the exact country coverage as something to confirm in your own payments settings before building.</p></details><details><summary>Can a workflow enroll on a payment or an invoice record?</summary><p>That is the one thing to verify first, because the whole build order depends on it. If payment and invoice properties appear as associated object enrollment filters on your deal and contact workflows, enroll directly. If they do not, each spec carries the same fallback: a workflow on the payment object whose only job is to stamp a date onto the deal or the contact, and the main workflow then triggers on that property becoming known.</p></details><details><summary>Can a workflow set the product plan from the line items?</summary><p>Yes, with code. Line items are children of the payment, the invoice, the quote or the deal that created them, not of the contact, so a plain contact filter cannot see them. The plan spec uses a custom coded action at Operations Hub Professional to walk those associations and read a plan name property off the product, which is what keeps a product rename from breaking the mapping. It also ships a no code version, one active list per plan, that costs one workflow per plan and breaks when a contact buys two.</p></details><details><summary>Are all twelve specs published already?</summary><p>No, and the release dates are public. The quote reminder, the renewal amount and the missing line items specs land in late September and October. The payment failure alert and the finance notification land in November. The three Commerce Hub specs at the heart of this page, the payment stamp, the onboarding kickoff and the plan from line items, are scheduled for 25 December 2026, with the subscription object and the amount validation earlier in December. Buying the full library gets you each one on its date.</p></details></div>
   <h2>Related</h2><div class="relb"><a href="/bundles/deal-stage-automation/">How do I move a deal to the next stage automatically in HubSpot?</a><a href="/bundles/hubspot-webhooks-zapier-make-n8n/">How do I connect HubSpot workflows to Zapier, Make or n8n?</a><a href="/bundles/ops-hub-power-pack/">What can custom coded actions do in HubSpot workflows?</a><a href="/#library?cat=customer-onboarding">Customer onboarding category</a><a href="/#library?cat=data-quality">Data quality category</a><a href="/#library?cat=deal-hygiene">Deal hygiene category</a></div>
   <div class="author">Built by a collective of independent HubSpot consultants, ten years of implementations behind them. Searched as: hubspot workflow after payment received, hubspot commerce hub automation, hubspot invoice workflow, hubspot payment link workflow, set product plan from line items. HubSpot calls it: Payment status, Balance due, Line items, Quote buyer signed event, Commerce Hub. Version 2026-09-17.</div>
 </div>
-<aside class="buy">
-  <div class="chip">12 specs in this collection</div>
-  <div class="price" style="margin-top:10px">149 EUR</div>
-  <div class="until">The full library, all 500 specs, founding price until 31 October 2026</div>
+<aside class="buy" id="buy">
+  <div class="n">12 specs in this collection, inside the full library</div>
+  <div class="price">149 EUR</div>
+  <div class="until">All 500 specs, founding price until 31 October 2026</div>
   <a class="btn pri" href="/#pricing" data-cta="bundle-full">Get the full library</a>
   <ul>
-    <li>These 12 specs and 490 more, every file format</li>
-    <li>Properties JSON, workflow JSON, custom code, test plans</li>
+    <li>These 12 and the other 488, every file format</li>
+    <li>Test plan and known pitfalls in every spec</li>
     <li>30-day refund. Prices exclude VAT</li>
   </ul>
-  <p class="alt">Read one first: <a href="/w/renewal-expansion-001.html">Renewal deal auto-creation from contract end date</a> is free and complete.</p>
+  <div class="free">Read one first: <a href="/w/renewal-expansion-001.html">Renewal deal auto-creation from contract end date</a> is free and complete.</div>
 </aside>
 </div>
+<div class="mbar"><div class="p">149 EUR <small style="text-decoration:none">all 500</small></div><a class="btn pri" href="/#pricing">Get the library</a></div>
 </main>
 <footer class="site">
   <div class="wrap cols">

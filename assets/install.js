@@ -159,7 +159,8 @@
       var s = byId[id];
       var res = results && results[id];
       var badge = res
-        ? '<span class="s2 ' + (res.status === "installed" ? "ok" : "skip") + '">' + esc(res.status === "installed" ? "Installed" : "Skipped") + "</span>"
+        ? '<span class="s2 ' + (res.status === "ok" || res.status === "installed" ? "ok" : "skip") + '">' +
+          esc(res.status === "ok" || res.status === "installed" ? "Installed" : res.status === "skipped" ? "Skipped" : "Failed") + "</span>"
         : (covered(id) ? '<span class="s2 pend">Ready</span>' : '<span class="s2 skip">Will be skipped</span>');
       var line = res && res.note ? esc(res.note)
         : s[5] + (s[5] === 1 ? " action" : " actions") +

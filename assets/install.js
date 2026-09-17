@@ -4,8 +4,8 @@
    page never fetches an install index or a workflow payload from the site.
      endpoints (config.hubspot.install_worker):
      GET  /install/state?t=<token>   licence, portal, which specs the licence covers
-     GET  /install/auth?t=<token>    returns { url } to send the buyer to the authorisation screen
-     POST /install/run               { t, ids } -> per spec result
+     GET  /install/auth?t=<token>    302 to HubSpot's authorisation screen, so the page navigates there
+     POST /install/run               { t, s, specs } -> per spec result
    With ?demo=1 the page runs on the fixture below and calls nothing. */
 (function () {
   "use strict";
@@ -15,6 +15,10 @@
   var $ = function (id) { return document.getElementById(id); };
   var qs = new URLSearchParams(location.search);
   var token = qs.get("t") || "";
+  // The callback comes back with ?s=<session>: the portal it authorised. Every route that touches the portal
+  // needs it (/install/state to show it connected, /install/run to create anything), and the page dropped it
+  // until 17/09/2026, so step 2 stayed "Not connected" after a successful authorisation.
+  var sid = qs.get("s") || "";
   var DEMO = qs.get("demo") === "1";
   var esc = function (s) {
     return String(s).replace(/[&<>"]/g, function (c) {
@@ -32,7 +36,48 @@
   };
   var state = null, results = null;
 
-  function setState(s) { state = s; paint(); }
+  // /install/state answers with "connected" (hub_id, name, tiers per hub, installed), while this page was
+  // written against a "portal" object holding a "hubs" list of "<hub>-<level>" strings. Same data, two shapes,
+  // and nothing bridged them until 17/09/2026, so an authorised portal still read "Not connected".
+  var LEVELS = ["none", "free", "starter", "professional", "enterprise"];
+  var HUB_LABEL = { sales: "Sales", marketing: "Marketing", service: "Service", ops: "Operations", content: "Content" };
+
+  function tierLabel(tiers) {
+    var pairs = Object.keys(tiers || {})
+      .filter(function (h) { return LEVELS.indexOf(tiers[h]) > 1; })
+      .sort(function (a, b) { return LEVELS.indexOf(tiers[b]) - LEVELS.indexOf(tiers[a]); });
+    if (!pairs.length) return "Free HubSpot";
+    return pairs.slice(0, 3).map(function (h) {
+      var lvl = tiers[h];
+      return (HUB_LABEL[h] || h) + " Hub " + lvl.charAt(0).toUpperCase() + lvl.slice(1);
+    }).join(", ") + (pairs.length > 3 ? ", and more" : "");
+  }
+
+  function adapt(s) {
+    s = s || {};
+    if (s.portal && !s.portal.tiers && s.portal.hubs) {
+      // demo fixture shape: ["sales-professional", ...]
+      var t = {};
+      s.portal.hubs.forEach(function (h) {
+        var parts = String(h).split("-"), lvl = parts.pop();
+        t[parts.join("-")] = lvl;
+      });
+      s.portal.tiers = t;
+    }
+    if (s.connected && !s.portal) {
+      s.portal = {
+        name: s.connected.name || "Your portal",
+        hub_id: s.connected.hub_id,
+        tiers: s.connected.tiers || null,
+        installed: s.connected.installed || [],
+        expires_in: s.connected.expires_in,
+        tier: tierLabel(s.connected.tiers),
+      };
+    }
+    return s;
+  }
+
+  function setState(s) { state = adapt(s); paint(); }
   function note(el, msg, spin) {
     var e = $(el);
     if (e) e.innerHTML = (spin ? '<span class="spin"></span> ' : "") + esc(msg);
@@ -44,10 +89,16 @@
       .map(function (i) { return i.value; });
   }
   function covered(id) {
-    if (!state || !state.portal || !state.portal.hubs) return true;
+    var tiers = state && state.portal ? state.portal.tiers : null;
+    if (!tiers) return true;
     var need = byId[id] ? byId[id][6] : "";
     if (!need) return true;
-    return state.portal.hubs.indexOf(need) > -1;
+    // "sales-professional": the hub, then the level it needs. A portal one level up covers it, so this is a
+    // comparison on the ladder, not a string match (an Enterprise portal was failing every Professional spec).
+    var parts = String(need).split("-"), want = parts.pop(), hub = parts.join("-");
+    var have = tiers[hub];
+    if (!have) return true;
+    return LEVELS.indexOf(have) >= LEVELS.indexOf(want);
   }
   // The authorisation screen is a full page leave and comes back on a fresh load, so the picked specs are
   // remembered here rather than asking the buyer to tick them twice.
@@ -175,7 +226,7 @@
   function boot() {
     if (DEMO) {
       $("demobar").hidden = false;
-      FIXTURE.portal = { name: "Demo portal", tier: "Sales Hub Professional", hub_id: "00000000", hubs: ["sales-professional", "marketing-professional"] };
+      FIXTURE.portal = { name: "Demo portal", tier: "Sales Hub Professional", hub_id: "00000000", tiers: { sales: "professional", marketing: "professional" } };
       Array.prototype.slice.call(document.querySelectorAll(".pickrow input"), 0, 6)
         .forEach(function (i) { i.checked = true; });
       setState(FIXTURE);
@@ -194,7 +245,7 @@
       return;
     }
     note("instate", "Checking your licence", true);
-    fetch(W + "/install/state?t=" + encodeURIComponent(token))
+    fetch(W + "/install/state?t=" + encodeURIComponent(token) + (sid ? "&s=" + encodeURIComponent(sid) : ""))
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) {
         if (!d || !d.ok) throw new Error("not ok");
@@ -209,7 +260,7 @@
 
   function connect() {
     if (DEMO) {
-      state.portal = { name: "Demo portal", tier: "Sales Hub Professional", hub_id: "00000000", hubs: ["sales-professional", "marketing-professional"] };
+      state.portal = { name: "Demo portal", tier: "Sales Hub Professional", hub_id: "00000000", tiers: { sales: "professional", marketing: "professional" } };
       paint();
       return;
     }
@@ -244,7 +295,7 @@
     fetch(W + "/install/run", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ t: token, ids: ids })
+      body: JSON.stringify({ t: token, s: sid, specs: ids })
     }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) {
         results = {};

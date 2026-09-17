@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect HubSpot workflows to Zapier, Make or n8n: 11 specs | The Workflow Library</title>
+<meta name="description" content="A workflow can post a webhook out at Operations Hub Professional. It cannot receive one. Eleven specs for the outbound half and the inbound gap.">
+<link rel="canonical" href="https://theworkflowlibrary.com/bundles/hubspot-webhooks-zapier-make-n8n/">
+<meta property="og:type" content="website"><meta property="og:title" content="Connect HubSpot workflows to Zapier, Make or n8n: 11 specs | The Workflow Library"><meta property="og:description" content="A workflow can post a webhook out at Operations Hub Professional. It cannot receive one. Eleven specs for the outbound half and the inbound gap."><meta property="og:url" content="https://theworkflowlibrary.com/bundles/hubspot-webhooks-zapier-make-n8n/"><meta property="og:image" content="https://theworkflowlibrary.com/og/home.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:var(--amber-tint,#FBF1DC);--bb-amber-ink:var(--amber,#8A5B00);--bb-sans:var(--sans,"Sora",system-ui,sans-serif);font-family:var(--bb-sans);color:var(--bb-ink);max-width:1120px;margin:0 auto;padding:0 24px 60px}
+.bwrap p{margin:0 0 12px;line-height:1.6}.bwrap h2{font-size:1.45rem;margin:34px 0 10px}.bwrap ul{margin:0 0 12px;padding-left:20px}.bwrap li{margin:4px 0}
+.tbl{overflow-x:auto}.tbl table{border-collapse:collapse;width:100%;font-size:.9rem;margin:8px 0 18px}.tbl th{text-align:left;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--bb-muted);padding:8px 10px;border-bottom:2px solid var(--bb-rule)}.tbl td{padding:8px 10px;border-bottom:1px solid var(--bb-rule);vertical-align:top;color:var(--bb-body)}
+.crumbs{font-size:.9rem;color:var(--bb-muted);margin:22px 0 10px}.crumbs a{color:inherit}
+.bhead h1{font-size:clamp(1.7rem,3.4vw,2.5rem);max-width:820px;margin:0 0 12px}
+.answer{font-size:1.15rem;color:var(--bb-body);max-width:760px;margin:0 0 14px}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
+.chip{display:inline-block;font-size:.85rem;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--bb-tint);color:var(--bb-violet)}
+.chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.bgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;align-items:start}
+@media (max-width:900px){.bgrid{grid-template-columns:1fr}}
+.buy{position:sticky;top:20px;border:2px solid var(--bb-violet);border-radius:16px;padding:22px;background:#fff}
+.buy .price{font-family:var(--bb-sans);font-size:2.2rem;font-weight:800;line-height:1}
+.buy .was{color:var(--bb-muted);text-decoration:line-through;font-size:1.05rem;margin-left:8px;font-weight:600}
+.buy .until{font-size:.85rem;color:var(--bb-amber-ink);font-weight:700;margin:6px 0 14px}
+.buy .btn{display:block;text-align:center;margin:0 0 10px}
+.buy ul{margin:14px 0 0;padding-left:18px;font-size:.92rem;color:var(--bb-body)}
+.buy .alt{font-size:.9rem;color:var(--bb-muted);margin-top:12px}
+.comp{margin:28px 0}
+.comp h3{font-size:1.15rem;margin:0 0 4px}
+.comp .what{color:var(--bb-body);margin:0 0 10px}
+.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.spec{display:block;border:1px solid var(--bb-rule);border-radius:12px;padding:12px 14px;color:var(--bb-ink);background:#fff;text-decoration:none}
+.spec:hover{border-color:var(--bb-violet);background:var(--bb-tint)}
+.spec b{display:block;font-size:.98rem;margin-bottom:4px}
+.spec p{margin:0 0 6px;font-size:.88rem;color:var(--bb-body)}
+.spec .row{display:flex;gap:6px;flex-wrap:wrap}
+.spec .row span{font-size:.75rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-tint);color:var(--bb-violet)}
+.spec .row span.free{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.spec .row span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
+.breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 28px}
+.brk{border-left:4px solid var(--bb-violet);background:var(--bb-tint);padding:12px 14px;border-radius:0 10px 10px 0}
+.brk b{display:block;margin-bottom:4px}
+.brk p{margin:0;font-size:.92rem;color:var(--bb-body)}
+.faq details{border-bottom:1px solid var(--bb-rule);padding:12px 0}.faq summary{font-weight:700;cursor:pointer;font-family:var(--bb-sans);font-size:1.02rem}.faq p{margin:10px 0 4px;color:var(--bb-body)}
+.relb{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+.relb a{border:1px solid var(--bb-rule);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--bb-ink);background:#fff}
+.relb a:hover{border-color:var(--bb-violet)}
+.author{margin-top:36px;padding-top:18px;border-top:1px solid var(--bb-rule);font-size:.92rem;color:var(--bb-muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theworkflowlibrary.com/"}, {"@type": "ListItem", "position": 2, "name": "Bundles", "item": "https://theworkflowlibrary.com/bundles/"}, {"@type": "ListItem", "position": 3, "name": "How do I connect HubSpot workflows to Zapier, Make or n8n?", "item": "https://theworkflowlibrary.com/bundles/hubspot-webhooks-zapier-make-n8n/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "How do I connect HubSpot workflows to Zapier, Make or n8n?", "url": "https://theworkflowlibrary.com/bundles/hubspot-webhooks-zapier-make-n8n/", "description": "A workflow can post a webhook out at Operations Hub Professional. It cannot receive one. Eleven specs for the outbound half and the inbound gap.", "dateModified": "2026-09-17", "author": {"@type": "Organization", "name": "The Workflow Library"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 11, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "SLA breach webhook to an external paging/on-call tool", "url": "https://theworkflowlibrary.com/w/tickets-sla-045.html"}, {"@type": "ListItem", "position": 2, "name": "Round-robin via external tool webhook when native round-robin limits are hit", "url": "https://theworkflowlibrary.com/w/lead-routing-040.html"}, {"@type": "ListItem", "position": 3, "name": "Sync onboarding milestones to external project tool via webhook", "url": "https://theworkflowlibrary.com/w/customer-onboarding-036.html"}, {"@type": "ListItem", "position": 4, "name": "Slack channel request automation via webhook", "url": "https://theworkflowlibrary.com/w/customer-onboarding-040.html"}, {"@type": "ListItem", "position": 5, "name": "Custom code action pulls usage API data into risk score property", "url": "https://theworkflowlibrary.com/w/renewal-expansion-044.html"}, {"@type": "ListItem", "position": 6, "name": "Advanced multi-step enrichment and normalization via webhook and custom code", "url": "https://theworkflowlibrary.com/w/data-quality-047.html"}, {"@type": "ListItem", "position": 7, "name": "Webhook-triggered churn signal from external billing system", "url": "https://theworkflowlibrary.com/w/renewal-expansion-045.html"}, {"@type": "ListItem", "position": 8, "name": "First product login updates onboarding health score", "url": "https://theworkflowlibrary.com/w/customer-onboarding-027.html"}, {"@type": "ListItem", "position": 9, "name": "Feature adoption checklist based on usage properties", "url": "https://theworkflowlibrary.com/w/customer-onboarding-041.html"}, {"@type": "ListItem", "position": 10, "name": "Multi-touch attribution property update on each new session source", "url": "https://theworkflowlibrary.com/w/marketing-ops-018.html"}, {"@type": "ListItem", "position": 11, "name": "Slack alert: integration sync failure notification (native app connection health)", "url": "https://theworkflowlibrary.com/w/reporting-alerts-032.html"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does sending a webhook from a HubSpot workflow need Operations Hub Professional?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, and this is the tier boundary people get wrong most often. The SLA paging spec calls it out: an outbound webhook is an Operations Hub Professional capability, now sold as Data Hub, and Service Hub Professional alone does not include it. The same tier unlocks the custom code action, which is the fallback whenever the native action cannot set the headers a vendor requires. Chaining a webhook and a coded action in one workflow may need Enterprise, which the enrichment spec flags to verify on your own portal."}}, {"@type": "Question", "name": "Can an incoming webhook trigger a HubSpot workflow?", "acceptedAnswer": {"@type": "Answer", "text": "Not directly. Point the external system at Zapier, Make, n8n or a small serverless function instead, and have that write a property on the contact or company through a private app. The workflow then enrolls on that property change like any other. The billing signal spec documents this path end to end, including the alternative of calling the Custom Events API and enrolling on a custom behavioral event."}}, {"@type": "Question", "name": "Do you ship Zapier or n8n templates with these specs?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every spec here documents the HubSpot side: the trigger, the payload fields, the properties, the guard against duplicates and the failure branch. The middleware scenario is described in words, with the field mapping it needs, and you build it in whichever tool you already pay for. An n8n template is planned as a companion download. Nothing for Zapier or Make is planned yet."}}, {"@type": "Question", "name": "Does HubSpot retry a webhook that fails?", "acceptedAnswer": {"@type": "Answer", "text": "Do not count on it. Every spec in this collection treats a failure as something you detect and route, not something the platform repairs. Each one writes a sync status property and branches to a task or an internal notification on error, so a broken integration is visible on the record instead of buried in workflow history. The usage API spec adds the other half of the discipline: watch the last synced timestamp, because a stalled sync leaves the old value sitting there looking current."}}, {"@type": "Question", "name": "Why can my custom code action not read the webhook response?", "acceptedAnswer": {"@type": "Answer", "text": "This is a known complaint on the developer forums: webhook properties show as unavailable inside a custom code action, and the usual fix is to insert a Format data step between the two so the value becomes selectable. Treat it as behaviour to confirm on your portal before you design a two-step chain around it. The enrichment spec sidesteps the question by branching on the webhook result first, then handing the parsing to code."}}]}</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
+</header>
+<main class="bwrap">
+
+<div class="crumbs"><a href="/">Home</a> › <a href="/bundles/">Bundles</a> › How do I connect HubSpot workflows to Zapier, Make or n8n?</div>
+<div class="bhead">
+  <h1>How do I connect HubSpot workflows to Zapier, Make or n8n?</h1>
+  <p class="answer">Outbound is native. The Trigger a webhook action posts a payload to any URL, and it needs Operations Hub Professional, now sold as Data Hub. Inbound is not: there is no incoming webhook enrollment trigger on the workflow canvas, so Zapier, Make or n8n receives the external event and writes a property or fires a custom event, and the workflow triggers on that. The trap is that nothing retries a failed call, in either direction.</p>
+  <div class="meta-row"><span class="chip">11 specs</span><span class="chip tier">Minimum tier: Operations Hub Professional</span><span class="chip">About 140 min for the core build</span><span class="chip">Updated 2026-09-17</span></div>
+</div>
+<div class="bgrid">
+<div>
+  <h2>What this bundle builds</h2><p>The moment someone asks to connect a HubSpot workflow to a tool
+outside the portal, they are really asking two questions that have
+different answers. Pushing data out is native, gated behind one tier.
+Pulling an event in is not native at all, and that is where Zapier, Make
+and n8n earn their place.</p>
+<p>These eleven specs cover both halves. The outbound ones page an on
+call engineer when an SLA breaches, update a card in the project tool
+the delivery team actually works in, create a customer Slack channel on
+closed won, pull a usage score from a product API on a schedule, and
+hand a routing decision to an external service when native rotation runs
+out of road. The inbound ones start from a property that something
+outside HubSpot wrote: a failed payment, a first product login, a fresh
+usage sync, a new session source.</p>
+<p>It fits an operations owner with Data Hub who wants the portal to
+stop being an island, and an agency that keeps rebuilding the same push
+and the same middleware bridge on every client. Two specs need more than
+Professional: the multi step enrichment chain and the multi touch
+attribution one, which sits on Marketing Hub Enterprise.</p>
+
+  <h2>The components, in build order</h2><div class="comp"><h3>Outbound with the native webhook action</h3><p class="what">A workflow posts a JSON payload to an external URL, with a guard property so the same event does not fire twice.</p><div class="specs"><div class="spec"><b>SLA breach webhook to an external paging/on-call tool</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-12-18</span></div></div><div class="spec"><b>Round-robin via external tool webhook when native round-robin limits are hit</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>contact</span><span class="soon">full spec 2026-12-04</span></div></div></div></div><div class="comp"><h3>Outbound with a custom coded action</h3><p class="what">Code builds the payload, sets the headers the vendor wants, reads the response body and writes a status back onto the record.</p><div class="specs"><div class="spec"><b>Sync onboarding milestones to external project tool via webhook</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-11-27</span></div></div><div class="spec"><b>Slack channel request automation via webhook</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>deal</span><span class="soon">full spec 2026-12-04</span></div></div><div class="spec"><b>Custom code action pulls usage API data into risk score property</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>company</span><span class="soon">full spec 2026-12-11</span></div></div></div></div><div class="comp"><h3>A webhook and code chained in one workflow</h3><p class="what">Call the vendor, branch on whether it matched, then parse and normalize what came back before writing it to properties.</p><div class="specs"><div class="spec"><b>Advanced multi-step enrichment and normalization via webhook and custom code</b><p></p><div class="row"><span class="tier">Operations Hub Enterprise</span><span>contact</span><span class="soon">full spec 2026-12-18</span></div></div></div></div><div class="comp"><h3>Inbound, the half Zapier, Make or n8n has to cover</h3><p class="what">An external system pushes an event, middleware writes it to a property or a custom event, and the workflow enrolls on that change.</p><div class="specs"><div class="spec"><b>Webhook-triggered churn signal from external billing system</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>company</span><span class="soon">full spec 2026-12-18</span></div></div><div class="spec"><b>First product login updates onboarding health score</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>contact</span><span class="soon">full spec 2026-11-06</span></div></div><div class="spec"><b>Feature adoption checklist based on usage properties</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>contact</span><span class="soon">full spec 2026-12-04</span></div></div><div class="spec"><b>Multi-touch attribution property update on each new session source</b><p></p><div class="row"><span class="tier">Marketing Hub Enterprise</span><span>contact</span><span class="soon">full spec 2026-10-16</span></div></div></div></div><div class="comp"><h3>Knowing when the pipe breaks</h3><p class="what">An alert on the integration itself, because a dead connection produces silence rather than an error.</p><div class="specs"><div class="spec"><b>Slack alert: integration sync failure notification (native app connection health)</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>company</span><span class="soon">full spec 2026-11-13</span></div></div></div></div>
+  <h2>How the pieces fit together</h2><p>Build an outbound spec first, and point it at a request inspection
+endpoint rather than the real vendor. The paging spec and the project
+tool sync both tell you to do this, and it is the fastest way to see
+your own payload before anything downstream can reject it. Once the
+payload is right, swap in the real URL.</p>
+<p>The secret comes next, because every spec after the first needs one.
+Store the key as a workflow secret, not in the code body, then check in
+settings who can view and edit those secrets. That list is usually wider
+than the credential deserves.</p>
+<p>Chaining comes third. The enrichment spec puts a native webhook and a
+coded action in one workflow, so build it after each shape has worked
+alone. Inbound work comes last, because it depends on middleware you
+have to stand up and monitor separately, and on a property whose name
+you get to choose. The integration health alert closes the loop: without
+it, a dead connection is indistinguishable from a quiet week.</p>
+
+  <h2>What breaks, and how the specs prevent it</h2><div class="breaks"><div class="brk"><b>There is no inbound webhook trigger on the canvas</b><p>A workflow enrolls on records, lists and property changes, not on an HTTP request arriving. The billing signal spec documents the only two buildable paths: middleware writes a property through a private app and the workflow triggers on that property change, or middleware calls the Custom Events API and the workflow enrolls on the custom event. Zapier, Make and n8n exist in these specs to be that middleware, not to replace the workflow.</p></div><div class="brk"><b>Nothing retries, and a 200 is not proof</b><p>A failed push stays failed. The project tool sync spec says it plainly: a rotated API key breaks every future run and the status property tells you it is broken now, it will not replay what already failed. Worse, an endpoint that answers 200 and then rejects the payload in its own response body reads as success unless the code checks the body too. The enrichment spec carries a retry-once variant because a single retry has to be built, not assumed.</p></div><div class="brk"><b>The webhook action fires and walks away</b><p>It does not wait for an answer a later step can branch on. The external routing spec is built around that fact: webhook out, delay fifteen minutes, then check whether the owner was actually set, with a fallback rotation when it was not. If you need the answer inside the same run, that is a custom coded action reading its own response, not the native action.</p></div></div>
+  <h2>What you get</h2><ul>
+<li>11 specs, each with outcome, prerequisites, enrollment, steps, known
+pitfalls, a test plan and variants</li>
+<li>Each spec ships as PDF and Markdown</li>
+<li>Properties JSON, 30 properties across contacts, companies, deals and
+tickets, plus one custom object</li>
+<li>Workflow JSON for all 11, in Automation API format, switched off on
+import</li>
+<li>7 custom coded actions as JavaScript files, with inputs, outputs and
+secret names in the header</li>
+<li>The payload field list per spec, so the middleware mapping is
+written before you open Zapier, Make or n8n</li>
+<li>A test plan per spec, each starting at a request inspection endpoint
+rather than the live vendor</li>
+<li>Install in one click for Full and Agency buyers</li>
+</ul>
+
+  <h2>Who it is for, and who should skip it</h2><p>Take this if you have Operations Hub Professional or Enterprise and
+something outside the portal needs to hear about a record change, or if
+a vendor keeps pushing events at you and you have nowhere to put them.
+The paging and project tool specs pay for themselves in the first
+hour.</p>
+<p>Skip it if you are on Service or Sales Hub Professional alone. The
+native webhook action is not in your action picker and no spec here
+works around that. Skip it too if a maintained native connector already
+exists for your tool, which the project tool spec says outright: a
+connector someone else keeps current usually beats a custom push you now
+own forever.</p>
+
+  
+  <h2>Questions admins ask</h2><div class="faq"><details><summary>Does sending a webhook from a HubSpot workflow need Operations Hub Professional?</summary><p>Yes, and this is the tier boundary people get wrong most often. The SLA paging spec calls it out: an outbound webhook is an Operations Hub Professional capability, now sold as Data Hub, and Service Hub Professional alone does not include it. The same tier unlocks the custom code action, which is the fallback whenever the native action cannot set the headers a vendor requires. Chaining a webhook and a coded action in one workflow may need Enterprise, which the enrichment spec flags to verify on your own portal.</p></details><details><summary>Can an incoming webhook trigger a HubSpot workflow?</summary><p>Not directly. Point the external system at Zapier, Make, n8n or a small serverless function instead, and have that write a property on the contact or company through a private app. The workflow then enrolls on that property change like any other. The billing signal spec documents this path end to end, including the alternative of calling the Custom Events API and enrolling on a custom behavioral event.</p></details><details><summary>Do you ship Zapier or n8n templates with these specs?</summary><p>No. Every spec here documents the HubSpot side: the trigger, the payload fields, the properties, the guard against duplicates and the failure branch. The middleware scenario is described in words, with the field mapping it needs, and you build it in whichever tool you already pay for. An n8n template is planned as a companion download. Nothing for Zapier or Make is planned yet.</p></details><details><summary>Does HubSpot retry a webhook that fails?</summary><p>Do not count on it. Every spec in this collection treats a failure as something you detect and route, not something the platform repairs. Each one writes a sync status property and branches to a task or an internal notification on error, so a broken integration is visible on the record instead of buried in workflow history. The usage API spec adds the other half of the discipline: watch the last synced timestamp, because a stalled sync leaves the old value sitting there looking current.</p></details><details><summary>Why can my custom code action not read the webhook response?</summary><p>This is a known complaint on the developer forums: webhook properties show as unavailable inside a custom code action, and the usual fix is to insert a Format data step between the two so the value becomes selectable. Treat it as behaviour to confirm on your portal before you design a two-step chain around it. The enrichment spec sidesteps the question by branching on the webhook result first, then handing the parsing to code.</p></details></div>
+  <h2>Related</h2><div class="relb"><a href="/bundles/ops-hub-power-pack/">What can custom coded actions do in HubSpot workflows?</a><a href="/bundles/slack-and-notifications/">How do I send Slack notifications from HubSpot workflows?</a><a href="/bundles/hubspot-payments-commerce-hub/">How do I automate HubSpot workflows after a payment or invoice?</a><a href="/#library?cat=customer-onboarding">Customer onboarding category</a><a href="/#library?cat=data-quality">Data quality category</a><a href="/#library?cat=lead-routing">Lead routing category</a></div>
+  <div class="author">Built by a collective of independent HubSpot consultants, ten years of implementations behind them. Searched as: hubspot workflow webhook zapier, hubspot workflow trigger n8n, hubspot make integration workflow, hubspot workflow webhook custom code, does the webhook action need operations hub. HubSpot calls it: Trigger a webhook, Custom code action, Workflow secrets, Format data, Custom Events API. Version 2026-09-17.</div>
+</div>
+<aside class="buy">
+  <div class="chip">11 specs in this collection</div>
+  <div class="price" style="margin-top:10px">149 EUR</div>
+  <div class="until">The full library, all 500 specs, founding price until 31 October 2026</div>
+  <a class="btn pri" href="/#pricing" data-cta="bundle-full">Get the full library</a>
+  <ul>
+    <li>These 11 specs and 490 more, every file format</li>
+    <li>Properties JSON, workflow JSON, custom code, test plans</li>
+    <li>30-day refund. Prices exclude VAT</li>
+  </ul>
+  <p class="alt">Read one first: <a href="/w/data-quality-001.html">Required field enforcement on contact creation (email or phone missing)</a> is free and complete.</p>
+</aside>
+</div>
+</main>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+</body>
+</html>

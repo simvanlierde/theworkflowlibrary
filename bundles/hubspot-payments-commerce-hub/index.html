@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HubSpot workflows after a payment or invoice: 12 specs | The Workflow Library</title>
+<meta name="description" content="Stamp the deal, start onboarding, set the plan from the line items. Twelve workflow specs for Commerce Hub payments, quotes, invoices and renewals.">
+<link rel="canonical" href="https://theworkflowlibrary.com/bundles/hubspot-payments-commerce-hub/">
+<meta property="og:type" content="website"><meta property="og:title" content="HubSpot workflows after a payment or invoice: 12 specs | The Workflow Library"><meta property="og:description" content="Stamp the deal, start onboarding, set the plan from the line items. Twelve workflow specs for Commerce Hub payments, quotes, invoices and renewals."><meta property="og:url" content="https://theworkflowlibrary.com/bundles/hubspot-payments-commerce-hub/"><meta property="og:image" content="https://theworkflowlibrary.com/og/home.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:var(--amber-tint,#FBF1DC);--bb-amber-ink:var(--amber,#8A5B00);--bb-sans:var(--sans,"Sora",system-ui,sans-serif);font-family:var(--bb-sans);color:var(--bb-ink);max-width:1120px;margin:0 auto;padding:0 24px 60px}
+.bwrap p{margin:0 0 12px;line-height:1.6}.bwrap h2{font-size:1.45rem;margin:34px 0 10px}.bwrap ul{margin:0 0 12px;padding-left:20px}.bwrap li{margin:4px 0}
+.tbl{overflow-x:auto}.tbl table{border-collapse:collapse;width:100%;font-size:.9rem;margin:8px 0 18px}.tbl th{text-align:left;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--bb-muted);padding:8px 10px;border-bottom:2px solid var(--bb-rule)}.tbl td{padding:8px 10px;border-bottom:1px solid var(--bb-rule);vertical-align:top;color:var(--bb-body)}
+.crumbs{font-size:.9rem;color:var(--bb-muted);margin:22px 0 10px}.crumbs a{color:inherit}
+.bhead h1{font-size:clamp(1.7rem,3.4vw,2.5rem);max-width:820px;margin:0 0 12px}
+.answer{font-size:1.15rem;color:var(--bb-body);max-width:760px;margin:0 0 14px}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
+.chip{display:inline-block;font-size:.85rem;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--bb-tint);color:var(--bb-violet)}
+.chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.bgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;align-items:start}
+@media (max-width:900px){.bgrid{grid-template-columns:1fr}}
+.buy{position:sticky;top:20px;border:2px solid var(--bb-violet);border-radius:16px;padding:22px;background:#fff}
+.buy .price{font-family:var(--bb-sans);font-size:2.2rem;font-weight:800;line-height:1}
+.buy .was{color:var(--bb-muted);text-decoration:line-through;font-size:1.05rem;margin-left:8px;font-weight:600}
+.buy .until{font-size:.85rem;color:var(--bb-amber-ink);font-weight:700;margin:6px 0 14px}
+.buy .btn{display:block;text-align:center;margin:0 0 10px}
+.buy ul{margin:14px 0 0;padding-left:18px;font-size:.92rem;color:var(--bb-body)}
+.buy .alt{font-size:.9rem;color:var(--bb-muted);margin-top:12px}
+.comp{margin:28px 0}
+.comp h3{font-size:1.15rem;margin:0 0 4px}
+.comp .what{color:var(--bb-body);margin:0 0 10px}
+.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.spec{display:block;border:1px solid var(--bb-rule);border-radius:12px;padding:12px 14px;color:var(--bb-ink);background:#fff;text-decoration:none}
+.spec:hover{border-color:var(--bb-violet);background:var(--bb-tint)}
+.spec b{display:block;font-size:.98rem;margin-bottom:4px}
+.spec p{margin:0 0 6px;font-size:.88rem;color:var(--bb-body)}
+.spec .row{display:flex;gap:6px;flex-wrap:wrap}
+.spec .row span{font-size:.75rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-tint);color:var(--bb-violet)}
+.spec .row span.free{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.spec .row span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
+.breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 28px}
+.brk{border-left:4px solid var(--bb-violet);background:var(--bb-tint);padding:12px 14px;border-radius:0 10px 10px 0}
+.brk b{display:block;margin-bottom:4px}
+.brk p{margin:0;font-size:.92rem;color:var(--bb-body)}
+.faq details{border-bottom:1px solid var(--bb-rule);padding:12px 0}.faq summary{font-weight:700;cursor:pointer;font-family:var(--bb-sans);font-size:1.02rem}.faq p{margin:10px 0 4px;color:var(--bb-body)}
+.relb{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+.relb a{border:1px solid var(--bb-rule);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--bb-ink);background:#fff}
+.relb a:hover{border-color:var(--bb-violet)}
+.author{margin-top:36px;padding-top:18px;border-top:1px solid var(--bb-rule);font-size:.92rem;color:var(--bb-muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theworkflowlibrary.com/"}, {"@type": "ListItem", "position": 2, "name": "Bundles", "item": "https://theworkflowlibrary.com/bundles/"}, {"@type": "ListItem", "position": 3, "name": "How do I automate HubSpot workflows after a payment or invoice?", "item": "https://theworkflowlibrary.com/bundles/hubspot-payments-commerce-hub/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "How do I automate HubSpot workflows after a payment or invoice?", "url": "https://theworkflowlibrary.com/bundles/hubspot-payments-commerce-hub/", "description": "Stamp the deal, start onboarding, set the plan from the line items. Twelve workflow specs for Commerce Hub payments, quotes, invoices and renewals.", "dateModified": "2026-09-17", "author": {"@type": "Organization", "name": "The Workflow Library"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 12, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Notify the deal owner and stamp the deal when a HubSpot payment is received (payment links and invoices)", "url": "https://theworkflowlibrary.com/w/sales-ops-049.html"}, {"@type": "ListItem", "position": 2, "name": "New customer notification to finance and billing", "url": "https://theworkflowlibrary.com/w/customer-onboarding-030.html"}, {"@type": "ListItem", "position": 3, "name": "Start customer onboarding automatically after a successful payment (Commerce Hub)", "url": "https://theworkflowlibrary.com/w/customer-onboarding-049.html"}, {"@type": "ListItem", "position": 4, "name": "Set the product plan on contacts from paid line items (payments and invoices)", "url": "https://theworkflowlibrary.com/w/data-quality-050.html"}, {"@type": "ListItem", "position": 5, "name": "Custom code validation of deal amount against line item total", "url": "https://theworkflowlibrary.com/w/data-quality-044.html"}, {"@type": "ListItem", "position": 6, "name": "Deal missing line items before close", "url": "https://theworkflowlibrary.com/w/deal-hygiene-019.html"}, {"@type": "ListItem", "position": 7, "name": "Notify rep and manager when a quote is e-signed", "url": "https://theworkflowlibrary.com/w/sales-ops-005.html"}, {"@type": "ListItem", "position": 8, "name": "Task reminder before a quote's expiration date", "url": "https://theworkflowlibrary.com/w/sales-ops-011.html"}, {"@type": "ListItem", "position": 9, "name": "Renewal deal amount pre-populated from current subscription value", "url": "https://theworkflowlibrary.com/w/renewal-expansion-012.html"}, {"@type": "ListItem", "position": 10, "name": "Subscription custom object synced with renewal deal date", "url": "https://theworkflowlibrary.com/w/renewal-expansion-041.html"}, {"@type": "ListItem", "position": 11, "name": "Payment failure or dunning event triggers renewal risk alert", "url": "https://theworkflowlibrary.com/w/renewal-expansion-028.html"}, {"@type": "ListItem", "position": 12, "name": "Webhook-triggered churn signal from external billing system", "url": "https://theworkflowlibrary.com/w/renewal-expansion-045.html"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I need Commerce Hub to automate on a payment?", "acceptedAnswer": {"@type": "Answer", "text": "You need a connected payment processor, because without one no payment record is ever created and the workflow has nothing to enroll on. Payments, quotes with payment and invoices are the Commerce tools that produce those records. Availability and the per transaction fee depend on your subscription and on the processor you connect, which the plan spec flags as something to check rather than assume, since it has changed more than once."}}, {"@type": "Question", "name": "Does this work outside the United States?", "acceptedAnswer": {"@type": "Answer", "text": "There are two processing paths and only one is US only. HubSpot payments requires a business based in the United States. Everywhere else, you connect Stripe payment processing through the portal and the payment records behave the same way for automation. Both payment specs name this and mark the exact country coverage as something to confirm in your own payments settings before building."}}, {"@type": "Question", "name": "Can a workflow enroll on a payment or an invoice record?", "acceptedAnswer": {"@type": "Answer", "text": "That is the one thing to verify first, because the whole build order depends on it. If payment and invoice properties appear as associated object enrollment filters on your deal and contact workflows, enroll directly. If they do not, each spec carries the same fallback: a workflow on the payment object whose only job is to stamp a date onto the deal or the contact, and the main workflow then triggers on that property becoming known."}}, {"@type": "Question", "name": "Can a workflow set the product plan from the line items?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, with code. Line items are children of the payment, the invoice, the quote or the deal that created them, not of the contact, so a plain contact filter cannot see them. The plan spec uses a custom coded action at Operations Hub Professional to walk those associations and read a plan name property off the product, which is what keeps a product rename from breaking the mapping. It also ships a no code version, one active list per plan, that costs one workflow per plan and breaks when a contact buys two."}}, {"@type": "Question", "name": "Are all twelve specs published already?", "acceptedAnswer": {"@type": "Answer", "text": "No, and the release dates are public. The quote reminder, the renewal amount and the missing line items specs land in late September and October. The payment failure alert and the finance notification land in November. The three Commerce Hub specs at the heart of this page, the payment stamp, the onboarding kickoff and the plan from line items, are scheduled for 25 December 2026, with the subscription object and the amount validation earlier in December. Buying the full library gets you each one on its date."}}]}</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
+</header>
+<main class="bwrap">
+
+<div class="crumbs"><a href="/">Home</a> › <a href="/bundles/">Bundles</a> › How do I automate HubSpot workflows after a payment or invoice?</div>
+<div class="bhead">
+  <h1>How do I automate HubSpot workflows after a payment or invoice?</h1>
+  <p class="answer">Enroll on the payment associated to the deal or the contact, stamp a date property, then branch. That covers the owner notification, the onboarding kickoff and the plan label read from the line items. It needs Commerce Hub with a connected processor, and workflows at a Professional tier. The trap is recurring billing: one payment record per charge, so without a guard property month two notifies the owner again and restarts onboarding.</p>
+  <div class="meta-row"><span class="chip">12 specs</span><span class="chip tier">Minimum tier: Sales Hub Professional</span><span class="chip">About 120 min for the core build</span><span class="chip">Updated 2026-09-17</span></div>
+</div>
+<div class="bgrid">
+<div>
+  <h2>What this bundle builds</h2><p>Money landing in the portal is a signal most teams waste. The receipt
+sits in a shared finance inbox, the rep finds out on Thursday,
+onboarding starts whenever someone forwards the email, and the plan the
+customer bought lives in the billing system where marketing cannot
+segment on it.</p>
+<p>These twelve specs close that gap on the CRM side. A successful
+payment stamps a date and a paid status on the deal and tells the owner
+within minutes. The same event, read on the contact, flips the lifecycle
+stage, creates the kickoff task, opens the onboarding ticket and sends
+the welcome email fifteen minutes later so it does not race the
+processor receipt. A coded action walks the payment to its line items to
+the products behind them and writes the plan label and start date onto
+the contact. Around that sit the quote alerts that precede the payment,
+the line item checks that keep the deal amount honest, and the renewal
+and dunning specs for when a charge fails.</p>
+<p>The native template gallery confirms the demand: telling deal owners
+about a payment, onboarding after one, and reminding customers to renew
+each carry more than 800 installs. Setting the product plan from
+payments carries over 100. These specs go further, with guard
+properties, a partial payment branch and a failure path.</p>
+
+  <h2>The components, in build order</h2><div class="comp"><h3>Payment received to the deal</h3><p class="what">The money lands, the deal carries a date and a paid status anyone can filter on, and the owner hears about it in minutes.</p><div class="specs"><div class="spec"><b>Notify the deal owner and stamp the deal when a HubSpot payment is received (payment links and invoices)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-12-25</span></div></div><div class="spec"><b>New customer notification to finance and billing</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-11-13</span></div></div></div></div><div class="comp"><h3>Payment to onboarding</h3><p class="what">A successful payment makes the buyer a customer, books the kickoff task, opens the onboarding ticket and sends the welcome email.</p><div class="specs"><div class="spec"><b>Start customer onboarding automatically after a successful payment (Commerce Hub)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="soon">full spec 2026-12-25</span></div></div></div></div><div class="comp"><h3>Line items to the product plan</h3><p class="what">Walk the payment or invoice to its line items to their products, read the plan label, and check the deal amount agrees with the total.</p><div class="specs"><div class="spec"><b>Set the product plan on contacts from paid line items (payments and invoices)</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>contact</span><span class="soon">full spec 2026-12-25</span></div></div><div class="spec"><b>Custom code validation of deal amount against line item total</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>deal</span><span class="soon">full spec 2026-12-11</span></div></div><div class="spec"><b>Deal missing line items before close</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-10-16</span></div></div></div></div><div class="comp"><h3>Quotes on the way to the payment</h3><p class="what">The signature alert that starts the handoff, and the reminder that fires before a live quote expires.</p><div class="specs"><a class="spec" href="/w/sales-ops-005.html"><b>Notify rep and manager when a quote is e-signed</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>quote</span></div></a><div class="spec"><b>Task reminder before a quote&#x27;s expiration date</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>quote</span><span class="soon">full spec 2026-09-25</span></div></div></div></div><div class="comp"><h3>Renewals, subscriptions and the billing signal</h3><p class="what">Pre-fill the renewal amount, track each subscription as its own record, and react when a charge fails or dunning starts.</p><div class="specs"><div class="spec"><b>Renewal deal amount pre-populated from current subscription value</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-10-02</span></div></div><div class="spec"><b>Subscription custom object synced with renewal deal date</b><p></p><div class="row"><span class="tier">Sales Hub Enterprise</span><span>custom</span><span class="soon">full spec 2026-12-04</span></div></div><div class="spec"><b>Payment failure or dunning event triggers renewal risk alert</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>company</span><span class="soon">full spec 2026-11-06</span></div></div><div class="spec"><b>Webhook-triggered churn signal from external billing system</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>company</span><span class="soon">full spec 2026-12-18</span></div></div></div></div>
+  <h2>How the pieces fit together</h2><p>Start with the payment stamp on the deal. Everything downstream reads
+the property it writes, and building it tells you within an hour whether
+your portal exposes payment filters on deal workflows. If it does not,
+build the payment object workflow from its Variants first and let the
+rest trigger on the stamped date.</p>
+<p>Onboarding comes second. Same enrollment answer, plus a guard
+property of its own, plus a decision about the welcome email, since
+automated marketing emails need Marketing Hub Professional and a
+sequence needs an owner with a connected inbox.</p>
+<p>The plan lookup comes third, because it needs a plan name property on
+each product in the library before the code has anything to read. The
+line item checks pair with it: one flags a deal heading for close with
+no line items, the other compares the amount against the line item
+total.</p>
+<p>Quotes and renewals sit at either end. Quotes feed the payment.
+Dunning and the billing signal react after it, and both depend on
+something outside the portal writing a payment status property.</p>
+
+  <h2>What breaks, and how the specs prevent it</h2><div class="breaks"><div class="brk"><b>A deal cannot read its own payment</b><p>Copy property value reads the enrolled record, so a deal workflow cannot pull the amount off the associated payment into a deal property. The payment spec says so and gives the two ways out: build the workflow on the payment object and copy down to the deal, or use a custom coded action at Operations Hub Professional. Settle that before you promise finance an amount paid to date field that is always right.</p></div><div class="brk"><b>A subscription pays every month</b><p>Recurring billing creates one payment record per charge. Without the payment received date is unknown filter, the owner gets pinged on every renewal and the paid status flips back and forth. On the onboarding side the same guard, onboarding start date is unknown, is the only thing stopping month two from restarting the kickoff for an existing customer. Do not remove either one to fix an unrelated problem.</p></div><div class="brk"><b>A refund does not undo the stamp</b><p>Refunds create their own record. The deal keeps reading paid in full, and the plan label keeps sitting on the contact, because a refunded payment can keep its paid status. Both specs carry the companion workflow in their Variants and neither pretends the base version handles it. If refunds are common for you, build the reverse before you switch the forward version on.</p></div></div>
+  <h2>What you get</h2><ul>
+<li>12 specs, each with outcome, prerequisites, enrollment, steps, known
+pitfalls, a test plan and variants</li>
+<li>Each spec ships as PDF and Markdown</li>
+<li>Properties JSON, 28 properties across contacts, companies, deals,
+quotes and products, plus one custom object</li>
+<li>Workflow JSON for all 12, in Automation API format, switched off on
+import</li>
+<li>3 custom coded actions as JavaScript files, with inputs, outputs and
+secret names in the header</li>
+<li>A test plan per spec, each written for a processor in test mode and
+a test card, not a live charge</li>
+<li>The fallback enrollment path documented per spec, for portals
+without associated payment filters</li>
+<li>Install in one click for Full and Agency buyers</li>
+</ul>
+
+  <h2>Who it is for, and who should skip it</h2><p>Take this if you collect money inside the portal through payment
+links, quotes with payment or invoices, and the CRM currently learns
+about it last. Self serve and low touch businesses get the most: payment
+really is the start signal, so the onboarding spec alone removes a
+manual step from every sale.</p>
+<p>Skip it if billing lives entirely outside the portal with nothing
+synced back. No payment or invoice record means nothing to enroll on,
+and the honest answer is to sync a plan and a status property from the
+billing system directly, then build the dunning and renewal specs on
+those. Skip it too on a Starter tier. Simple automation cannot run any
+of this.</p>
+
+  
+  <h2>Questions admins ask</h2><div class="faq"><details><summary>Do I need Commerce Hub to automate on a payment?</summary><p>You need a connected payment processor, because without one no payment record is ever created and the workflow has nothing to enroll on. Payments, quotes with payment and invoices are the Commerce tools that produce those records. Availability and the per transaction fee depend on your subscription and on the processor you connect, which the plan spec flags as something to check rather than assume, since it has changed more than once.</p></details><details><summary>Does this work outside the United States?</summary><p>There are two processing paths and only one is US only. HubSpot payments requires a business based in the United States. Everywhere else, you connect Stripe payment processing through the portal and the payment records behave the same way for automation. Both payment specs name this and mark the exact country coverage as something to confirm in your own payments settings before building.</p></details><details><summary>Can a workflow enroll on a payment or an invoice record?</summary><p>That is the one thing to verify first, because the whole build order depends on it. If payment and invoice properties appear as associated object enrollment filters on your deal and contact workflows, enroll directly. If they do not, each spec carries the same fallback: a workflow on the payment object whose only job is to stamp a date onto the deal or the contact, and the main workflow then triggers on that property becoming known.</p></details><details><summary>Can a workflow set the product plan from the line items?</summary><p>Yes, with code. Line items are children of the payment, the invoice, the quote or the deal that created them, not of the contact, so a plain contact filter cannot see them. The plan spec uses a custom coded action at Operations Hub Professional to walk those associations and read a plan name property off the product, which is what keeps a product rename from breaking the mapping. It also ships a no code version, one active list per plan, that costs one workflow per plan and breaks when a contact buys two.</p></details><details><summary>Are all twelve specs published already?</summary><p>No, and the release dates are public. The quote reminder, the renewal amount and the missing line items specs land in late September and October. The payment failure alert and the finance notification land in November. The three Commerce Hub specs at the heart of this page, the payment stamp, the onboarding kickoff and the plan from line items, are scheduled for 25 December 2026, with the subscription object and the amount validation earlier in December. Buying the full library gets you each one on its date.</p></details></div>
+  <h2>Related</h2><div class="relb"><a href="/bundles/deal-stage-automation/">How do I move a deal to the next stage automatically in HubSpot?</a><a href="/bundles/hubspot-webhooks-zapier-make-n8n/">How do I connect HubSpot workflows to Zapier, Make or n8n?</a><a href="/bundles/ops-hub-power-pack/">What can custom coded actions do in HubSpot workflows?</a><a href="/#library?cat=customer-onboarding">Customer onboarding category</a><a href="/#library?cat=data-quality">Data quality category</a><a href="/#library?cat=deal-hygiene">Deal hygiene category</a></div>
+  <div class="author">Built by a collective of independent HubSpot consultants, ten years of implementations behind them. Searched as: hubspot workflow after payment received, hubspot commerce hub automation, hubspot invoice workflow, hubspot payment link workflow, set product plan from line items. HubSpot calls it: Payment status, Balance due, Line items, Quote buyer signed event, Commerce Hub. Version 2026-09-17.</div>
+</div>
+<aside class="buy">
+  <div class="chip">12 specs in this collection</div>
+  <div class="price" style="margin-top:10px">149 EUR</div>
+  <div class="until">The full library, all 500 specs, founding price until 31 October 2026</div>
+  <a class="btn pri" href="/#pricing" data-cta="bundle-full">Get the full library</a>
+  <ul>
+    <li>These 12 specs and 490 more, every file format</li>
+    <li>Properties JSON, workflow JSON, custom code, test plans</li>
+    <li>30-day refund. Prices exclude VAT</li>
+  </ul>
+  <p class="alt">Read one first: <a href="/w/renewal-expansion-001.html">Renewal deal auto-creation from contract end date</a> is free and complete.</p>
+</aside>
+</div>
+</main>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salesforce to HubSpot migration: 29 workflow specs | The Workflow Library</title>
+<meta name="description" content="No Flow converter exists. Twenty-nine workflow specs that rebuild assignment rules, lead conversion, scheduled flows, approvals and escalation.">
+<link rel="canonical" href="https://theworkflowlibrary.com/bundles/salesforce-to-hubspot-migration/">
+<meta property="og:type" content="website"><meta property="og:title" content="Salesforce to HubSpot migration: 29 workflow specs | The Workflow Library"><meta property="og:description" content="No Flow converter exists. Twenty-nine workflow specs that rebuild assignment rules, lead conversion, scheduled flows, approvals and escalation."><meta property="og:url" content="https://theworkflowlibrary.com/bundles/salesforce-to-hubspot-migration/"><meta property="og:image" content="https://theworkflowlibrary.com/og/home.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+.bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:var(--amber-tint,#FBF1DC);--bb-amber-ink:var(--amber,#8A5B00);--bb-sans:var(--sans,"Sora",system-ui,sans-serif);font-family:var(--bb-sans);color:var(--bb-ink);max-width:1120px;margin:0 auto;padding:0 24px 60px}
+.bwrap p{margin:0 0 12px;line-height:1.6}.bwrap h2{font-size:1.45rem;margin:34px 0 10px}.bwrap ul{margin:0 0 12px;padding-left:20px}.bwrap li{margin:4px 0}
+.tbl{overflow-x:auto}.tbl table{border-collapse:collapse;width:100%;font-size:.9rem;margin:8px 0 18px}.tbl th{text-align:left;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--bb-muted);padding:8px 10px;border-bottom:2px solid var(--bb-rule)}.tbl td{padding:8px 10px;border-bottom:1px solid var(--bb-rule);vertical-align:top;color:var(--bb-body)}
+.crumbs{font-size:.9rem;color:var(--bb-muted);margin:22px 0 10px}.crumbs a{color:inherit}
+.bhead h1{font-size:clamp(1.7rem,3.4vw,2.5rem);max-width:820px;margin:0 0 12px}
+.answer{font-size:1.15rem;color:var(--bb-body);max-width:760px;margin:0 0 14px}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
+.chip{display:inline-block;font-size:.85rem;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--bb-tint);color:var(--bb-violet)}
+.chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.bgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;align-items:start}
+@media (max-width:900px){.bgrid{grid-template-columns:1fr}}
+.buy{position:sticky;top:20px;border:2px solid var(--bb-violet);border-radius:16px;padding:22px;background:#fff}
+.buy .price{font-family:var(--bb-sans);font-size:2.2rem;font-weight:800;line-height:1}
+.buy .was{color:var(--bb-muted);text-decoration:line-through;font-size:1.05rem;margin-left:8px;font-weight:600}
+.buy .until{font-size:.85rem;color:var(--bb-amber-ink);font-weight:700;margin:6px 0 14px}
+.buy .btn{display:block;text-align:center;margin:0 0 10px}
+.buy ul{margin:14px 0 0;padding-left:18px;font-size:.92rem;color:var(--bb-body)}
+.buy .alt{font-size:.9rem;color:var(--bb-muted);margin-top:12px}
+.comp{margin:28px 0}
+.comp h3{font-size:1.15rem;margin:0 0 4px}
+.comp .what{color:var(--bb-body);margin:0 0 10px}
+.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.spec{display:block;border:1px solid var(--bb-rule);border-radius:12px;padding:12px 14px;color:var(--bb-ink);background:#fff;text-decoration:none}
+.spec:hover{border-color:var(--bb-violet);background:var(--bb-tint)}
+.spec b{display:block;font-size:.98rem;margin-bottom:4px}
+.spec p{margin:0 0 6px;font-size:.88rem;color:var(--bb-body)}
+.spec .row{display:flex;gap:6px;flex-wrap:wrap}
+.spec .row span{font-size:.75rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-tint);color:var(--bb-violet)}
+.spec .row span.free{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.spec .row span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
+.breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 28px}
+.brk{border-left:4px solid var(--bb-violet);background:var(--bb-tint);padding:12px 14px;border-radius:0 10px 10px 0}
+.brk b{display:block;margin-bottom:4px}
+.brk p{margin:0;font-size:.92rem;color:var(--bb-body)}
+.faq details{border-bottom:1px solid var(--bb-rule);padding:12px 0}.faq summary{font-weight:700;cursor:pointer;font-family:var(--bb-sans);font-size:1.02rem}.faq p{margin:10px 0 4px;color:var(--bb-body)}
+.relb{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+.relb a{border:1px solid var(--bb-rule);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--bb-ink);background:#fff}
+.relb a:hover{border-color:var(--bb-violet)}
+.author{margin-top:36px;padding-top:18px;border-top:1px solid var(--bb-rule);font-size:.92rem;color:var(--bb-muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://theworkflowlibrary.com/"}, {"@type": "ListItem", "position": 2, "name": "Bundles", "item": "https://theworkflowlibrary.com/bundles/"}, {"@type": "ListItem", "position": 3, "name": "How do I rebuild Salesforce Flows as HubSpot workflows when migrating?", "item": "https://theworkflowlibrary.com/bundles/salesforce-to-hubspot-migration/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "How do I rebuild Salesforce Flows as HubSpot workflows when migrating?", "url": "https://theworkflowlibrary.com/bundles/salesforce-to-hubspot-migration/", "description": "No Flow converter exists. Twenty-nine workflow specs that rebuild assignment rules, lead conversion, scheduled flows, approvals and escalation.", "dateModified": "2026-09-17", "author": {"@type": "Organization", "name": "The Workflow Library"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 29, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "New lead auto-assignment by owner rotation", "url": "https://theworkflowlibrary.com/w/lead-routing-002.html"}, {"@type": "ListItem", "position": 2, "name": "Round-robin lead assignment by territory", "url": "https://theworkflowlibrary.com/w/lead-routing-001.html"}, {"@type": "ListItem", "position": 3, "name": "Route leads by country / region to territory owner", "url": "https://theworkflowlibrary.com/w/lead-routing-006.html"}, {"@type": "ListItem", "position": 4, "name": "Route existing-customer inquiry to current owner instead of round-robin", "url": "https://theworkflowlibrary.com/w/lead-routing-019.html"}, {"@type": "ListItem", "position": 5, "name": "Auto-unassign and re-route lead when owner is deactivated", "url": "https://theworkflowlibrary.com/w/lead-routing-012.html"}, {"@type": "ListItem", "position": 6, "name": "Round-robin ticket assignment by team/queue", "url": "https://theworkflowlibrary.com/w/tickets-sla-001.html"}, {"@type": "ListItem", "position": 7, "name": "Lead to MQL lifecycle stage promotion on lead score threshold", "url": "https://theworkflowlibrary.com/w/marketing-ops-001.html"}, {"@type": "ListItem", "position": 8, "name": "MQL to SQL handoff with lifecycle stage change and sales notification", "url": "https://theworkflowlibrary.com/w/marketing-ops-002.html"}, {"@type": "ListItem", "position": 9, "name": "SDR-to-AE handoff: create a deal and associate the contact when a meeting outcome is marked qualified", "url": "https://theworkflowlibrary.com/w/sales-ops-025.html"}, {"@type": "ListItem", "position": 10, "name": "Company auto-association from contact email domain", "url": "https://theworkflowlibrary.com/w/data-quality-006.html"}, {"@type": "ListItem", "position": 11, "name": "Lifecycle stage disqualification to \"Other\" for bad-fit leads", "url": "https://theworkflowlibrary.com/w/marketing-ops-015.html"}, {"@type": "ListItem", "position": 12, "name": "Task creation when a deal enters a pipeline stage", "url": "https://theworkflowlibrary.com/w/deal-hygiene-002.html"}, {"@type": "ListItem", "position": 13, "name": "Auto-set forecast category based on deal stage", "url": "https://theworkflowlibrary.com/w/deal-hygiene-005.html"}, {"@type": "ListItem", "position": 14, "name": "Deal probability auto-set by stage (weighted forecast)", "url": "https://theworkflowlibrary.com/w/deal-hygiene-011.html"}, {"@type": "ListItem", "position": 15, "name": "Deal stage regression alert (moved backward)", "url": "https://theworkflowlibrary.com/w/deal-hygiene-020.html"}, {"@type": "ListItem", "position": 16, "name": "Lifecycle stage sync from deal stage back to contact and company", "url": "https://theworkflowlibrary.com/w/marketing-ops-048.html"}, {"@type": "ListItem", "position": 17, "name": "Lifecycle stage regression prevention (block downgrade actions)", "url": "https://theworkflowlibrary.com/w/marketing-ops-035.html"}, {"@type": "ListItem", "position": 18, "name": "Stale deal alert: no activity in 14 days", "url": "https://theworkflowlibrary.com/w/deal-hygiene-001.html"}, {"@type": "ListItem", "position": 19, "name": "Renewal deal auto-creation from contract end date", "url": "https://theworkflowlibrary.com/w/renewal-expansion-001.html"}, {"@type": "ListItem", "position": 20, "name": "Renewal reminder cascade to CSM/AM (90/60/30 days before contract end)", "url": "https://theworkflowlibrary.com/w/renewal-expansion-002.html"}, {"@type": "ListItem", "position": 21, "name": "Reassign orphaned leads (no owner) on a nightly schedule", "url": "https://theworkflowlibrary.com/w/lead-routing-021.html"}, {"@type": "ListItem", "position": 22, "name": "Bulk property cleanup via scheduled recurring workflow", "url": "https://theworkflowlibrary.com/w/data-quality-048.html"}, {"@type": "ListItem", "position": 23, "name": "Discount approval before a deal can move to Closed Won", "url": "https://theworkflowlibrary.com/w/deal-hygiene-015.html"}, {"@type": "ListItem", "position": 24, "name": "Require and capture win/loss reason on Closed Lost", "url": "https://theworkflowlibrary.com/w/deal-hygiene-004.html"}, {"@type": "ListItem", "position": 25, "name": "Required field enforcement on contact creation (email or phone missing)", "url": "https://theworkflowlibrary.com/w/data-quality-001.html"}, {"@type": "ListItem", "position": 26, "name": "Duplicate contact detection and merge review queue", "url": "https://theworkflowlibrary.com/w/data-quality-002.html"}, {"@type": "ListItem", "position": 27, "name": "Duplicate company detection by domain match", "url": "https://theworkflowlibrary.com/w/data-quality-008.html"}, {"@type": "ListItem", "position": 28, "name": "Ticket escalation to manager when SLA time-to-close is breached", "url": "https://theworkflowlibrary.com/w/tickets-sla-005.html"}, {"@type": "ListItem", "position": 29, "name": "Escalation ladder L1 to L2 to L3 based on elapsed unresolved time", "url": "https://theworkflowlibrary.com/w/tickets-sla-015.html"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is there a Salesforce Flow to HubSpot workflow converter?", "acceptedAnswer": {"@type": "Answer", "text": "No. Nothing reads a Flow definition and produces a workflow, and no vendor tool does it either. The migration is a concept-by-concept rebuild: you inventory the active Flows, assignment rules, validation rules and approval processes, then map each one to an enrollment filter plus native actions. The mapping table on this page covers the thirty-eight concepts that come up on almost every project."}}, {"@type": "Question", "name": "What is the HubSpot equivalent of a Salesforce assignment rule?", "acceptedAnswer": {"@type": "Answer", "text": "An If/then branch on a property, followed by Rotate record to owner against a static list or an active Team. Branch order works like rule order, first match wins. What you lose is the rule entry table: there is no grid to import, so each territory or queue becomes a branch condition somebody maintains by hand. Rotation is even by assignment count at run time, and adding a rep does not rebalance past assignments."}}, {"@type": "Question", "name": "How do I replicate lead conversion in HubSpot?", "acceptedAnswer": {"@type": "Answer", "text": "There is no Lead object and no Convert action. A contact exists from first touch and Lifecycle stage carries the funnel position, so conversion becomes two workflows: Edit record moves the stage to Sales Qualified Lead, then Create record opens the deal with the contact associated and the owner taken from Contact owner. Matching the company by email domain is the third piece, and that one needs a custom coded action on Data Hub Professional."}}, {"@type": "Question", "name": "Does HubSpot have approval processes?", "acceptedAnswer": {"@type": "Answer", "text": "Not as an object. The working pattern is an approver property, a notification, a task, and a gate property that only the approver should be able to set, with a required property configured on the pipeline stage before Closed Won so the deal cannot move without it. The workflow itself cannot block the stage change. Multi-step routing, recall and delegation have no equivalent at all, which is why they sit in the planned five-spec migration kit."}}, {"@type": "Question", "name": "Can HubSpot workflows replace scheduled flows and Apex triggers?", "acceptedAnswer": {"@type": "Answer", "text": "Scheduled flows map to a scheduled workflow enrollment that re-evaluates its criteria on each run, on the portal timezone. Apex maps to a custom coded action in JavaScript or Python on Data Hub Professional, with twenty seconds and 128 MB per execution and a rate limit you set per action. Four of the twenty-nine specs here use one. The rest run on native actions at Professional."}}]}</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
+</header>
+<main class="bwrap">
+
+<div class="crumbs"><a href="/">Home</a> › <a href="/bundles/">Bundles</a> › How do I rebuild Salesforce Flows as HubSpot workflows when migrating?</div>
+<div class="bhead">
+  <h1>How do I rebuild Salesforce Flows as HubSpot workflows when migrating?</h1>
+  <p class="answer">Concept by concept. Nothing converts a Flow into a workflow, so each Salesforce automation maps to a HubSpot enrollment filter plus native actions: Rotate record to owner for assignment rules, Edit record and Create record for lead conversion, scheduled enrollment for batch flows, a required property on a pipeline stage for approval gates. Sales Hub Professional covers most of it. The trap is the four patterns with no native equivalent: subflows, multi-step approvals, formula fields in entry criteria, record-level locking.</p>
+  <div class="meta-row"><span class="chip">29 specs</span><span class="chip tier">Minimum tier: Sales Hub Professional</span><span class="chip">About 100 min for the core build</span><span class="chip">Updated 2026-09-17</span></div>
+</div>
+<div class="bgrid">
+<div>
+  <h2>What this bundle builds</h2><p>The inventory always comes back bigger than the scoping call
+suggested. Two hundred active Flows, forty of them scheduled, a dozen
+validation rules nobody can explain, and one approval process that three
+people depend on. Most of it does not need to move.</p>
+<p>What this collection gives you is the working set: the twenty-nine
+HubSpot workflows that cover the Salesforce automation patterns which
+actually appear on every migration. Leads get an owner by rotation, by
+territory or by country, and the existing-customer exception routes to
+the account owner instead of the pool. The Convert button becomes a
+lifecycle stage change plus a deal created on qualification, with the
+company matched by email domain. Stage automation fires on a property
+change and writes forecast category, probability and the backward-move
+flag. The batch jobs come back as scheduled enrollment, and the
+date-anchored reminders as delays measured against a contract end
+date.</p>
+<p>The last component is the one that decides whether the migration
+lands well. Approvals, validation rules, duplicate rules and case
+escalation all behave differently here, and the specs are written around
+what HubSpot can genuinely do rather than what the old system did.</p>
+
+  <h2>The components, in build order</h2><div class="comp"><h3>Assignment rules and queues</h3><p class="what">Owner on every new record within minutes, by flat rotation, by territory, by country, by ticket queue, plus the exceptions Salesforce handled with account teams and mass transfer.</p><div class="specs"><a class="spec" href="/w/lead-routing-002.html"><b>New lead auto-assignment by owner rotation</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span></div></a><a class="spec" href="/w/lead-routing-001.html"><b>Round-robin lead assignment by territory</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="free">free, complete</span></div></a><div class="spec"><b>Route leads by country / region to territory owner</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="soon">full spec 2026-09-18</span></div></div><div class="spec"><b>Route existing-customer inquiry to current owner instead of round-robin</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="soon">full spec 2026-10-16</span></div></div><div class="spec"><b>Auto-unassign and re-route lead when owner is deactivated</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="soon">full spec 2026-10-02</span></div></div><a class="spec" href="/w/tickets-sla-001.html"><b>Round-robin ticket assignment by team/queue</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="free">free, complete</span></div></a></div></div><div class="comp"><h3>Lead conversion</h3><p class="what">The replacement for the Convert button: lifecycle stage as the funnel position, a deal created on qualification, the company matched by email domain, and the disqualification path.</p><div class="specs"><a class="spec" href="/w/marketing-ops-001.html"><b>Lead to MQL lifecycle stage promotion on lead score threshold</b><p></p><div class="row"><span class="tier">Marketing Hub Professional</span><span>contact</span><span class="free">free, complete</span></div></a><a class="spec" href="/w/marketing-ops-002.html"><b>MQL to SQL handoff with lifecycle stage change and sales notification</b><p></p><div class="row"><span class="tier">Marketing Hub Professional</span><span>contact</span></div></a><div class="spec"><b>SDR-to-AE handoff: create a deal and associate the contact when a meeting outcome is marked qualified</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="soon">full spec 2026-10-30</span></div></div><div class="spec"><b>Company auto-association from contact email domain</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>contact</span><span class="soon">full spec 2026-09-18</span></div></div><div class="spec"><b>Lifecycle stage disqualification to &quot;Other&quot; for bad-fit leads</b><p></p><div class="row"><span class="tier">Marketing Hub Professional</span><span>contact</span><span class="soon">full spec 2026-10-09</span></div></div></div></div><div class="comp"><h3>Record-triggered flows on field change</h3><p class="what">Stage and lifecycle automation that fires on a property change: stage tasks, forecast category, probability, backward moves, and the deal to company lifecycle sync.</p><div class="specs"><a class="spec" href="/w/deal-hygiene-002.html"><b>Task creation when a deal enters a pipeline stage</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span></div></a><a class="spec" href="/w/deal-hygiene-005.html"><b>Auto-set forecast category based on deal stage</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span></div></a><div class="spec"><b>Deal probability auto-set by stage (weighted forecast)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-09-25</span></div></div><div class="spec"><b>Deal stage regression alert (moved backward)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="soon">full spec 2026-10-16</span></div></div><div class="spec"><b>Lifecycle stage sync from deal stage back to contact and company</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>company</span><span class="soon">full spec 2026-12-25</span></div></div><div class="spec"><b>Lifecycle stage regression prevention (block downgrade actions)</b><p></p><div class="row"><span class="tier">Marketing Hub Professional</span><span>contact</span><span class="soon">full spec 2026-11-20</span></div></div></div></div><div class="comp"><h3>Scheduled flows and time-based actions</h3><p class="what">The batch jobs and date-anchored reminders: stale deal sweeps, renewal deal creation, the 90/60/30 cascade, the nightly orphan sweep and the recurring data cleanup.</p><div class="specs"><a class="spec" href="/w/deal-hygiene-001.html"><b>Stale deal alert: no activity in 14 days</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span><span class="free">free, complete</span></div></a><a class="spec" href="/w/renewal-expansion-001.html"><b>Renewal deal auto-creation from contract end date</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>company</span><span class="free">free, complete</span></div></a><a class="spec" href="/w/renewal-expansion-002.html"><b>Renewal reminder cascade to CSM/AM (90/60/30 days before contract end)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>company</span></div></a><div class="spec"><b>Reassign orphaned leads (no owner) on a nightly schedule</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="soon">full spec 2026-10-23</span></div></div><div class="spec"><b>Bulk property cleanup via scheduled recurring workflow</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>contact</span><span class="soon">full spec 2026-12-25</span></div></div></div></div><div class="comp"><h3>Approval processes, validation rules and escalation rules</h3><p class="what">The gates: a discount approval routed to a named approver, a loss reason chased after the fact, required fields detected at creation, duplicate review queues, and the SLA escalation ladder.</p><div class="specs"><div class="spec"><b>Discount approval before a deal can move to Closed Won</b><p></p><div class="row"><span class="tier">Sales Hub Enterprise</span><span>deal</span><span class="soon">full spec 2026-10-09</span></div></div><a class="spec" href="/w/deal-hygiene-004.html"><b>Require and capture win/loss reason on Closed Lost</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>deal</span></div></a><a class="spec" href="/w/data-quality-001.html"><b>Required field enforcement on contact creation (email or phone missing)</b><p></p><div class="row"><span class="tier">Sales Hub Professional</span><span>contact</span><span class="free">free, complete</span></div></a><a class="spec" href="/w/data-quality-002.html"><b>Duplicate contact detection and merge review queue</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>contact</span></div></a><div class="spec"><b>Duplicate company detection by domain match</b><p></p><div class="row"><span class="tier">Operations Hub Professional</span><span>company</span><span class="soon">full spec 2026-09-18</span></div></div><a class="spec" href="/w/tickets-sla-005.html"><b>Ticket escalation to manager when SLA time-to-close is breached</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span></div></a><div class="spec"><b>Escalation ladder L1 to L2 to L3 based on elapsed unresolved time</b><p></p><div class="row"><span class="tier">Service Hub Professional</span><span>ticket</span><span class="soon">full spec 2026-10-09</span></div></div></div></div>
+  <h2>How the pieces fit together</h2><p>Assignment first, because everything downstream assumes an owner
+exists. Build the flat rotation, confirm the pool, then add the
+territory or country branches once that property is reliable, then the
+customer exception and the deactivated-owner sweep. Six shared
+properties carry through this whole component, starting with Lead routed
+date, which every later SLA and reporting spec reads.</p>
+<p>Lead conversion next, and it is worth doing before the data import,
+not after. Agree the Lead Status to Lifecycle stage mapping, build the
+score threshold in one workflow so sales gets one answer, then the deal
+creation on qualification. The domain-matching spec needs the company
+domain data to be clean already, so run it after the company import, not
+during.</p>
+<p>Stage automation and the scheduled jobs can be built in parallel by
+two people. Both depend on pipeline stage internal names, which you
+confirm once and reuse. Leave the approval and duplicate component for
+last: it depends on pipeline settings, on named approvers, and on
+somebody owning a review queue, an organizational decision more than a
+build.</p>
+
+  <h2>What breaks, and how the specs prevent it</h2><div class="breaks"><div class="brk"><b>Lifecycle stage does not go backward, and your import will notice</b><p>A form&#x27;s own set lifecycle stage option never moves a contact backwards, and a workflow that writes a lower stage ends up fighting the rest of the portal. Migrated records land at whatever stage your mapping chose and stay there. One spec here corrects regressions against a Highest lifecycle stage reached property, and it needs a one-time backfill before you turn it on, or every contact reads as forward movement on the first pass.</p></div><div class="brk"><b>Nothing blocks a save, and nothing merges</b><p>Validation rules and duplicate rules stop a bad record at the point of save in Salesforce. HubSpot workflows run after the record exists, so every check here is detect and flag: a status property, a review list, a task with a real owner. There is no merge action on any tier either, so the duplicate queue produces a human decision, not a merge. Required properties on a pipeline stage and on the create form are the only preventive controls, and the create form setting only gates manual creation in the interface, not imports or API writes.</p></div><div class="brk"><b>The enrollment filter is the whole entry logic, and it has no formulas</b><p>A flow entry condition can read a formula field. A HubSpot enrollment filter compares a property to a fixed value, does no arithmetic, and cannot rank picklist values, which is why the stage regression spec carries a numeric Stage Order property and a snapshot to compare against. Build the calculated property first, then filter on the plain number. Exiting works the same way: there is no Remove from workflow action, so unenrollment belongs to the target workflow&#x27;s own criteria, checked as the record moves between steps rather than only at entry.</p></div></div>
+  <h2>What you get</h2><ul>
+<li>29 specs, each as PDF and Markdown, with enrollment criteria, step
+list, diagram, test plan and the known pitfalls written out.</li>
+<li>A 38-row Salesforce to HubSpot mapping table on this page, free to
+read, covering the concepts that come up on every project.</li>
+<li>Properties JSON: 45 property definitions across contacts, companies,
+deals and tickets, including the flag and snapshot properties these
+workflows depend on.</li>
+<li>Workflow JSON in Automation API format, switched off, so nothing
+runs before you have read it.</li>
+<li>Custom coded actions: 4, all in the data-quality specs. The other 25
+run on native actions.</li>
+<li>Tier stated per spec: 17 Sales Hub Professional, 4 Marketing Hub
+Professional, 3 Service Hub Professional, 4 Data Hub Professional, 1
+Sales Hub Enterprise.</li>
+<li>15 static lists and review queues named and specified, not left as
+an exercise.</li>
+<li>Test plans that cover the negative path: the record with no
+territory, the blank required field, the duplicate that is not a
+duplicate.</li>
+<li>Install in one click for Full and Agency buyers.</li>
+</ul>
+
+  <h2>Who it is for, and who should skip it</h2><p>This is for the migration agency running its fourth or fifth
+Salesforce exit and tired of rediscovering the same four gaps, and for
+the RevOps lead who has to tell an exec committee which automations
+survive the move and which ones need a process change. About sixteen
+hours of build sits here at an honest pace with testing.</p>
+<p>Skip it if your Salesforce org is mostly standard objects with no
+custom automation, where the category packs are cheaper. Skip it if you
+are on Starter, since most of these specs will not load. And if the five
+patterns with no native equivalent are your actual problem, wait for the
+migration kit rather than buying around it.</p>
+
+  <h2>Salesforce Flow to HubSpot workflow: the mapping</h2><div class="tbl"><table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Salesforce concept</th>
+<th>What it does</th>
+<th>HubSpot equivalent (native action or pattern)</th>
+<th>Spec</th>
+<th>Gap or note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lead assignment rule</td>
+<td>First matching rule sets the owner or drops the lead in a queue</td>
+<td>If/then branch on a property, then Rotate record to owner against a
+static list or an active Team</td>
+<td>lead-routing-001</td>
+<td>Branch order works like rule order, first match wins. No rule entry
+grid to import.</td>
+</tr>
+<tr>
+<td>Case assignment rule</td>
+<td>Routes a case to a support queue</td>
+<td>Branch on a ticket queue property, then Rotate record to owner per
+pool</td>
+<td>tickets-sla-001</td>
+<td>Service Hub Professional. The queue value has to be set upstream by
+a form, a chatflow or a classification workflow.</td>
+</tr>
+<tr>
+<td>Queue (Lead, Case)</td>
+<td>Group-owned bucket records sit in until someone claims them</td>
+<td>No queue object. A static list plus a rotation pool, with a single
+user written as owner</td>
+<td>lead-routing-002</td>
+<td>Gap: ownership is always one user. “Unclaimed” is a property value
+or a list, not a record state.</td>
+</tr>
+<tr>
+<td>Round robin (Apex or a paid package)</td>
+<td>Even distribution across a team</td>
+<td>Rotate record to owner, native from Sales Hub Professional</td>
+<td>lead-routing-002</td>
+<td>Even by assignment count at run time. Adding a rep does not
+rebalance past assignments.</td>
+</tr>
+<tr>
+<td>Territory model</td>
+<td>Assigns accounts by territory hierarchy and rules</td>
+<td>Branch on a territory or country property, one rotation pool per
+territory</td>
+<td>lead-routing-001, lead-routing-006</td>
+<td>Gap: no territory object, no inherited hierarchy. The mapping lives
+in branch conditions you maintain by hand.</td>
+</tr>
+<tr>
+<td>Account team fallback on inbound inquiry</td>
+<td>Existing customer reaches their account owner, not the pool</td>
+<td>Branch on Contact owner is known, notify the current owner</td>
+<td>lead-routing-019</td>
+<td>Depends on lifecycle stage being accurate, or the customer falls
+back into new-lead routing.</td>
+</tr>
+<tr>
+<td>Mass transfer on user deactivation</td>
+<td>Reassigns a leaver’s records in bulk</td>
+<td>Deactivate to a placeholder user, then rotate those records back
+into the pool</td>
+<td>lead-routing-012</td>
+<td>Gap: the admin has to pick the placeholder during deactivation. One
+workflow per object type.</td>
+</tr>
+<tr>
+<td>Lead object</td>
+<td>Pre-conversion record, separate from Contact</td>
+<td>No Lead object. One contact from first touch, with Lifecycle stage
+carrying the funnel position</td>
+<td>marketing-ops-001</td>
+<td>Gap: nothing to migrate Leads into except contacts. Decide the stage
+per Lead Status before the import.</td>
+</tr>
+<tr>
+<td>Lead Status picklist</td>
+<td>Tracks working state inside the Lead</td>
+<td>Lifecycle stage plus the native Lead status property</td>
+<td>marketing-ops-001</td>
+<td>Two fields, two owners. Write down which one sales reports on.</td>
+</tr>
+<tr>
+<td>Lead scoring (Einstein, Pardot grade)</td>
+<td>Numeric score that gates MQL</td>
+<td>HubSpot Score in the enrollment filter, threshold kept in one
+workflow</td>
+<td>marketing-ops-001</td>
+<td>Re-enrollment has to be scoped to the score property alone, or the
+workflow re-checks all day.</td>
+</tr>
+<tr>
+<td>Convert Lead</td>
+<td>Creates Account, Contact and Opportunity in one action with field
+mapping</td>
+<td>Edit record on Lifecycle stage, then Create record for the deal with
+the contact associated</td>
+<td>marketing-ops-002, sales-ops-025</td>
+<td>Gap: no conversion action and no field mapping screen. Rebuild it as
+two workflows.</td>
+</tr>
+<tr>
+<td>Lead to Account matching on conversion</td>
+<td>Finds the account by domain before creating one</td>
+<td>Custom coded action searching companies by domain, then writing the
+association</td>
+<td>data-quality-006</td>
+<td>Data Hub Professional. Free-mail and regional domains need explicit
+handling inside the code.</td>
+</tr>
+<tr>
+<td>Unqualified Lead Status</td>
+<td>Takes a bad-fit lead out of the funnel</td>
+<td>Lifecycle stage Other plus a disqualification reason property</td>
+<td>marketing-ops-015</td>
+<td>Reporting only works if the reason list is agreed before
+go-live.</td>
+</tr>
+<tr>
+<td>Record-triggered flow, after save, on field change</td>
+<td>Runs when a field changes</td>
+<td>Filter-based workflow with re-enrollment on that property</td>
+<td>deal-hygiene-002</td>
+<td>Re-enrollment is per property. A deal bouncing between two tracked
+stages fires again each time.</td>
+</tr>
+<tr>
+<td>Record-triggered flow, before save, same-record update</td>
+<td>Fast field update with no extra DML</td>
+<td>Edit record inside the same workflow</td>
+<td>deal-hygiene-005</td>
+<td>Gap: no before-save path. Every write is a normal update that can
+trigger other workflows.</td>
+</tr>
+<tr>
+<td>Path on Opportunity</td>
+<td>Stage drives fields and guided next steps</td>
+<td>Branch on Deal stage, Create task per stage</td>
+<td>deal-hygiene-002</td>
+<td>Renaming a stage in settings breaks the branch silently, with no
+error surfaced.</td>
+</tr>
+<tr>
+<td>Forecast Category mapped from Stage</td>
+<td>Native Salesforce mapping</td>
+<td>Branch mapping each stage to a forecast category property</td>
+<td>deal-hygiene-005</td>
+<td>The native forecast property may not be workflow-writable. Custom
+fallback property, then fix the reports.</td>
+</tr>
+<tr>
+<td>Probability mapped from Stage</td>
+<td>Native Salesforce mapping</td>
+<td>Branch mapping each stage to a number property</td>
+<td>deal-hygiene-011</td>
+<td>Gap: workflows do no arithmetic, so amount times probability needs a
+calculated property or the Forecast tool.</td>
+</tr>
+<tr>
+<td>Formula field inside a flow entry condition</td>
+<td>Entry criteria reads a computed value</td>
+<td>Build the calculated property first, then filter on the plain
+number</td>
+<td>deal-hygiene-011, deal-hygiene-020</td>
+<td>Gap: the enrollment filter has no formulas. One of the five patterns
+in the planned migration kit.</td>
+</tr>
+<tr>
+<td>Picklist sort order compared inside a flow</td>
+<td>Detects a backward move</td>
+<td>Numeric order property plus a snapshot property, compared on each
+run</td>
+<td>deal-hygiene-020</td>
+<td>Gap: workflows cannot rank enumeration values. The snapshot only
+updates when the workflow runs.</td>
+</tr>
+<tr>
+<td>Cross-object field update, Opportunity to Account</td>
+<td>Flow writes to the parent record</td>
+<td>Deal-based workflow writing to the primary associated company and
+contact</td>
+<td>marketing-ops-048</td>
+<td>Depends on the primary association being correct. Copying across an
+association at scale needs Data Hub.</td>
+</tr>
+<tr>
+<td>Lifecycle or stage rollback inside a flow</td>
+<td>Sets a status field to any earlier value</td>
+<td>Correction workflow against a highest-stage-reached property</td>
+<td>marketing-ops-035</td>
+<td>Gap: forms never move a contact backwards and the correction runs
+after a short delay, not in real time.</td>
+</tr>
+<tr>
+<td>Validation rule</td>
+<td>Blocks the save and shows an error message</td>
+<td>Required properties per pipeline stage, plus a detect-and-flag
+workflow</td>
+<td>deal-hygiene-004</td>
+<td>Gap: a workflow runs after the record exists. It can chase, never
+block.</td>
+</tr>
+<tr>
+<td>Required field on a page layout</td>
+<td>Blocks the save in the interface</td>
+<td>Required property on the record create form</td>
+<td>data-quality-001</td>
+<td>Gates manual creation in the interface only. Imports, API calls and
+workflow-created records walk past it.</td>
+</tr>
+<tr>
+<td>Duplicate rule plus matching rule</td>
+<td>Warns or blocks on save</td>
+<td>Custom coded action searching the CRM at creation, review list and a
+task</td>
+<td>data-quality-002, data-quality-008</td>
+<td>Gap: detect only. Two reps can work both records until someone
+clears the queue.</td>
+</tr>
+<tr>
+<td>Merge from a duplicate alert</td>
+<td>Merges the two records in place</td>
+<td>Manual merge in the record interface</td>
+<td>data-quality-002</td>
+<td>Gap: no merge action in workflows on any tier. The queue produces a
+human decision.</td>
+</tr>
+<tr>
+<td>Approval process, single step</td>
+<td>Submit for approval, lock the record, approve or reject</td>
+<td>Approver property, task, gate property, and a required property on
+the stage before Closed Won</td>
+<td>deal-hygiene-015</td>
+<td>Gap: no approval object, no record lock, no submit button.
+Field-level control needs Sales Hub Enterprise.</td>
+</tr>
+<tr>
+<td>Approval process, multi-step or dynamic approver</td>
+<td>Chained approvers, recall, delegation</td>
+<td>No equivalent. Chained tasks and status properties, one step at a
+time</td>
+<td>none yet</td>
+<td>Gap: one of the five patterns in the planned five-spec migration
+kit.</td>
+</tr>
+<tr>
+<td>Case escalation rule</td>
+<td>Escalates on elapsed time against an entitlement</td>
+<td>SLA goals on the help desk pipeline, workflow on SLA status
+Overdue</td>
+<td>tickets-sla-005</td>
+<td>Service Hub Professional. Without SLA goals configured the property
+never populates and nothing enrolls.</td>
+</tr>
+<tr>
+<td>Entitlement process and milestones</td>
+<td>Time targets per account tier</td>
+<td>SLA goals per pipeline and per priority</td>
+<td>tickets-sla-005</td>
+<td>Gap: entitlements per account are not modelled. Account tier lives
+on a property and drives the branch.</td>
+</tr>
+<tr>
+<td>Escalation level by level</td>
+<td>L1 to L2 to L3 on elapsed time</td>
+<td>Delay, check status, notify the next escalation contact
+property</td>
+<td>tickets-sla-015</td>
+<td>Gap: no manager lookup below Enterprise teams. Each level is its own
+HubSpot user property.</td>
+</tr>
+<tr>
+<td>Scheduled flow, nightly batch</td>
+<td>Runs on a schedule over a filtered set</td>
+<td>Scheduled workflow enrollment, criteria re-evaluated on each
+run</td>
+<td>lead-routing-021, data-quality-048</td>
+<td>Runs on the portal timezone. No aggregate count of what a run
+touched, that needs a saved report.</td>
+</tr>
+<tr>
+<td>Scheduled path inside a record-triggered flow</td>
+<td>Waits, then re-checks</td>
+<td>Delay for N days, then a branch</td>
+<td>deal-hygiene-001</td>
+<td>The branch re-checks at expiry. A record changed in the same minute
+can race the evaluation.</td>
+</tr>
+<tr>
+<td>Time-based workflow action on a date field</td>
+<td>Fires N days before a date</td>
+<td>Delay until X days before a date property</td>
+<td>renewal-expansion-002</td>
+<td>Delays do not recalculate. If the date moves after enrollment, the
+schedule keeps the old one.</td>
+</tr>
+<tr>
+<td>Flow that creates a record from a date</td>
+<td>Opportunity created from a contract end date</td>
+<td>Create record action, owner taken from the company owner</td>
+<td>renewal-expansion-001</td>
+<td>Filter-based enrollment fires once when the record first matches. A
+flag property stops a second deal.</td>
+</tr>
+<tr>
+<td>Subflow or invocable flow</td>
+<td>Reusable logic called with inputs and outputs</td>
+<td>Enroll in another workflow</td>
+<td>none yet</td>
+<td>Gap: no input parameters, no return value. The child reads the
+record and nothing else. In the planned kit.</td>
+</tr>
+<tr>
+<td>Apex trigger or invocable Apex</td>
+<td>Code that runs on save</td>
+<td>Custom code action in JavaScript or Python</td>
+<td>data-quality-002</td>
+<td>Data Hub Professional. Twenty seconds and 128 MB per execution, plus
+a rate limit you set per action.</td>
+</tr>
+<tr>
+<td>Email alert from a flow</td>
+<td>Sends a templated internal email</td>
+<td>Send internal email notification</td>
+<td>lead-routing-001</td>
+<td>Recipient can be the record owner or a user property. A hardcoded
+person breaks when they leave.</td>
+</tr>
+<tr>
+<td>Process Builder and Workflow Rules</td>
+<td>Older automation layered on the same object</td>
+<td>One workflow per outcome, scoped by its enrollment filter</td>
+<td>deal-hygiene-002</td>
+<td>Two workflows writing the same property will fight. Decide which one
+owns each field before build.</td>
+</tr>
+</tbody>
+</table>
+</div>
+  <h2>Questions admins ask</h2><div class="faq"><details><summary>Is there a Salesforce Flow to HubSpot workflow converter?</summary><p>No. Nothing reads a Flow definition and produces a workflow, and no vendor tool does it either. The migration is a concept-by-concept rebuild: you inventory the active Flows, assignment rules, validation rules and approval processes, then map each one to an enrollment filter plus native actions. The mapping table on this page covers the thirty-eight concepts that come up on almost every project.</p></details><details><summary>What is the HubSpot equivalent of a Salesforce assignment rule?</summary><p>An If/then branch on a property, followed by Rotate record to owner against a static list or an active Team. Branch order works like rule order, first match wins. What you lose is the rule entry table: there is no grid to import, so each territory or queue becomes a branch condition somebody maintains by hand. Rotation is even by assignment count at run time, and adding a rep does not rebalance past assignments.</p></details><details><summary>How do I replicate lead conversion in HubSpot?</summary><p>There is no Lead object and no Convert action. A contact exists from first touch and Lifecycle stage carries the funnel position, so conversion becomes two workflows: Edit record moves the stage to Sales Qualified Lead, then Create record opens the deal with the contact associated and the owner taken from Contact owner. Matching the company by email domain is the third piece, and that one needs a custom coded action on Data Hub Professional.</p></details><details><summary>Does HubSpot have approval processes?</summary><p>Not as an object. The working pattern is an approver property, a notification, a task, and a gate property that only the approver should be able to set, with a required property configured on the pipeline stage before Closed Won so the deal cannot move without it. The workflow itself cannot block the stage change. Multi-step routing, recall and delegation have no equivalent at all, which is why they sit in the planned five-spec migration kit.</p></details><details><summary>Can HubSpot workflows replace scheduled flows and Apex triggers?</summary><p>Scheduled flows map to a scheduled workflow enrollment that re-evaluates its criteria on each run, on the portal timezone. Apex maps to a custom coded action in JavaScript or Python on Data Hub Professional, with twenty seconds and 128 MB per execution and a rate limit you set per action. Four of the twenty-nine specs here use one. The rest run on native actions at Professional.</p></details></div>
+  <h2>Related</h2><div class="relb"><a href="/bundles/round-robin-lead-routing/">How do I set up round robin lead assignment in HubSpot?</a><a href="/bundles/deal-stage-automation/">How do I move a deal to the next stage automatically in HubSpot?</a><a href="/bundles/no-ops-hub-needed/">Which HubSpot workflows can I build without Operations Hub Professional?</a><a href="/#library?cat=data-quality">Data quality category</a><a href="/#library?cat=deal-hygiene">Deal hygiene category</a><a href="/#library?cat=lead-routing">Lead routing category</a></div>
+  <div class="author">Built by a collective of independent HubSpot consultants, ten years of implementations behind them. Searched as: salesforce to hubspot migration, salesforce flow equivalent hubspot workflow, hubspot assignment rules equivalent, salesforce validation rule hubspot, hubspot approval process equivalent. HubSpot calls it: Rotate record to owner, Edit record, Create record, Required properties, Custom code action, Enroll in another workflow. Version 2026-09-17.</div>
+</div>
+<aside class="buy">
+  <div class="chip">29 specs in this collection</div>
+  <div class="price" style="margin-top:10px">149 EUR</div>
+  <div class="until">The full library, all 500 specs, founding price until 31 October 2026</div>
+  <a class="btn pri" href="/#pricing" data-cta="bundle-full">Get the full library</a>
+  <ul>
+    <li>These 29 specs and 490 more, every file format</li>
+    <li>Properties JSON, workflow JSON, custom code, test plans</li>
+    <li>30-day refund. Prices exclude VAT</li>
+  </ul>
+  <p class="alt">Read one first: <a href="/w/lead-routing-001.html">Round-robin lead assignment by territory</a> is free and complete.</p>
+</aside>
+</div>
+</main>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+</body>
+</html>

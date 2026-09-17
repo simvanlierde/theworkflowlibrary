@@ -70,6 +70,7 @@
         hub_id: s.connected.hub_id,
         tiers: s.connected.tiers || null,
         installed: s.connected.installed || [],
+        installed_on: s.connected.installed_on || {},
         expires_in: s.connected.expires_in,
         tier: tierLabel(s.connected.tiers),
       };
@@ -88,6 +89,16 @@
     return Array.prototype.slice.call(document.querySelectorAll(".pickrow input:checked"))
       .map(function (i) { return i.value; });
   }
+  // What the connected portal already holds: { "<spec id>": "2026-09-17" }.
+  function installedMap() {
+    var p = state && state.portal ? state.portal : null;
+    if (!p) return {};
+    if (p.installed_on && Object.keys(p.installed_on).length) return p.installed_on;
+    var out = {};
+    (p.installed || []).forEach(function (id) { out[id] = ""; });
+    return out;
+  }
+
   function covered(id) {
     var tiers = state && state.portal ? state.portal.tiers : null;
     if (!tiers) return true;
@@ -123,6 +134,7 @@
     var sel = selected();
     var miss = sel.filter(function (id) { return !covered(id); });
     $("selcount").textContent = sel.length + " spec" + (sel.length === 1 ? "" : "s") + " selected";
+    $("step1d").textContent = sel.length + " of " + SPECS.length + " selected";
     $("step1sel").textContent = sel.length + " selected";
     $("s1note").textContent = sel.length
       ? sel.length + " of the " + SPECS.length + " specs your licence covers."
@@ -133,10 +145,37 @@
     // (found on the test portal 17/09/2026, the page was unusable).
     $("st2").classList.toggle("off", sel.length === 0);
     $("step1done").classList.toggle("done", sel.length > 0);
+    var already = installedMap();
+    var dupes = [];
     document.querySelectorAll(".pickrow").forEach(function (r) {
       var i = r.querySelector("input");
       r.classList.toggle("warn", i.checked && !covered(i.value));
+      // Installing the same spec twice creates a second workflow of the same name: the buyer is told, and left
+      // free to do it on purpose after a spec was updated (docs/ACCOUNT-AND-STATE.md).
+      var on = already[i.value];
+      r.classList.toggle("has", !!on);
+      var tag = r.querySelector(".doneon");
+      if (on && !tag) {
+        tag = document.createElement("span");
+        tag.className = "doneon";
+        r.querySelector(".t").appendChild(tag);
+      }
+      if (tag) {
+        tag.textContent = on ? "In this portal since " + on : "";
+        tag.hidden = !on;
+      }
+      if (on && i.checked) dupes.push(i.value);
     });
+    var dw = $("dupwarn");
+    if (dw) {
+      dw.hidden = dupes.length === 0;
+      if (dupes.length) {
+        dw.innerHTML = "<b>" + dupes.length + (dupes.length === 1 ? " spec is" : " specs are") +
+          " already in this portal.</b> Installing " + (dupes.length === 1 ? "it" : "them") +
+          " again creates a second workflow of the same name. Do it when a spec was updated, otherwise untick " +
+          (dupes.length === 1 ? "it" : "them") + ".";
+      }
+    }
     var w = $("tierwarn");
     if (w) {
       w.hidden = miss.length === 0;
@@ -215,14 +254,9 @@
     $("step2done").classList.toggle("done", !!p);
     $("step3done").classList.toggle("done", !!results);
     $("step2d").textContent = p ? (p.name + ", " + (p.tier || "")) : "Authorise a portal";
-    syncSelectionLight();
+    syncSelection();
     paintReview();
   }
-  function syncSelectionLight() {
-    var sel = selected();
-    $("step1d").textContent = sel.length + " of " + SPECS.length + " selected";
-  }
-
   /* ---------------------------------------------------------------------- boot */
   function boot() {
     if (DEMO) {

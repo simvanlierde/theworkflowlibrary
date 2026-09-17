@@ -78,7 +78,18 @@
     return s;
   }
 
-  function setState(s) { state = adapt(s); paint(); }
+  function ev(name, params) {
+    if (window.gtag) { try { window.gtag("event", name, params || {}); } catch (e) { /* never break an install */ } }
+  }
+
+  function setState(s) {
+    var had = !!(state && state.portal);
+    state = adapt(s);
+    if (!had && state.portal) {
+      ev("install_portal_connected", { tier: (state.licence && state.licence.tier) || "", specs_selected: selected().length });
+    }
+    paint();
+  }
   function note(el, msg, spin) {
     var e = $(el);
     if (e) e.innerHTML = (spin ? '<span class="spin"></span> ' : "") + esc(msg);
@@ -336,6 +347,7 @@
     if (!W || !token) return;
     $("runbtn").disabled = true;
     note("p3note", "Creating properties and workflows", true);
+    ev("install_started", { specs: ids.length, tier: (state.licence && state.licence.tier) || "" });
     // The Worker answers in NDJSON: one line per spec as it lands, then a "done" line with the totals. Reading
     // it as one JSON object never parsed (17/09/2026), so nothing ever appeared. Read the stream line by line
     // and report progress as each spec arrives.
@@ -368,8 +380,17 @@
       })();
     }).then(function () {
       if (!totals && !Object.keys(results).length) throw new Error("empty answer");
+      ev("install_done", {
+        specs: ids.length,
+        installed: (totals && (totals.ok != null ? totals.ok : totals.workflows)) || 0,
+        properties: (totals && totals.properties) || 0,
+        manual_steps: (totals && (totals.manual_steps != null ? totals.manual_steps : totals.manual)) || 0,
+        failed: (totals && totals.error) || 0,
+        skipped: (totals && totals.skipped) || 0
+      });
       finish(ids, totals || {});
     }).catch(function (e) {
+      ev("install_failed", { specs: ids.length, reason: String(e && e.message ? e.message : "unknown").slice(0, 80) });
       $("runbtn").disabled = false;
       note("p3note", "The install stopped: " + esc(e && e.message ? e.message : "unknown error") +
         ". Nothing is switched on in your portal. Anything already created stays, and running it again skips it.");

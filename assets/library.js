@@ -35,6 +35,7 @@
     function set(val) {
       try { localStorage.setItem(K, val); } catch (e) {}
       el.hidden = true;
+      if (val === "granted" && window.twlLoadHubSpot) window.twlLoadHubSpot();
       if (val === "granted" && window.gtag) {
         window.gtag("consent", "update", {
           ad_storage: "granted", ad_user_data: "granted",

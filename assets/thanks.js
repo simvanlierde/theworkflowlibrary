@@ -34,6 +34,20 @@
     if (d.product) {
       put("thx-h1", "Your " + String(d.product).toLowerCase() + " is ready");
     }
+    // The purchase is the one conversion that matters. Sent once, on a receipt the Worker confirmed as paid.
+    if (d.paid && window.gtag) {
+      try {
+        window.gtag("event", "purchase", {
+          transaction_id: String(s || "").slice(0, 60),
+          value: (d.amount_total || 0) / 100,
+          currency: String(d.currency || "eur").toUpperCase(),
+          tier: d.tier || "",
+          pack: d.pack || "",
+          price_step: d.step || "",
+          installer_included: d.install_token ? 1 : 0
+        });
+      } catch (e) { /* measurement must never break a receipt */ }
+    }
     if (d.install_token) {
       var href = "/install/?t=" + encodeURIComponent(d.install_token);
       var b = $("thx-instbtn");

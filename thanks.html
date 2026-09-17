@@ -12,7 +12,22 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/style.css?v=594fa9d5">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-
+<meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
+window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+try { if (localStorage.getItem('twl_consent') === 'granted') gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' }); } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2D5N3PMC84"></script>
+<script>gtag('js', new Date()); gtag('config', 'G-2D5N3PMC84', { anonymize_ip: true });</script><script>
+window.twlLoadHubSpot = function () {
+  if (document.getElementById('hs-script-loader')) return;
+  var s = document.createElement('script');
+  s.id = 'hs-script-loader'; s.async = true; s.defer = true;
+  s.src = 'https://js-eu1.hs-scripts.com/149348782.js';
+  document.head.appendChild(s);
+};
+try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSpot(); } catch (e) {}
+</script>
 <meta name="robots" content="noindex">
 </head>
 <body>
@@ -141,7 +156,12 @@
   </div>
   </div>
 </main>
-
+<div class="consent" id="consent" hidden>
+  <p>This site uses Google Analytics and HubSpot to count visits and see which specs get built. No ads, no resale
+     of data. <a href="/legal.html#privacy">Details</a>.</p>
+  <div class="cta-row"><button class="btn pri sm" id="consent-yes" type="button">Accept analytics</button>
+    <button class="btn sm" id="consent-no" type="button">Essential only</button></div>
+</div>
 <footer class="site">
   <div class="wrap cols">
     <div>
@@ -168,7 +188,7 @@
   </div>
 </footer>
 <script>window.TWL={"brand":"The Workflow Library","support":"hello@theworkflowlibrary.com","worker":"https://twl-checkout.theworkflowlibrary.workers.dev","installWorker":"https://twl-install.theworkflowlibrary.workers.dev","hsForm":null};</script>
-<script src="/assets/library.js?v=02fd5368" defer></script>
-<script src="/assets/thanks.js?v=b01bc9db" defer></script>
+<script src="/assets/library.js?v=572eb373" defer></script>
+<script src="/assets/thanks.js?v=3587c57a" defer></script>
 </body>
 </html>

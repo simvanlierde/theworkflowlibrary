@@ -200,7 +200,7 @@ a.card:hover{text-decoration:none;border-color:var(--violet-rule);box-shadow:var
 
 .thumb{position:relative;background:#FBFCFE;border-bottom:1px solid var(--rule);
   aspect-ratio:16/9;overflow:hidden}
-.thumb img{position:absolute;left:-58%;top:50%;width:158%;max-width:none;height:auto;
+.thumb img{position:absolute;left:0;top:50%;width:100%;max-width:none;height:auto;
   transform:translateY(-50%);transition:transform .35s ease}
 a.card:hover .thumb img{transform:translateY(-50%) scale(1.05)}
 .thumb .flag{position:absolute;left:11px;top:11px}

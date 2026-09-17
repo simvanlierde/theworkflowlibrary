@@ -58,6 +58,11 @@
       ? sel.length + " of the " + SPECS.length + " specs your licence covers."
       : "Tick the specs you want in this portal.";
     $("continue1").disabled = sel.length === 0;
+    // Step 2 is locked until a spec is picked. paint() also does this, but it only runs on load and after the
+    // authorisation round trip, so without these two lines ticking a spec never unlocked "Authorise a portal"
+    // (found on the test portal 17/09/2026, the page was unusable).
+    $("st2").classList.toggle("off", sel.length === 0);
+    $("step1done").classList.toggle("done", sel.length > 0);
     document.querySelectorAll(".pickrow").forEach(function (r) {
       var i = r.querySelector("input");
       r.classList.toggle("warn", i.checked && !covered(i.value));
@@ -300,7 +305,10 @@
       h.hidden = !any;
     });
   });
-  $("continue1").addEventListener("click", function () { $("st2").scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("continue1").addEventListener("click", function () {
+    syncSelection();
+    $("st2").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
   $("connectbtn").addEventListener("click", connect);
   var again = $("reconnect");
   if (again) again.addEventListener("click", connect);

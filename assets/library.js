@@ -252,7 +252,7 @@
     var thumb = st === "planned"
       ? '<div class="thumb plan"><div class="glyph">' + CALICON + "<b>" + fridayOf(r) + "</b></div>" +
         '<span class="flag">' + flag + "</span></div>"
-      : '<div class="thumb"><img src="/og/' + i + '.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for ' +
+      : '<div class="thumb"><img src="/og/' + i + '-map.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for ' +
         esc(r[1]) + '"><span class="flag">' + flag + "</span></div>";
     var tag = st === "planned" ? "div" : "a";
     var href = st === "planned" ? "" : ' href="/w/' + i + '.html"';

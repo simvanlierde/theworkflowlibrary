@@ -49,7 +49,26 @@
     if (!need) return true;
     return state.portal.hubs.indexOf(need) > -1;
   }
+  // The authorisation screen is a full page leave and comes back on a fresh load, so the picked specs are
+  // remembered here rather than asking the buyer to tick them twice.
+  var SEL_KEY = "twl.install.sel";
+
+  function saveSelection() {
+    try { localStorage.setItem(SEL_KEY, JSON.stringify(selected())); } catch (e) { /* private window */ }
+  }
+
+  function restoreSelection() {
+    var ids = [];
+    try { ids = JSON.parse(localStorage.getItem(SEL_KEY) || "[]"); } catch (e) { ids = []; }
+    if (!Array.isArray(ids) || !ids.length) return;
+    ids.forEach(function (id) {
+      var i = document.querySelector('.pickrow input[value="' + String(id).replace(/"/g, "") + '"]');
+      if (i) i.checked = true;
+    });
+  }
+
   function syncSelection() {
+    saveSelection();
     var sel = selected();
     var miss = sel.filter(function (id) { return !covered(id); });
     $("selcount").textContent = sel.length + " spec" + (sel.length === 1 ? "" : "s") + " selected";
@@ -196,13 +215,11 @@
     }
     if (!W || !token) return;
     note("p2note", "Opening the authorisation screen", true);
-    fetch(W + "/install/auth?t=" + encodeURIComponent(token))
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) {
-        if (d && d.url) location.href = d.url;
-        else throw new Error("no url");
-      })
-      .catch(function () { note("p2note", "Could not open the authorisation screen. Try again in a minute."); });
+    // /install/auth answers with a 302 to HubSpot's own authorisation screen, so this has to be a page
+    // navigation. Fetching it followed the redirect to app.hubspot.com, which allows no cross-origin read,
+    // so the call always failed ("Could not open the authorisation screen", 17/09/2026).
+    saveSelection();
+    location.href = W + "/install/auth?t=" + encodeURIComponent(token);
   }
 
   function run() {
@@ -315,5 +332,6 @@
   $("continue2").addEventListener("click", function () { $("st3").scrollIntoView({ behavior: "smooth", block: "start" }); });
   $("runbtn").addEventListener("click", run);
   boot();
+  restoreSelection();
   syncSelection();
 })();

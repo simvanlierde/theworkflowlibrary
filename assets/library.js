@@ -96,6 +96,13 @@
     var first = w ? post(w + route, payload) : Promise.reject(new Error("no worker"));
     return first.catch(function () { return hsSubmit(payload.email, payload.spec || "site"); });
   }
+  function cookie(name) {
+    try {
+      var m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+      return m ? decodeURIComponent(m[1]) : "";
+    } catch (e) { return ""; }
+  }
+
   function wireForm(form, done, route, event, extra) {
     if (!form || !done) return;
     var note = form.parentNode.querySelector(".freenote");
@@ -105,7 +112,10 @@
       if (!email) return;
       var btn = form.querySelector("button");
       if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
-      var body = { email: email, source: source(), ref: location.pathname + location.search };
+      var body = { email: email, source: source(), ref: location.pathname + location.search,
+        // The Worker turns this into a real HubSpot form submission: hutk ties it to the visit, so the contact
+        // arrives with its source instead of out of nowhere (17/09/2026).
+        hutk: cookie("hubspotutk"), page_url: location.href, page_name: document.title.slice(0, 120) };
       if (extra) for (var k in extra) body[k] = extra[k];
       capture(route, body).then(function (d) {
         form.hidden = true;

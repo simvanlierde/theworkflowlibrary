@@ -90,6 +90,24 @@
     return fail("Downloads open shortly after launch. Keep your receipt: every buyer gets the pack by email within 24 hours.");
   }
   dl.setAttribute("href", T.worker + "/download?s=" + encodeURIComponent(s));
+  // La bibliothèque complète et la licence agence dépassent la taille d'un objet du stockage : elles arrivent
+  // en plusieurs fichiers. Le Worker répond alors un JSON de parties au lieu du zip, et on affiche un bouton par partie.
+  fetch(T.worker + "/download?s=" + encodeURIComponent(s), { headers: { Accept: "application/json" } })
+    .then(function (r) { return r.headers.get("Content-Type").indexOf("json") > -1 ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.parts || !d.parts.length) return;
+      var box = dl.parentNode;
+      dl.textContent = "Download part 1 of " + d.parts.length + " (.zip)";
+      dl.setAttribute("href", d.parts[0].url);
+      for (var i = 1; i < d.parts.length; i++) {
+        var a2 = document.createElement("a");
+        a2.className = "btn lg"; a2.href = d.parts[i].url;
+        a2.setAttribute("data-cta", "thanks-download-part");
+        a2.textContent = "Download part " + (i + 1) + " of " + d.parts.length + " (.zip)";
+        box.appendChild(a2);
+      }
+    })
+    .catch(function () {});
   note.innerHTML = '<span class="spin"></span> Checking your purchase...';
   fetch(T.worker + "/session?s=" + encodeURIComponent(s))
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })

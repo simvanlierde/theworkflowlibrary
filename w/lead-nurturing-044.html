@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A/B tested nurture email path: a workflow spec for HubSpot</title>
+<meta name="description" content="A nurture sequence randomly splits contacts between two email variants at a key step, so the team can measure which version performs better before committing...">
+<link rel="canonical" href="https://theworkflowlibrary.com/w/lead-nurturing-044.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/style.css?v=594fa9d5">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
+window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+try { if (localStorage.getItem('twl_consent') === 'granted') gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' }); } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2D5N3PMC84"></script>
+<script>gtag('js', new Date()); gtag('config', 'G-2D5N3PMC84', { anonymize_ip: true });</script><script>
+window.twlLoadHubSpot = function () {
+  if (document.getElementById('hs-script-loader')) return;
+  var s = document.createElement('script');
+  s.id = 'hs-script-loader'; s.async = true; s.defer = true;
+  s.src = 'https://js-eu1.hs-scripts.com/149348782.js';
+  document.head.appendChild(s);
+};
+try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSpot(); } catch (e) {}
+</script>
+<meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="A/B tested nurture email path"><meta property="og:description" content="A nurture sequence randomly splits contacts between two email variants at a key step, so the team can measure which version performs better before committing..."><meta property="og:image" content="https://theworkflowlibrary.com/og/lead-nurturing-044.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/lead-nurturing-044.png">
+</head>
+<body>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/bundles/">Bundles</a>
+      <a class="hidesm" href="/kits/">Kits</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="crumb"><a href="/#shelves">Library</a> /
+    <a href="/#shelves?cat=lead-nurturing" data-filter-cat="lead-nurturing">Lead nurturing</a> / <span>lead-nurturing-044</span></p>
+  <div class="spec">
+    <div class="spechead">
+      <h1>A/B tested nurture email path</h1>
+      <div class="badgerow"><a class="b cat" href="/#shelves?cat=lead-nurturing" data-filter-cat="lead-nurturing">Lead nurturing</a><span class="b meta">Contact</span><span class="b meta">Marketing Hub Professional</span><span class="b meta">Advanced</span><span class="b meta">~45 min to build</span><span class="b full">Full spec</span></div>
+      
+    </div>
+    <article class="prose"><p class="outcome"><strong>Outcome.</strong> A nurture sequence randomly splits contacts
+between two email variants at a key step, so the team can measure which
+version performs better before committing to one for the rest of the
+audience.</p>
+<figure class="wfmap">
+  <div class="head"><b>Workflow map</b>
+    <span class="muted">Enrollment, branches and actions at a glance</span>
+    <span class="mono muted" style="margin-left:auto">lead-nurturing-044</span></div>
+  <div class="canvas"><pre class="mermaid">flowchart TD
+    A[On A/B test audience] --> B{Randomly split 50/50}
+    B -- Path A --> C1[Set variant = A]
+    C1 --> D1[Send: Variant A]
+    B -- Path B --> C2[Set variant = B]
+    C2 --> D2[Send: Variant B]
+    D1 --> E[Delay 3 days]
+    D2 --> E
+    E --> F[Send: shared follow-up]
+    F --> G[Set ab_test_nurture_completed = true]</pre>
+
+    <div class="fallback" id="mmfb" hidden><img src="/og/lead-nurturing-044-map.png" alt="The workflow map as a still image."></div>
+  </div>
+  <figcaption class="legend">
+    <i><b></b> action or delay</i>
+    <i><b style="transform:rotate(45deg);border-radius:2px"></b> branch</i>
+    <i>public on every spec, paid or not</i>
+  </figcaption>
+</figure><h2>When to use it, when not to</h2><ul class="wlist"><li class="use"><span class="m">Use</span><span>Use when there is a genuine open question about which subject line,
+CTA, or content angle performs better, and enough enrollment volume to
+reach a meaningful sample size within a reasonable time.</span></li><li class="use"><span class="m">Use</span><span>Use as a temporary structure: run the test, read the results, then
+simplify the workflow back down to a single winning path once a decision
+is made.</span></li><li class="not"><span class="m">Skip</span><span>Do not use this for low-volume nurture tracks (under roughly 200
+enrollments over the test period); the split will not produce a reliable
+read, and the added complexity is not worth it.</span></li><li class="not"><span class="m">Skip</span><span>Do not test more than one variable at a time inside the same split
+(do not vary subject line and CTA and send time all at once); isolate
+the variable to know what actually drove the difference.</span></li></ul><div class="cut">
+  <div class="cuthead">
+    <b>The preview ends here. Six sections are in the library.</b>
+    <span class="mono" style="margin-left:auto">counted, not blurred</span>
+  </div>
+  <div class="inv"><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Prerequisites</span><span class="de">Every property with its label, internal name, type and options, plus the assets the workflow needs before you start.</span></span><span class="ct">4 items</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Enrollment</span><span class="de">The trigger, the criteria exactly as they are ticked in the UI, the re-enrollment rule and the suppression list.</span></span><span class="ct">4 parts</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Steps</span><span class="de">Each action in order with its parameters, its branches and its delays, written as you tick them.</span></span><span class="ct">8 numbered actions</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Known pitfalls</span><span class="de">Traps seen in production, each with what breaks and what to do instead.</span></span><span class="ct">4 pitfalls</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Test plan, variants and build spec</span><span class="de">How to prove it works in a test portal, where to look when it does not, the variants for other objects or tiers, and the YAML build spec.</span></span><span class="ct">3 variants, 3 sections</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Files</span><span class="de">The properties JSON creates the fields in one API call, the workflow JSON documents the build.</span></span><span class="ct">PDF, Markdown, JSON</span></div><div class="invrow"><span class="lk"><svg width="17" height="17" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span><span><span class="nm">Install</span><span class="de">1 click. The installer creates the properties this spec declares and the workflow itself, switched off, then opens a task for the prerequisites that are assets rather than properties, such as a team, a static list or a marketing email. What it created is listed on the install page.</span></span><span class="ct">1 click, switched off</span></div></div>
+  <div class="unlock">
+    <a class="btn pri lg" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Full%20library&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-unlock">Unlock the full library,
+      149 EUR</a>
+    <p class="alt">or <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20lead-nurturing&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-pack">the
+      lead nurturing pack, 39 EUR</a></p>
+    <p class="fine">One-time, excl. VAT. 30-day refund, no questions asked. Founding prices until 31 October, then 199 and 59 EUR. Includes every spec added later, up to the full 500, and the one-click installer on the full library. Building on client portals? The <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Agency%20licence&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date.">agency licence at 449 EUR</a> covers unlimited client portals.</p>
+  </div>
+</div></article>
+    <aside class="side"><div class="buybox">
+  <p class="lab">Unlock this spec</p>
+  <div class="p"><b>149 EUR</b><s>199 EUR</s></div>
+  <p style="font-size:13.5px;color:var(--body);margin-top:7px">Full library: all 500 specs, every file
+    format, lifetime updates. 0.30 EUR a spec.</p>
+  <p class="insline"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8.8 1.6L3.2 9.2h3.6l-.6 5.2 5.6-7.6H8.2l.6-5.2z" fill="currentColor"/></svg><span>Includes the one-click installer, up to 3 of your own
+    portals.</span></p>
+  <a class="btn pri lg" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Full%20library&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-buy-full">Get the full library</a>
+  <p class="alt">or <a href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20lead-nurturing&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="spec-buy-pack">the
+    lead nurturing pack, 39 EUR</a></p>
+  <p class="fine">One-time, excl. VAT. 30-day refund, no questions asked.
+    Founding price until 31 October. Agency licence at 449 EUR for
+    unlimited client portals. The installer creates the properties and the workflow, switched off, through the
+    portal owner's own authorisation screen.</p>
+</div><div class="panel"><div class="ph">Spec sheet</div><div class="sheet"><div class="r"><span class="k">Object</span><span class="v">Contact</span></div><div class="r"><span class="k">Category</span><span class="v">Lead nurturing</span></div><div class="r"><span class="k">Minimum tier</span><span class="v">Marketing Hub Professional</span></div><div class="r"><span class="k">Difficulty</span><span class="v">Advanced</span></div><div class="r"><span class="k">Time to build</span><span class="v">~45 min</span></div><div class="r"><span class="k">Steps</span><span class="v">8 numbered actions</span></div><div class="r"><span class="k">Prerequisites</span><span class="v">4 properties and assets</span></div><div class="r"><span class="k">Pitfalls</span><span class="v">4 traps</span></div><div class="r"><span class="k">Install</span><span class="v">1 click, workflow switched off</span></div><div class="r"><span class="k">Spec version</span><span class="v">2026-09</span></div></div></div><div class="panel"><div class="ph">The nine sections</div><div class="sheet"><div class="r"><span class="v" style="margin-left:0">Outcome</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">When to use it, when not to</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v" style="margin-left:0">Diagram</span><span class="v b free" style="padding:2px 7px">Open</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Prerequisites</span><span class="v">4 items</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Enrollment</span><span class="v">4 parts</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Steps</span><span class="v">8 actions</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Known pitfalls</span><span class="v">4 traps</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Test plan</span><span class="v">1 section</span></div><div class="r"><span class="v lockv" style="margin-left:0"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2.4" y="6" width="9.2" height="6.6" rx="1.6" fill="currentColor"/><path d="M4.6 6V4.4a2.4 2.4 0 014.8 0V6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg> Variants and build spec</span><span class="v">3 variants, YAML</span></div></div></div></aside>
+  </div>
+
+  <section class="related shelf" aria-labelledby="rel">
+    <div class="shead">
+      <div class="t">
+        <p class="kicker">Lead nurturing</p>
+        <h3 id="rel">Also in this section</h3>
+        <p class="countline"><em>1 free</em> <i>|</i> 50 specs in this section</p>
+      </div>
+      <div class="act">
+        <span class="sellline">or the whole library, <a href="/#pricing">149 EUR</a></span>
+        <a class="btn pri" href="mailto:hello@theworkflowlibrary.com?subject=Notify%20me%20when%20checkout%20opens%3A%20Category%20pack%20lead-nurturing&body=Checkout%20opens%20shortly.%20Reply%20to%20this%20email%20and%20you%20get%20the%20founding%20price%20whatever%20the%20date." data-cta="related-pack">This category,
+          39 EUR</a>
+        <div class="arrows">
+          <button type="button" class="prev" aria-label="Scroll this shelf left"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" class="next" aria-label="Scroll this shelf right"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="rail" tabindex="0" role="group" aria-label="Scrollable shelf"><a class="card" href="/w/lead-nurturing-001.html"><div class="thumb"><img src="/og/lead-nurturing-001-map.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for New lead welcome nurture (post form-fill drip)"><span class="flag"><span class="b free">Free</span></span></div><div class="body"><div class="ttl">New lead welcome nurture (post form-fill drip)</div><div class="line"><span class="b cat">Lead nurturing</span><span class="b meta">Contact</span><span class="b meta">Simple</span></div><div class="tierline">Marketing Hub Professional</div><div class="incl"><span>13 steps</span><span>4 prerequisites</span><span>~30 min</span></div></div></a><a class="card" href="/w/lead-nurturing-002.html"><div class="thumb"><img src="/og/lead-nurturing-002-map.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Content download / lead magnet nurture drip"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Content download / lead magnet nurture drip</div><div class="line"><span class="b cat">Lead nurturing</span><span class="b meta">Contact</span><span class="b meta">Simple</span></div><div class="tierline">Marketing Hub Professional</div><div class="incl"><span>18 steps</span><span>3 prerequisites</span><span>~30 min</span></div></div></a><a class="card" href="/w/lead-nurturing-003.html"><div class="thumb"><img src="/og/lead-nurturing-003-map.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Webinar registration confirmation and reminder sequence"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Webinar registration confirmation and reminder sequence</div><div class="line"><span class="b cat">Lead nurturing</span><span class="b meta">Contact</span><span class="b meta">Simple</span></div><div class="tierline">Marketing Hub Professional</div><div class="incl"><span>8 steps</span><span>3 prerequisites</span><span>~25 min</span></div></div></a><a class="card" href="/w/lead-nurturing-004.html"><div class="thumb"><img src="/og/lead-nurturing-004-map.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Post-webinar follow-up (attendee vs. no-show branch)"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Post-webinar follow-up (attendee vs. no-show branch)</div><div class="line"><span class="b cat">Lead nurturing</span><span class="b meta">Contact</span><span class="b meta">Intermediate</span></div><div class="tierline">Marketing Hub Professional</div><div class="incl"><span>9 steps</span><span>4 prerequisites</span><span>~35 min</span></div></div></a><a class="card" href="/w/lead-nurturing-005.html"><div class="thumb"><img src="/og/lead-nurturing-005-map.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Re-engagement sequence for cold or inactive contacts"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Re-engagement sequence for cold or inactive contacts</div><div class="line"><span class="b cat">Lead nurturing</span><span class="b meta">Contact</span><span class="b meta">Intermediate</span></div><div class="tierline">Marketing Hub Professional</div><div class="incl"><span>11 steps</span><span>3 prerequisites</span><span>~30 min</span></div></div></a><a class="card" href="/w/lead-nurturing-006.html"><div class="thumb"><img src="/og/lead-nurturing-006-map.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for Wait until email opened (3-day expiry), then branch on open vs no-open"><span class="flag"><span class="b full">Full spec</span></span></div><div class="body"><div class="ttl">Wait until email opened (3-day expiry), then branch on open vs no-open</div><div class="line"><span class="b cat">Lead nurturing</span><span class="b meta">Contact</span><span class="b meta">Intermediate</span></div><div class="tierline">Marketing Hub Professional</div><div class="incl"><span>7 steps</span><span>3 prerequisites</span><span>~25 min</span></div></div></a><a class="seeall" href="/#shelves?cat=lead-nurturing" data-filter-cat="lead-nurturing"><b>All 50 in Lead nurturing</b><span>1 free to read, 50 specs in this section.</span><span class="go">Filter the library &#8594;</span></a></div>
+  </section>
+</main>
+<div class="consent" id="consent" hidden>
+  <p>This site uses Google Analytics and HubSpot to count visits and see which specs get built. No ads, no resale
+     of data. <a href="/legal.html#privacy">Details</a>.</p>
+  <div class="cta-row"><button class="btn pri sm" id="consent-yes" type="button">Accept analytics</button>
+    <button class="btn sm" id="consent-no" type="button">Essential only</button></div>
+</div>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+<script>window.TWL={"brand":"The Workflow Library","support":"hello@theworkflowlibrary.com","worker":"https://twl-checkout.theworkflowlibrary.workers.dev","installWorker":"https://twl-install.theworkflowlibrary.workers.dev","hsForm":{"portal":"149348782","guid":"cdaa093f-bca8-4c62-b275-7b9d33d96641"}};</script>
+<script src="/assets/library.js?v=db79c67d" defer></script>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+try {
+  mermaid.initialize({ startOnLoad: true, theme: "base", securityLevel: "strict",
+    themeVariables: { fontFamily: "Sora, sans-serif", fontSize: "14px",
+      primaryColor: "#EFEBFD", primaryBorderColor: "#9E8BEE", primaryTextColor: "#12141C",
+      lineColor: "#5B3FD6", secondaryColor: "#F2F4F8", tertiaryColor: "#FFFFFF",
+      edgeLabelBackground: "#FFFFFF", clusterBkg: "#F2F4F8" },
+    flowchart: { curve: "basis", padding: 14, nodeSpacing: 44, rankSpacing: 46, useMaxWidth: true } });
+} catch (e) {}
+setTimeout(function () {
+  var pre = document.querySelector("pre.mermaid");
+  if (pre && !pre.querySelector("svg")) {
+    pre.hidden = true;
+    var fb = document.getElementById("mmfb");
+    if (fb) fb.hidden = false;
+  }
+}, 2400);
+</script>
+</body>
+</html>

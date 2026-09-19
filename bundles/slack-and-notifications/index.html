@@ -26,6 +26,7 @@
 .meta-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
 .chip{display:inline-block;font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bb-sunk);color:var(--bb-body)}
 .chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.chip.warn{background:var(--bb-amber);color:var(--bb-amber-ink)}
 .bgrid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:36px;align-items:start;margin-top:22px}
 @media (max-width:900px){.bgrid{grid-template-columns:1fr}.buy{position:static}}
 .buy{position:sticky;top:20px;border:1.5px solid var(--bb-violet);border-radius:16px;padding:20px;background:#fff;box-shadow:0 14px 34px rgba(18,20,28,.10)}
@@ -99,7 +100,7 @@
 <div class="bhead">
   <h1>How do I send Slack notifications from HubSpot workflows?</h1>
   <div class="tldr"><span class="lbl">Short answer</span><p>Connect the Slack integration, then add the Send Slack notification action to a workflow and pick a channel from the dropdown. That channel is fixed at build time: there is no token that routes a record to its own channel. For per-region or per-team routing, build one branch per channel. Twenty minutes for the first alert. The trap is the owner token, which renders a numeric ID instead of a name.</p></div>
-  <div class="meta-row"><span class="chip">7 specs</span><span class="chip tier">Needs Sales Hub Professional or higher</span><span class="chip">About 90 min for the core build</span><span class="chip">1 free to read</span></div>
+  <div class="meta-row"><span class="chip">7 specs</span><span class="chip tier">Needs Sales Hub Professional or higher</span><span class="chip">About 90 min for the core build</span><span class="chip warn">1 needs Data Hub Pro</span><span class="chip">1 free to read</span></div>
 </div>
 <div class="bgrid">
 <div>

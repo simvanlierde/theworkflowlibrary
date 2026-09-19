@@ -26,6 +26,7 @@
 .meta-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
 .chip{display:inline-block;font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bb-sunk);color:var(--bb-body)}
 .chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.chip.warn{background:var(--bb-amber);color:var(--bb-amber-ink)}
 .bgrid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:36px;align-items:start;margin-top:22px}
 @media (max-width:900px){.bgrid{grid-template-columns:1fr}.buy{position:static}}
 .buy{position:sticky;top:20px;border:1.5px solid var(--bb-violet);border-radius:16px;padding:20px;background:#fff;box-shadow:0 14px 34px rgba(18,20,28,.10)}
@@ -100,7 +101,7 @@
 <div class="bhead">
   <h1>How do I opt contacts out with a HubSpot workflow (GDPR)?</h1>
   <div class="tldr"><span class="lbl">Short answer</span><p>Mostly you do not, and that is the point. Consent lives in subscription types, and the one-click unsubscribe already suppresses future sends for that type without any workflow. What a workflow adds is the rest: one unified suppression list, a cascade that unenrolls the contact from nurtures already running, a legal basis captured at the form, and the flip to non-marketing that stops you paying for someone nobody may email. Marketing Hub Professional, around thirty minutes per spec.</p></div>
-  <div class="meta-row"><span class="chip">23 specs</span><span class="chip tier">Needs Marketing Hub Professional or higher</span><span class="chip">About 95 min for the core build</span><span class="chip">0 free to read</span></div>
+  <div class="meta-row"><span class="chip">23 specs</span><span class="chip tier">Needs Marketing Hub Professional or higher</span><span class="chip">About 95 min for the core build</span><span class="chip warn">3 need Data Hub Pro</span><span class="chip">0 free to read</span></div>
 </div>
 <div class="bgrid">
 <div>

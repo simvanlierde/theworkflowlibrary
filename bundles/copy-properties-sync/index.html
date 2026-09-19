@@ -26,6 +26,7 @@
 .meta-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
 .chip{display:inline-block;font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bb-sunk);color:var(--bb-body)}
 .chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.chip.warn{background:var(--bb-amber);color:var(--bb-amber-ink)}
 .bgrid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:36px;align-items:start;margin-top:22px}
 @media (max-width:900px){.bgrid{grid-template-columns:1fr}.buy{position:static}}
 .buy{position:sticky;top:20px;border:1.5px solid var(--bb-violet);border-radius:16px;padding:20px;background:#fff;box-shadow:0 14px 34px rgba(18,20,28,.10)}
@@ -100,7 +101,7 @@
 <div class="bhead">
   <h1>How do I copy a property from company to contact in HubSpot?</h1>
   <div class="tldr"><span class="lbl">Short answer</span><p>Build it as a company-based workflow, not a contact-based one, and use the Copy property value action across the primary association. Turn re-enrollment on for both Company owner is known and Number of associated contacts is known, or the value copies once and then goes stale. The native copy action sits at Data Hub Professional. First build takes about 25 minutes, plus the association cleanup underneath it.</p></div>
-  <div class="meta-row"><span class="chip">5 specs</span><span class="chip tier">Needs Data Hub Professional (formerly Operations Hub) or higher</span><span class="chip">About 85 min for the core build</span><span class="chip">0 free to read</span></div>
+  <div class="meta-row"><span class="chip">5 specs</span><span class="chip tier">Needs Data Hub Professional (formerly Operations Hub) or higher</span><span class="chip">About 85 min for the core build</span><span class="chip warn">4 need Data Hub Pro</span><span class="chip">0 free to read</span></div>
 </div>
 <div class="bgrid">
 <div>

@@ -26,6 +26,7 @@
 .meta-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
 .chip{display:inline-block;font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bb-sunk);color:var(--bb-body)}
 .chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.chip.warn{background:var(--bb-amber);color:var(--bb-amber-ink)}
 .bgrid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:36px;align-items:start;margin-top:22px}
 @media (max-width:900px){.bgrid{grid-template-columns:1fr}.buy{position:static}}
 .buy{position:sticky;top:20px;border:1.5px solid var(--bb-violet);border-radius:16px;padding:20px;background:#fff;box-shadow:0 14px 34px rgba(18,20,28,.10)}
@@ -100,7 +101,7 @@
 <div class="bhead">
   <h1>How do I automate renewal deals in HubSpot?</h1>
   <div class="tldr"><span class="lbl">Short answer</span><p>Three moving parts. A contract end date on the company, stored as a real date property. One filter based workflow that creates the renewal deal ninety days out and writes a flag so it can never create a second one. Then a reminder cascade at ninety, sixty and thirty days for the account owner. Sales Hub Professional, two hours for the core three. The trap: filter based enrollment fires once, so a workflow switched on late skips the accounts already inside the window.</p></div>
-  <div class="meta-row"><span class="chip">53 specs</span><span class="chip tier">Needs Sales Hub Professional or higher</span><span class="chip">About 120 min for the core build</span><span class="chip">1 free to read</span></div>
+  <div class="meta-row"><span class="chip">53 specs</span><span class="chip tier">Needs Sales Hub Professional or higher</span><span class="chip">About 120 min for the core build</span><span class="chip warn">3 specs need Enterprise</span><span class="chip warn">7 need Data Hub Pro</span><span class="chip">1 free to read</span></div>
 </div>
 <div class="bgrid">
 <div>

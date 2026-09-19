@@ -26,6 +26,7 @@
 .meta-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
 .chip{display:inline-block;font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bb-sunk);color:var(--bb-body)}
 .chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
+.chip.warn{background:var(--bb-amber);color:var(--bb-amber-ink)}
 .bgrid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:36px;align-items:start;margin-top:22px}
 @media (max-width:900px){.bgrid{grid-template-columns:1fr}.buy{position:static}}
 .buy{position:sticky;top:20px;border:1.5px solid var(--bb-violet);border-radius:16px;padding:20px;background:#fff;box-shadow:0 14px 34px rgba(18,20,28,.10)}
@@ -99,7 +100,7 @@
 <div class="bhead">
   <h1>How do I rebuild Salesforce Flows as HubSpot workflows when migrating?</h1>
   <div class="tldr"><span class="lbl">Short answer</span><p>Concept by concept. Nothing converts a Flow into a workflow, so each Salesforce automation maps to a HubSpot enrollment filter plus native actions: Rotate record to owner for assignment rules, Edit record and Create record for lead conversion, scheduled enrollment for batch flows, a required property on a pipeline stage for approval gates. Sales Hub Professional covers most of it. The trap is the four patterns with no native equivalent: subflows, multi-step approvals, formula fields in entry criteria, record-level locking.</p></div>
-  <div class="meta-row"><span class="chip">29 specs</span><span class="chip tier">Needs Sales Hub Professional or higher</span><span class="chip">About 100 min for the core build</span><span class="chip">6 free to read</span></div>
+  <div class="meta-row"><span class="chip">29 specs</span><span class="chip tier">Needs Sales Hub Professional or higher</span><span class="chip">About 100 min for the core build</span><span class="chip warn">1 spec needs Enterprise</span><span class="chip warn">4 need Data Hub Pro</span><span class="chip">6 free to read</span></div>
 </div>
 <div class="bgrid">
 <div>

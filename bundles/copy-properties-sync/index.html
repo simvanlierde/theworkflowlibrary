@@ -49,6 +49,8 @@
 .inv .tags span.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}.inv .tags span.free{background:var(--bb-violet);color:#fff}.inv .tags span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
 @media (max-width:640px){.inv .row{grid-template-columns:1fr}.inv .tags{justify-content:flex-start}}
 .legend{font-size:.8rem;color:var(--bb-muted);margin:0 0 4px}
+.props td.pl{font-family:var(--mono,ui-monospace,monospace);font-size:.78rem;color:var(--bb-muted);line-height:1.5}
+.props td.n{font-weight:700;text-align:right;white-space:nowrap}
 .inv details.more summary{cursor:pointer;padding:9px 16px;border-top:1px solid var(--bb-rule);font-size:.85rem;font-weight:700;color:var(--bb-violet);list-style:none}
 .inv details.more summary::-webkit-details-marker{display:none}
 /* proof */
@@ -84,6 +86,7 @@
     <nav class="topnav" aria-label="Main">
       <a class="hidesm" href="/#shelves">Library</a>
       <a class="hidesm" href="/bundles/">Bundles</a>
+      <a class="hidesm" href="/kits/">Kits</a>
       <a class="hidesm" href="/#pricing">Pricing</a>
       <a class="hidesm" href="/#faq">FAQ</a>
       <a class="hidemd" href="/changelog.html">Changelog</a>
@@ -105,6 +108,7 @@
   <p class="legend">Each spec states its minimum tier. Free ones open in full; the others show their public preview and the date their full spec lands.</p>
   <div class="inv"><div class="grp"><b>Get the association in place</b><span>Matches a contact&#x27;s email domain against an existing company and creates the link, so there is something to copy from.</span></div><a class="row" href="/w/data-quality-006.html"><div><div class="t">Company auto-association from contact email domain</div><div class="o">New contacts with a business email get linked to the matching company record automatically, instead of sitting unassociated until a rep notices...</div></div><div class="tags"><span class="tier">Data Hub Pro</span><span>contact</span></div></a><div class="grp"><b>Decide which company is primary</b><span>Flags contacts tied to two or more companies with no primary set, and routes them to a human instead of guessing.</span></div><div class="row"><div><div class="t">Primary company association enforcement on contact</div><div class="o">Contacts linked to more than one company always have a clear primary company on record, instead of leaving reports and account-based routing to...</div></div><div class="tags"><span class="tier">Data Hub Pro</span><span>contact</span><span class="soon">full spec 10-09</span></div></div><div class="grp"><b>Copy the value down to the contact</b><span>Mirrors a company field onto the contact so contact-only lists and exports stop needing a company lookup.</span></div><div class="row"><div><div class="t">Format action: copy a field value between contact and associated company</div><div class="o">A property value from a contact&#x27;s associated company appears directly on the contact record, so list segmentation and exports that only read...</div></div><div class="tags"><span class="tier">Data Hub Pro</span><span>contact</span><span class="soon">full spec 10-16</span></div></div><div class="grp"><b>Copy the value across to the deal</b><span>Puts a company attribute on the deal so pipeline reports can group by account size without a join.</span></div><div class="row"><div><div class="t">Format action: copy a field value between deal and associated company</div><div class="o">A company-level value, such as employee count, appears directly on the deal record, so pipeline reports and forecasting views that only read deal...</div></div><div class="tags"><span class="tier">Data Hub Pro</span><span>deal</span><span class="soon">full spec 10-23</span></div></div><div class="grp"><b>Copy an owner, not just a field</b><span>Reads the owner off an associated open deal and writes it to the company, with a manual queue when several deals compete.</span></div><div class="row"><div><div class="t">Route company-level lead to whoever owns an associated open deal</div><div class="o">A new, unowned company that already has an open deal in progress goes straight to that deal&#x27;s owner, instead of a fresh round-robin pick who has...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>company</span><span class="soon">full spec 11-06</span></div></div></div>
 
+  
   <h2>What a spec looks like</h2>
   <div class="proof">
     <div>

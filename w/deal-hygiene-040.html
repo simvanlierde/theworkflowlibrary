@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=594fa9d5">
+<link rel="stylesheet" href="/assets/style.css?v=27cca1e7">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -54,6 +54,7 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
       <h1>Custom object association hygiene check</h1>
       <div class="badgerow"><a class="b cat" href="/#shelves?cat=deal-hygiene" data-filter-cat="deal-hygiene">Deal hygiene</a><span class="b meta">Deal</span><span class="b meta">Sales Hub Enterprise</span><span class="b meta">Advanced</span><span class="b meta">~40 min to build</span><span class="b full">Full spec</span></div>
       
+      
     </div>
     <article class="prose"><p class="outcome"><strong>Outcome.</strong> A deal reaching a late stage without the
 required custom object record attached, for example a Project or a
@@ -85,14 +86,13 @@ stage is supposed to be linked to one.</span></li><li class="use"><span class="m
 the custom object record itself, that association should already exist
 from an earlier step in the process.</span></li><li class="not"><span class="m">Skip</span><span>Do not use it if the "custom object" in question is really something
 that fits a native object better, for example line items or products,
-those are native, not custom, and do not need this pattern.</span></li><li class="not"><span class="m">Skip</span><span>Do not assume custom objects require Enterprise on every current
-HubSpot plan without checking your own portal, HubSpot has changed which
-tiers can create custom objects and how many are included at each tier
-more than once <em>(check in your portal: current custom object
-availability, tier requirements, and per-tier object-count limits,
-confirm directly against your active subscription before building, this
-fiche is written assuming the taxonomy's declared Enterprise minimum but
-that may now be more permissive on your specific plan)</em>.</span></li></ul><div class="cut">
+those are native, not custom, and do not need this pattern.</span></li><li class="use"><span class="m">Use</span><span>Custom objects require an Enterprise subscription on Marketing,
+Sales, Service, Data, Content, Smart CRM or Revenue Hub
+(https://knowledge.hubspot.com/object-settings/create-custom-objects),
+so an account below Enterprise cannot run this fiche at all. <em>(check
+in your portal: the per-tier cap on custom object types and records for
+this portal, since the published catalogue, not the knowledge base,
+carries those numbers)</em></span></li></ul><div class="cut">
   <div class="cuthead">
     <b>The preview ends here. Six sections are in the library.</b>
     <span class="mono" style="margin-left:auto">counted, not blurred</span>

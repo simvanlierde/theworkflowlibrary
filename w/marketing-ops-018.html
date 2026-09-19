@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=594fa9d5">
+<link rel="stylesheet" href="/assets/style.css?v=27cca1e7">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -54,6 +54,7 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
       <h1>Multi-touch attribution property update on each new session source</h1>
       <div class="badgerow"><a class="b cat" href="/#shelves?cat=marketing-ops" data-filter-cat="marketing-ops">Marketing ops</a><span class="b meta">Contact</span><span class="b meta">Marketing Hub Enterprise</span><span class="b meta">Advanced</span><span class="b meta">~60 min to build</span><span class="b full">Full spec</span></div>
       
+      
     </div>
     <article class="prose"><p class="outcome"><strong>Outcome.</strong> Every new traffic source a contact arrives
 through gets logged as its own touchpoint record, so marketing ops can
@@ -82,11 +83,10 @@ are not enough, for example when a deal takes six or more touches across
 paid, organic, and email before converting and the team wants to see the
 sequence.</span></li><li class="use"><span class="m">Use</span><span>Use when the account already has Marketing Hub Enterprise, since
 this fiche relies on a custom object and a custom coded action, both
-Enterprise-tier or Data Hub-gated capabilities. <em>(check in your
-portal: confirm current bundling. Custom objects ship with
-Enterprise-tier hubs; custom coded workflow actions have historically
-required at least Data Hub Starter alongside a Professional-or-higher
-hub, and the exact minimum has moved across releases)</em></span></li><li class="not"><span class="m">Skip</span><span>Do not use this if the native Marketing Hub Enterprise multi-touch
+Enterprise-tier or Data Hub-gated capabilities. The custom code action
+requires Data Hub Professional or Enterprise
+(https://knowledge.hubspot.com/workflows/choose-your-workflow-actions)
+(https://knowledge.hubspot.com/object-settings/create-custom-objects).</span></li><li class="not"><span class="m">Skip</span><span>Do not use this if the native Marketing Hub Enterprise multi-touch
 revenue attribution report already answers the question. That report is
 read-only reporting built into the Campaigns and Analytics tools and
 needs no custom object; build this fiche only when you need the

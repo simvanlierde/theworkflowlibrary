@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=594fa9d5">
+<link rel="stylesheet" href="/assets/style.css?v=27cca1e7">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -54,6 +54,7 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
       <h1>Lifecycle stage regression prevention (block downgrade actions)</h1>
       <div class="badgerow"><a class="b cat" href="/#shelves?cat=marketing-ops" data-filter-cat="marketing-ops">Marketing ops</a><span class="b meta">Contact</span><span class="b meta">Marketing Hub Professional</span><span class="b meta">Intermediate</span><span class="b meta">~30 min to build</span><span class="b full">Full spec</span></div>
       
+      
     </div>
     <article class="prose"><p class="outcome"><strong>Outcome.</strong> If any workflow, import, or person moves a
 contact's lifecycle stage backward, it gets corrected back to the
@@ -86,10 +87,10 @@ can be reviewed manually. The added complexity may not be worth it
 yet.</span></li><li class="not"><span class="m">Skip</span><span>Do not expect this to prevent the downgrade from ever registering.
 HubSpot has no native way to block a property write before it happens in
 a standard workflow; this fiche detects the regression after the fact
-and corrects it. <em>(check in your portal: whether validation rules or
-field-level restrictions on your tier can prevent certain writes
-outright, which would be a stronger guarantee than this fiche's
-after-the-fact correction)</em></span></li></ul><div class="cut">
+and corrects it. <em>(check in your portal: check whether property
+validation rules can block the write outright on this account, since
+permission sets, which carry the edit restrictions, require Enterprise
+(https://knowledge.hubspot.com/user-management/create-permission-sets))</em></span></li></ul><div class="cut">
   <div class="cuthead">
     <b>The preview ends here. Six sections are in the library.</b>
     <span class="mono" style="margin-left:auto">counted, not blurred</span>

@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=594fa9d5">
+<link rel="stylesheet" href="/assets/style.css?v=27cca1e7">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -54,6 +54,7 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
       <h1>Co-term alignment workflow for multi-subsidiary renewal dates</h1>
       <div class="badgerow"><a class="b cat" href="/#shelves?cat=renewal-expansion" data-filter-cat="renewal-expansion">Renewal and expansion</a><span class="b meta">Company</span><span class="b meta">Sales Hub Enterprise</span><span class="b meta">Advanced</span><span class="b meta">~65 min to build</span><span class="b full">Full spec</span></div>
       
+      
     </div>
     <article class="prose"><p class="outcome"><strong>Outcome.</strong> When a parent account's contract end date
 changes, every subsidiary account under it gets its own contract end
@@ -87,10 +88,12 @@ separate creates incorrect renewal dates.</span></li><li class="not"><span class
 Enterprise tier); hierarchical company associations at the depth needed
 for a true parent/child structure, and the custom code this fiche relies
 on, both assume Enterprise-level account structure. <em>(check in your
-portal: exact tier requirement for parent/child company associations
-specifically, since HubSpot's default company hierarchy field is
-available more broadly, but a fully enforced multi-level hierarchy with
-reporting rollups is typically an Enterprise feature)</em></span></li></ul><div class="cut">
+portal: confirm the parent and child company association is readable in
+a workflow branch at this portal's tier, since HubSpot documents the
+hierarchy field itself but not its workflow branch conditions; the
+custom code half of this fiche separately needs Data Hub Professional or
+Enterprise
+(https://knowledge.hubspot.com/workflows/choose-your-workflow-actions))</em></span></li></ul><div class="cut">
   <div class="cuthead">
     <b>The preview ends here. Six sections are in the library.</b>
     <span class="mono" style="margin-left:auto">counted, not blurred</span>

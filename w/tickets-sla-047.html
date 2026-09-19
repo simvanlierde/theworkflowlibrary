@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=594fa9d5">
+<link rel="stylesheet" href="/assets/style.css?v=27cca1e7">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -54,6 +54,7 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
       <h1>Approval-style gate before closing a high-priority ticket (property-based workaround)</h1>
       <div class="badgerow"><a class="b cat" href="/#shelves?cat=tickets-sla" data-filter-cat="tickets-sla">Tickets and SLA</a><span class="b meta">Ticket</span><span class="b meta">Service Hub Professional</span><span class="b meta">Advanced</span><span class="b meta">~40 min to build</span><span class="b full">Full spec</span></div>
       
+      
     </div>
     <article class="prose"><p class="outcome"><strong>Outcome.</strong> A high-priority ticket cannot look finished
 to the team without a manager's explicit sign-off recorded on the
@@ -92,10 +93,10 @@ your pipeline supports requiring specific properties to be set before a
 record can move into a given stage, that native stage requirement is the
 actual mechanism enforcing the gate, this workflow's job is to make
 requesting and recording that approval simple, not to invent the
-enforcement itself <em>(check in your portal: confirm whether ticket
-pipelines support stage-specific required properties on your tier, and
-whether that is the same feature as deal pipelines'
-equivalent)</em>.</span></li><li class="not"><span class="m">Skip</span><span>Do not use it expecting this workflow alone to block a rep from
+enforcement itself. Stage-specific required properties are configured
+per pipeline stage with the Required checkbox, on deal and ticket
+pipelines alike, with no separate tier gate beyond the pipeline itself
+(https://knowledge.hubspot.com/object-settings/set-up-and-customize-pipelines).</span></li><li class="not"><span class="m">Skip</span><span>Do not use it expecting this workflow alone to block a rep from
 manually closing the ticket if no native stage requirement is
 configured; without that native enforcement, a rep can still close the
 ticket while this workflow's property sits unanswered, this is a

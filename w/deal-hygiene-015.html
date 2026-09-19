@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=594fa9d5">
+<link rel="stylesheet" href="/assets/style.css?v=27cca1e7">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -54,6 +54,7 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
       <h1>Discount approval before a deal can move to Closed Won</h1>
       <div class="badgerow"><a class="b cat" href="/#shelves?cat=deal-hygiene" data-filter-cat="deal-hygiene">Deal hygiene</a><span class="b meta">Deal</span><span class="b meta">Sales Hub Enterprise</span><span class="b meta">Advanced</span><span class="b meta">~50 min to build</span><span class="b full">Full spec</span></div>
       
+      
     </div>
     <article class="prose"><p class="outcome"><strong>Outcome.</strong> A deal with a discount above the agreed
 threshold cannot reach Closed Won until a named approver signs off, so
@@ -83,9 +84,10 @@ that is the only part of this build that actually blocks the stage
 change, the workflow itself only manages the approval routing and
 reminders.</span></li><li class="not"><span class="m">Skip</span><span>Do not use it if your portal is on Sales Hub Professional without
 Enterprise features, native record approvals and hierarchy-based routing
-are Enterprise-tier <em>(check in your portal: exact HubSpot Approvals
-feature availability and whether it covers deal stage changes generally
-or only quotes, on your specific plan and portal version)</em>.</span></li><li class="not"><span class="m">Skip</span><span>Do not use it if there is no agreed discount threshold yet, build
+are Enterprise-tier. Deal pipeline approvals require Sales Hub
+Enterprise, and quote approvals sit in Revenue Hub Professional and
+Enterprise
+(https://knowledge.hubspot.com/account-management/overview-of-approvals-in-hubspot).</span></li><li class="not"><span class="m">Skip</span><span>Do not use it if there is no agreed discount threshold yet, build
 the policy with finance first, the workflow enforces a number, it does
 not decide what that number should be.</span></li></ul><div class="cut">
   <div class="cuthead">

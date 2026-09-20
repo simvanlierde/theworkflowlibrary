@@ -7,7 +7,9 @@
   var T = window.TWL || {};
   var $ = function (id) { return document.getElementById(id); };
   var qs = new URLSearchParams(location.search);
-  var s = qs.get("s") || "";
+  // The head script moves ?s out of the address bar before any tracker sees it (E21), so read the stash too.
+  var stash = function (k) { try { return sessionStorage.getItem("twl_" + k) || ""; } catch (e) { return ""; } };
+  var s = qs.get("s") || stash("s");
   var DEMO = qs.get("demo") === "1";
   var dl = $("dl"), note = $("dl-note");
 
@@ -38,7 +40,7 @@
     if (d.paid && window.gtag) {
       try {
         window.gtag("event", "purchase", {
-          transaction_id: String(s || "").slice(0, 60),
+          transaction_id: "o_" + String(s || "").split("").reduce(function (h, c) { return ((h << 5) - h + c.charCodeAt(0)) | 0; }, 0).toString(36), // hashed: the raw session id opens the download
           value: (d.amount_total || 0) / 100,
           currency: String(d.currency || "eur").toUpperCase(),
           tier: d.tier || "",
@@ -48,16 +50,30 @@
         });
       } catch (e) { /* measurement must never break a receipt */ }
     }
+    // D025 (20/09/2026): Studio rents portals and Extra portal is a credit. Neither ships files, so the
+    // download button and the zip contents would send the buyer to a 404 from the Worker.
+    var NO_FILES = d.tier === "studio" || d.tier === "extra_portal";
+    if (NO_FILES) {
+      dl.hidden = true;
+      if ($("zip-what")) $("zip-what").hidden = true;
+      if ($("zip-what-h")) $("zip-what-h").hidden = true;
+      put("thx-dlnote", d.tier === "studio"
+        ? "Studio adds portals to the library you already own. There is nothing to download here: your install link is below, and the files stay with your library purchase."
+        : "The extra portal is now on your licence. There is nothing to download here: use the install link from your library purchase, and the new portal is simply allowed.");
+    }
+    if (d.tier === "agency_lifetime") put("o-refund", "14 days, while at most 3 portals are activated");
     if (d.install_token) {
       var href = "/install/?t=" + encodeURIComponent(d.install_token);
       var b = $("thx-instbtn");
       b.hidden = false;
       b.setAttribute("href", href);
-      b.textContent = d.tier === "agency" ? "Install in a client portal" : "Install in your portal";
+      b.textContent = (d.tier === "agency" || d.tier === "agency_lifetime") ? "Install in a client portal" : "Install in your portal";
       $("thx-linkbox").hidden = false;
       put("thx-link", location.origin.replace(/^https?:\/\//, "") + href);
       $("thx-instcopy").hidden = false;
-      put("thx-sub", "Two things live on this page: the download, and your install link. Both also arrive by email, so you can close this tab.");
+      put("thx-sub", NO_FILES
+        ? "Your install link lives on this page and arrives by email, so you can close this tab."
+        : "Two things live on this page: the download, and your install link. Both also arrive by email, so you can close this tab.");
     } else if (d.tier === "category") {
       $("thx-blocked").hidden = false;
     }
@@ -66,7 +82,9 @@
       put("thx-upgcode", d.upgrade_code);
     }
     if (d.tier === "agency") $("agency-note").hidden = false;
-    if (d.pack) note.textContent = "The file is " + d.pack + ".";
+    if (d.tier === "agency_lifetime") note.textContent = "Unbranded files, unlimited portals, unlimited seats, one legal entity.";
+    else if (NO_FILES) note.textContent = "";
+    else if (d.pack) note.textContent = "The file is " + d.pack + ".";
     else note.textContent = "";
   }
 

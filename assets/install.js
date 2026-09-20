@@ -14,11 +14,12 @@
   var SPECS = window.TWL_INSTALL || [];
   var $ = function (id) { return document.getElementById(id); };
   var qs = new URLSearchParams(location.search);
-  var token = qs.get("t") || "";
+  var stash = function (k) { try { return sessionStorage.getItem("twl_" + k) || ""; } catch (e) { return ""; } };
+  var token = qs.get("t") || stash("t");
   // The callback comes back with ?s=<session>: the portal it authorised. Every route that touches the portal
   // needs it (/install/state to show it connected, /install/run to create anything), and the page dropped it
   // until 17/09/2026, so step 2 stayed "Not connected" after a successful authorisation.
-  var sid = qs.get("s") || "";
+  var sid = qs.get("s") || stash("s");
   var DEMO = qs.get("demo") === "1";
   var esc = function (s) {
     return String(s).replace(/[&<>"]/g, function (c) {

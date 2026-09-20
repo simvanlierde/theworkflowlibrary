@@ -163,58 +163,6 @@
     wireForm(form, ok, "/free", "install_request", { spec: pnl.getAttribute("data-spec") || "" });
   })();
 
-  /* --------------------------------------------------------------- pricing toggle */
-  (function () {
-    var seg = $("buyseg"), tiers = $("tiers"), note = $("togglenote");
-    if (!seg || !tiers) return;
-    var ICO = {
-      ok: '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-      ins: '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8.8 1.6L3.2 9.2h3.6l-.6 5.2 5.6-7.6H8.2l.6-5.2z" fill="currentColor"/></svg>'
-    };
-    var mode = "files";
-    function paint() {
-      tiers.querySelectorAll(".tier").forEach(function (t) {
-        var row = t.querySelector(".insrow");
-        if (row) {
-          var kind = row.getAttribute("data-" + mode + "-kind") || "ok";
-          row.className = "insrow" + (kind === "ins" ? " ins" : "");
-          row.innerHTML = ICO[kind === "ins" ? "ins" : "ok"] + "<span>" + esc(row.getAttribute("data-" + mode) || "") + "</span>";
-        }
-        var rib = t.querySelector(".rib");
-        if (rib && rib.getAttribute("data-" + mode)) rib.textContent = rib.getAttribute("data-" + mode);
-        var addon = t.querySelector(".addon input");
-        var b = t.querySelector(".price b"), s = t.querySelector(".price s");
-        if (b && b.getAttribute("data-base")) {
-          var plus = addon && addon.checked ? +(t.getAttribute("data-addon") || 0) : 0;
-          b.textContent = (+b.getAttribute("data-base") + plus) + " EUR";
-          if (s && s.getAttribute("data-base")) s.textContent = (+s.getAttribute("data-base") + plus) + " EUR";
-        }
-        var an = t.querySelector(".addonnote");
-        if (an) an.hidden = !(addon && addon.checked);
-        var cta = t.querySelector("a.btn[data-cta]");
-        if (cta && addon) cta.setAttribute("data-addon", addon.checked ? "1" : "0");
-      });
-      if (note) note.innerHTML = note.getAttribute("data-" + mode) || "";
-      seg.querySelectorAll("button").forEach(function (x) {
-        x.setAttribute("aria-pressed", String(x.getAttribute("data-mode") === mode));
-      });
-    }
-    seg.addEventListener("click", function (e) {
-      var b = e.target.closest("button[data-mode]");
-      if (!b) return;
-      mode = b.getAttribute("data-mode");
-      tiers.classList.add("swap");
-      setTimeout(function () { paint(); tiers.classList.remove("swap"); }, 150);
-      track("pricing_mode", { mode: mode });
-    });
-    tiers.addEventListener("change", function (e) {
-      if (!e.target.closest(".addon")) return;
-      paint();
-      track("pricing_addon", { on: e.target.checked ? 1 : 0 });
-    });
-    paint();
-  })();
-
   /* ------------------------------------------------------------------ the shelves */
   var shelfwrap = $("shelfwrap");
   if (!shelfwrap || !T.rows) return;

@@ -262,6 +262,14 @@ a.card:hover .thumb img{transform:translateY(-50%) scale(1.05)}
 .freerow ul{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:8px}
 .freerow li{font-size:13.5px;color:#2C3520;display:flex;align-items:center;gap:7px}
 .freerow .sp{margin-left:auto}
+/* D025: the grid reads as steps, own the library then add portals */
+.pstep{display:flex;align-items:baseline;gap:13px;margin:36px 0 14px}
+.pstep .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--violet-d);border:1px solid var(--rule);border-radius:999px;padding:4px 10px;
+  background:var(--surface);flex:none}
+.pstep h3{font-size:19px;letter-spacing:-.025em}
+.pstep p{font-size:13.5px;color:var(--body);margin-left:auto;max-width:48ch;text-align:right}
+.tiers.two{grid-template-columns:repeat(2,1fr)}
 .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
 .tier{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-l);padding:24px;
   display:flex;flex-direction:column;gap:13px}
@@ -327,7 +335,9 @@ footer .roadmap{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule
   .band .wrap{grid-template-columns:1fr;gap:28px}
   .band h1{max-width:22ch}
   .msteps{grid-template-columns:1fr 1fr}
-  .tiers{grid-template-columns:1fr}
+  .tiers,.tiers.two{grid-template-columns:1fr}
+  .pstep{flex-direction:column;align-items:flex-start;gap:6px;margin:28px 0 12px}
+  .pstep p{margin-left:0;text-align:left;max-width:none}
   .tier.hi{margin-top:0}
   .pricenote{grid-template-columns:1fr}
   .authorbar{grid-template-columns:1fr}

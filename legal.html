@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=9639f2fc">
+<link rel="stylesheet" href="/assets/style.css?v=2c2a8f66">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var q=new URLSearchParams(location.search),hit=false;["s","t"].forEach(function(k){if(q.has(k)){hit=true;try{sessionStorage.setItem("twl_"+k,q.get(k));}catch(e){}}});if(hit){history.replaceState(null,"",location.pathname+location.hash);}}catch(e){}})();</script><meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -48,17 +48,25 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
 <main class="wrap"><div class="docpage"><h1>Terms, licence and refunds</h1>
 <article class="prose" style="margin-top:22px">
 <h2>Licence</h2>
-<p><b>Category pack and full library.</b> Licensed to one company for use on the portals it owns. Any number of
-people at that company may use the files. Not for resale, republication, or delivery to third parties as a
-deliverable. The one-click installer covers up to 3 portals on the full library, and one portal on a
-category pack with the +20 EUR add-on.</p>
-<p><b>Agency licence.</b> Licensed to the buyer (a freelancer or an agency, any number of people) for use on any
-client portal, unlimited. The buyer may hand a client the spec, the properties JSON and the code built for that
-client; the PDFs and Markdown in the agency pack carry no The Workflow Library branding for that purpose. Reselling,
-republishing or distributing the library itself, in whole or in part, as a product is not permitted.</p>
-<p><b>Request-a-spec (agency).</b> 3 requests a year, in a priority queue, delivered within
-10 working days as a spec added to the library. Requests outside the scope of
-workflow automation may be declined.</p>
+<p><b>What a licence covers.</b> One company and the portals it activates, its own or its clients'. Any number of
+people at that company may use the files. Every portal where a workflow from the library runs needs an activation,
+whatever the route it took to get there: the installer, a script, or a copy made by hand. Not for resale,
+republication, or sub-licensing. Handing a client the spec, the properties JSON and the code built for that client
+is fine.</p>
+<p><b>How a portal is counted.</b> A portal counts once, at its first install, by its HubSpot account id.
+Reinstalling, updating or adding specs in a portal already activated is free for ever. A category pack activates
+1 portal, the full library 3, an extra portal one more, permanently. Agency Lifetime
+has no limit; usage is reviewed above 30 new portals a month.</p>
+<p><b>Studio.</b> A subscription that opens 5 new portals per calendar month while it runs, and
+requires a full library licence on the same email. It ships no files of its own. Cancel whenever you like: the
+portals already activated stay licensed, and installing in a new portal then needs Studio again or an extra
+portal.</p>
+<p><b>Agency Lifetime.</b> Paid once, for one legal entity: unlimited portals, unlimited seats, the full library
+included, PDFs and Markdown without The Workflow Library branding. It carries no service obligation, no SLA, no custom
+work and no migration. Reselling, republishing or distributing the library itself, in whole or in part, as a
+product is not permitted.</p>
+<p><b>Ask for a spec.</b> Free, for anyone: write to hello@theworkflowlibrary.com and, if it fits the library, it is written and
+added for everyone. No queue is promised and requests outside workflow automation may be declined.</p>
 <p><b>Free specs.</b> Use them anywhere. Not for resale or republication.</p>
 <h2>The installer</h2>
 <p>The installer acts through the portal owner's own authorisation screen, with permissions limited to creating
@@ -66,10 +74,15 @@ properties and workflows. Every workflow it creates arrives switched off. It nev
 deletes anything, and never stores the access token after the install finishes. What the API cannot create, such
 as a marketing email, a team or a static list, is listed in a task inside the portal instead.</p>
 <h2>Prices</h2>
-<p>Prices are shown excluding VAT and are one-time. Stripe, as merchant of record, adds the VAT or sales tax of
-your country at checkout and applies the EU reverse charge when you provide a valid VAT number. Founding prices until 31 October, the day the library passes 250 specs. Then 59 / 199 / 599 EUR.</p>
+<p>Prices are shown excluding VAT. The category packs, the full library, the extra portals and Agency
+Lifetime are paid once; Studio is a subscription. Stripe, as merchant of record, adds the VAT or sales tax of
+your country at checkout and applies the EU reverse charge when you provide a valid VAT number. Founding prices until 31 October, the day the library passes 250 specs. Then 59 / 199 EUR, and Studio at 99.</p>
 <h2>Refunds</h2>
-<p>30 days, no questions asked. Email hello@theworkflowlibrary.com with your order number.</p>
+<p>30 days on the plans paid once, no questions asked. Email hello@theworkflowlibrary.com with your order number. A refund
+closes the licence: the downloads and the installer stop working, and the workflows already created in a portal
+are yours to keep or delete. Agency Lifetime is refundable for 14 days, while at most 3 portals are activated.
+Studio can be cancelled at any time and runs to the end of the period paid for; it is not refunded part way
+through a period.</p>
 <h2>Updates</h2>
 <p>Specs added to a pack you bought are delivered through the same download link at no extra cost.</p>
 <h2>Accuracy</h2>
@@ -117,7 +130,7 @@ endorsed by, or sponsored by HubSpot.</p>
   </div>
 </footer>
 <script>window.TWL={"brand":"The Workflow Library","support":"hello@theworkflowlibrary.com","worker":"https://twl-checkout.theworkflowlibrary.workers.dev","installWorker":"https://twl-install.theworkflowlibrary.workers.dev","hsForm":{"portal":"149348782","guid":"cdaa093f-bca8-4c62-b275-7b9d33d96641"}};</script>
-<script src="/assets/library.js?v=db79c67d" defer></script>
+<script src="/assets/library.js?v=a0d6148c" defer></script>
 
 </body>
 </html>

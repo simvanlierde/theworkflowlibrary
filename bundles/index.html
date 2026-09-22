@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=2c2a8f66">
+<link rel="stylesheet" href="/assets/style.css?v=7f70ac96">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <style>
 .bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-violet-d:#4830AE;--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:#FBF1DC;--bb-amber-ink:#8A5B00;--bb-sunk:#F3F4F8;--bb-sans:var(--sans,"Sora",system-ui,sans-serif);
@@ -89,6 +89,24 @@
       <a class="hidesm" href="/#faq">FAQ</a>
       <a class="hidemd" href="/changelog.html">Changelog</a>
       <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+      <details class="mnav">
+      <summary aria-label="Open the menu" role="button">
+        <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
+          <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </summary>
+      <div class="mpanel">
+        <a href="/#shelves">Library</a>
+        <a href="/bundles/">Bundles</a>
+        <a href="/kits/">Kits</a>
+        <p class="mlab">Industry kits</p><a href="/kits/insurance/"><span>Insurance</span><i>43 specs, 199 EUR</i></a><a href="/kits/real-estate/"><span>Real estate</span><i>43 specs, 199 EUR</i></a><a href="/kits/recruiting/"><span>Staffing and recruiting</span><i>43 specs, 199 EUR</i></a><a href="/kits/events/"><span>Events</span><i>43 specs, 199 EUR</i></a><a href="/kits/legal/"><span>Legal services</span><i>43 specs, 199 EUR</i></a>
+        <p class="mlab">More</p>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/changelog.html">Changelog</a>
+      </div>
+    </details>
+    <script>document.addEventListener("click",function(e){var d=document.querySelector("details.mnav[open]");
+      if(d&&(e.target.closest("details.mnav a")||!e.target.closest("details.mnav")))d.removeAttribute("open");});</script>
     </nav>
   </div>
 </header>

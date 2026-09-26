@@ -502,6 +502,8 @@ footer .roadmap{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule
 .tier li.off svg{color:#BCC2D0}
 .tier li.ins{color:var(--ink);font-weight:600}
 .tier li.ins svg{color:var(--violet)}
+.tier li.dlrow{color:var(--ink);font-weight:600}
+.tier li.dlrow svg{color:var(--violet)}
 .tier.dim{opacity:.86}
 .tier .upsell{font-size:12.5px;color:var(--violet-d);margin-top:-3px}
 .tier .upsell a{font-weight:600}
@@ -736,7 +738,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 /* a link inside muted running text must not rely on colour alone */
 .sellline a,.countline a,.muted a,.fine a,.alt a,.freenote a,.lost a,.roadmap a,.legal a,
 .guar a,.note a,.unitline a,.pricenote a,.addon a,.instate a,.togglenote a,.warnbox a,
-.packstrip a,.authorbar a,.log a,.ft a{text-decoration:underline}
+.packstrip a,.authorbar a,.log a,.ft a,.consent p a{text-decoration:underline}
 .ids code{font-family:var(--mono);font-size:11px;background:var(--sunk);border:1px solid var(--rule);
   color:#3A4051;border-radius:5px;padding:3px 7px}
 .fp .ids code{background:#1E212C;border-color:#2E3240;color:#A8AEBD}
@@ -901,3 +903,517 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   .brand span{display:none}          /* a cette largeur, le logo suffit et le bouton d'achat reste entier */
   .topnav .btn.pri{padding-left:12px;padding-right:12px;font-size:13.5px}
 }
+
+/* ---------------------------------------------------------------- hero (C, 25/09/2026)
+   Replaces .band: the offer, the price and the installer all in the first screen. */
+.hero{border-bottom:1px solid var(--rule);background:
+  radial-gradient(1100px 380px at 8% -10%, var(--violet-tint) 0%, transparent 62%), var(--surface)}
+.hero .hin{display:grid;grid-template-columns:1.06fr .94fr;gap:44px;align-items:center;
+  padding:52px 0 46px}
+.hero .hcol{display:grid;gap:19px;align-content:start}
+.hero h1{font-size:clamp(31px,4.6vw,49px);font-weight:780;letter-spacing:-.025em;line-height:1.1;
+  text-wrap:balance;margin:0}
+.hero .sub{font-size:18px;max-width:52ch;color:var(--body);margin:0}
+.hero .anchor{display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;padding:13px 16px;
+  background:var(--bg);border:1px solid var(--rule-2);border-left:4px solid var(--violet);
+  border-radius:var(--r-s,8px)}
+.hero .anchor b{font-size:26px;font-weight:750;color:var(--ink);font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em}
+.hero .anchor s{color:var(--muted);font-size:16px}
+.hero .anchor span{font-size:14.5px;color:var(--muted)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:11px}
+.hero .trust{display:flex;flex-wrap:wrap;gap:7px 18px;font-size:13.5px;color:var(--muted)}
+.hero .trust b{display:inline-flex;align-items:center;gap:6px;font-weight:400}
+.hero .trust svg{color:var(--violet);flex:none}
+.hero .hside{display:grid;gap:14px;align-content:center}
+.hero .undercap{font-size:13.5px;color:var(--muted);max-width:46ch;margin:0}
+.panel{background:var(--ink);border-radius:18px;overflow:hidden;border:1px solid #23262F;
+  box-shadow:0 16px 40px rgba(18,20,28,.14),0 2px 6px rgba(18,20,28,.06)}
+.panel .ptop{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid #262A34;
+  font-family:var(--mono);font-size:11.5px;color:#9BA3B4}
+.panel .ptop .d{width:9px;height:9px;border-radius:50%;background:#3A3F4C;flex:none}
+.panel .ptop .d.g{background:var(--lime)}
+.panel .plog{padding:15px;font-family:var(--mono);font-size:12.5px;line-height:1.85;color:#C9CFDC;
+  display:grid;gap:1px}
+.panel .plog i{font-style:normal;color:#959EB0;margin-right:9px}
+.panel .plog b{font-weight:500;color:#fff}
+.panel .plog .mut{color:#9BA3B4}
+.panel .plog .ok{color:var(--lime)}
+.panel .plog .vi{color:#B7A5FF}
+.panel .pfoot{padding:11px 15px;border-top:1px solid #262A34;font-family:var(--mono);font-size:11.5px;
+  color:#9BA3B4;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.panel .pfoot .tag{background:#23262F;border-radius:5px;padding:2px 7px;color:#C9CFDC}
+@media (max-width:900px){.hero .hin{grid-template-columns:1fr;gap:30px;padding:36px 0 34px}
+  .hero .sub{font-size:16.5px}}
+
+/* ------------------------------------------------- pricing row of three (C, 25/09/2026) */
+.tiers.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.tiers.three .tier{height:100%}
+.pricing .freeids{margin-top:12px;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;
+  gap:6px;align-items:baseline}
+.pricing .freeids code{font-family:var(--mono);font-size:11.5px;background:var(--sunk);
+  border:1px solid var(--rule);border-radius:5px;padding:1px 6px;color:var(--muted)}
+.pricing .addhead{margin:34px 0 14px;font-size:14.5px;color:var(--muted);max-width:70ch}
+.pricing .addhead b{color:var(--ink);font-weight:650;margin-right:7px}
+@media (max-width:900px){.tiers.three{grid-template-columns:1fr}}
+.hero .eyebrow{justify-self:start;width:max-content;max-width:100%}
+
+/* ------------------------------------------------ table view of the catalogue (B, 25/09/2026) */
+.viewtog{display:inline-flex;border:1px solid var(--rule-2);border-radius:9px;overflow:hidden;
+  background:var(--surface)}
+.viewtog button{font:inherit;font-size:13.5px;padding:6px 13px;border:0;background:none;
+  color:var(--muted);cursor:pointer}
+.viewtog button + button{border-left:1px solid var(--rule)}
+.viewtog button[aria-pressed="true"]{background:var(--violet-tint);color:var(--violet-d);font-weight:600}
+.viewtog button:hover{color:var(--ink)}
+.wfrows{border:1px solid var(--rule);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.wfrow{display:grid;grid-template-columns:168px 1fr auto;gap:14px;align-items:center;
+  padding:11px 14px;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--body)}
+.wfrow:last-child{border-bottom:0}
+.wfrow:hover{background:var(--violet-tint);text-decoration:none}
+.wfrow .rid{font-family:var(--mono);font-size:11.5px;color:var(--muted);overflow-wrap:anywhere}
+.wfrow .rti{font-weight:550;color:var(--ink);font-size:14.5px;line-height:1.4}
+.wfrow .rme{display:flex;gap:6px;align-items:center;flex:none;flex-wrap:wrap}
+.wfrow .p{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+  padding:2.5px 7px;border-radius:999px;border:1px solid var(--rule-2);background:var(--sunk);
+  color:var(--muted);white-space:nowrap}
+.wfrow .p.free{background:var(--lime-soft);border-color:var(--lime-rule);color:#3A4A08}
+.wfrow .p.obj{background:var(--violet-tint);border-color:var(--violet-rule);color:var(--violet-d)}
+.wfrow .p.plan{background:var(--amber-tint);border-color:var(--amber-rule);color:var(--amber)}
+@media (max-width:820px){.wfrow{grid-template-columns:1fr;gap:5px}}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   THE VAULT (26/09/2026) — its own room.
+   The library is a bright reading room; this is the machine room behind it. Same brand,
+   inverted ground, mono promoted to the primary voice. Lime and amber are semantic here,
+   not decorative: they carry the page's actual argument, proven against being proved.
+   Every colour is a token scoped to .vlt so nothing leaks into the light pages.
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+.vlt{
+  --v-bg:#0C0E14; --v-surface:#141821; --v-raised:#1C2130; --v-sunk:#0F1219;
+  --v-rule:#262C3A; --v-rule-2:#333A4B;
+  /* greys measured against every vault ground, not eyeballed: faint 4.7:1 minimum,
+     muted 6.2:1, so the three levels stay distinct and all of them stay readable */
+  --v-ink:#EEF1F7; --v-body:#AEB6C6; --v-muted:#9CA2AD; --v-faint:#838C9D;
+  --v-violet:#9B87F5; --v-violet-d:#B4A4FF; --v-violet-bg:#1B1832; --v-violet-rule:#3A3266;
+  --v-lime:#C8F25A; --v-lime-bg:#1E2610; --v-lime-rule:#44561A;
+  --v-amber:#E8B45C; --v-amber-bg:#2A2113; --v-amber-rule:#55421E;
+  --v-grid:rgba(155,135,245,.055);
+  /* Any rule written for the light site that also matches an element in here would otherwise
+     resolve --surface, --ink, --body and friends to their light values, and paint a white slab
+     with white text on it. Remapping the light token NAMES to the vault palette fixes the whole
+     class of leaks at once, instead of chasing them one selector at a time. (26/09/2026) */
+  --bg:#0C0E14; --surface:#141821; --sunk:#0F1219; --rule:#262C3A; --rule-2:#333A4B;
+  --ink:#EEF1F7; --body:#AEB6C6; --muted:#9CA2AD;
+  --violet:#9B87F5; --violet-d:#B4A4FF; --violet-tint:#1B1832; --violet-rule:#3A3266;
+  --lime:#C8F25A; --lime-soft:#1E2610; --lime-rule:#44561A;
+  --amber:#E8B45C; --amber-tint:#2A2113; --amber-rule:#55421E;
+  --sh:0 1px 2px rgba(0,0,0,.4); --sh-m:0 6px 18px rgba(0,0,0,.45);
+  --sh-h:0 18px 44px rgba(0,0,0,.55);
+  color-scheme:dark;
+  background-color:var(--v-bg);
+  color:var(--v-body);
+  /* engineering paper, barely there: the room has a floor */
+  background-image:
+    repeating-linear-gradient(0deg, var(--v-grid) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, var(--v-grid) 0 1px, transparent 1px 34px);
+}
+.vlt ::selection{background:var(--v-violet);color:#0C0E14}
+.vlt h1,.vlt h2,.vlt h3{color:var(--v-ink)}
+.vlt a{color:var(--v-violet-d)}
+.vlt :focus-visible{outline:2.5px solid var(--v-violet);outline-offset:3px}
+.vlt .muted{color:var(--v-muted)}
+
+/* the mono voice: labels, states, numbers, anything structural */
+.vlt .vlab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--v-faint);display:flex;align-items:center;gap:10px}
+.vlt .vlab::after{content:"";flex:1;height:1px;background:var(--v-rule)}
+.vlt .vtag{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--v-violet-d);background:var(--v-violet-bg);
+  border:1px solid var(--v-violet-rule);border-radius:4px;padding:5px 11px;width:max-content}
+.vlt .vtag .blip{width:6px;height:6px;border-radius:50%;background:var(--v-lime);flex:none;
+  box-shadow:0 0 0 3px rgba(200,242,90,.16)}
+
+/* sections */
+.vlt .vsec{padding:64px 0;border-top:1px solid var(--v-rule)}
+.vlt .vsec:first-of-type{border-top:0}
+.vlt .vhead{display:grid;gap:13px;max-width:64ch;margin-bottom:32px}
+.vlt .vsec h2{font-size:clamp(23px,3vw,35px);font-weight:780;letter-spacing:-.03em;line-height:1.1;
+  text-wrap:balance;margin:0}
+.vlt .vsec .lede{font-size:16px;color:var(--v-body);max-width:62ch;margin:0}
+
+/* ── hero ─────────────────────────────────────────────────────────────────────────── */
+.vlt .vtop{padding:64px 0 60px}
+.vlt .vtop .in{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
+.vlt .vtop h1{font-size:clamp(33px,5vw,54px);font-weight:800;letter-spacing:-.035em;line-height:1.04;
+  text-wrap:balance;margin:0}
+.vlt .vtop .lede{font-size:17.5px;color:var(--v-body);max-width:50ch;margin:0}
+.vlt .vcol{display:grid;gap:22px;align-content:start}
+
+/* the transfer: source portal, the vault, target portal. The product in one object. */
+.vlt .xfer{background:var(--v-surface);border:1px solid var(--v-rule);border-radius:16px;
+  overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.vlt .xrow{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch}
+.vlt .xend{padding:20px 18px;display:grid;gap:5px;align-content:center;justify-items:center;
+  text-align:center}
+.vlt .xend .k{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.13em;
+  color:var(--v-faint)}
+.vlt .xend .n{font-size:14.5px;font-weight:650;color:var(--v-ink)}
+.vlt .xend .s{font-family:var(--mono);font-size:10.5px;color:var(--v-muted)}
+.vlt .xmid{width:1px;background:var(--v-rule)}
+.vlt .xsafe{border-top:1px solid var(--v-rule);border-bottom:1px solid var(--v-rule);
+  background:var(--v-sunk);padding:15px 18px;display:flex;align-items:center;gap:12px}
+.vlt .xsafe .ic{width:34px;height:34px;border-radius:9px;background:var(--v-violet-bg);
+  border:1px solid var(--v-violet-rule);display:grid;place-items:center;color:var(--v-violet-d);flex:none}
+.vlt .xsafe .t{display:grid;gap:1px}
+.vlt .xsafe b{font-size:14px;color:var(--v-ink);font-weight:650}
+.vlt .xsafe span{font-family:var(--mono);font-size:11px;color:var(--v-muted)}
+.vlt .xsafe .dated{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--v-faint);
+  text-align:right;line-height:1.7}
+
+/* the six steps, the only real sequence on the page, so the only thing numbered */
+.vlt .steps6{padding:6px 0 8px}
+.vlt .st6{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;
+  padding:9px 18px;font-size:13.5px}
+.vlt .st6 + .st6{border-top:1px solid var(--v-rule)}
+.vlt .st6 .no{font-family:var(--mono);font-size:10.5px;color:var(--v-faint);
+  font-variant-numeric:tabular-nums}
+.vlt .st6 .wh{color:var(--v-body)}
+.vlt .st6 .wh b{color:var(--v-ink);font-weight:600}
+.vlt .chip{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.1em;
+  padding:3px 8px;border-radius:999px;white-space:nowrap;flex:none}
+.vlt .chip.ok{background:var(--v-lime-bg);border:1px solid var(--v-lime-rule);color:var(--v-lime)}
+.vlt .chip.am{background:var(--v-amber-bg);border:1px solid var(--v-amber-rule);color:var(--v-amber)}
+.vlt .st6.pending{background:linear-gradient(90deg, var(--v-amber-bg) 0%, transparent 62%)}
+.vlt .xcap{font-size:13px;color:var(--v-muted);margin:14px 0 0;max-width:48ch}
+
+/* ── waitlist ─────────────────────────────────────────────────────────────────────── */
+.vlt .vform{display:flex;flex-wrap:wrap;gap:10px;max-width:490px}
+.vlt .vform input{flex:1;min-width:210px;height:48px;border-radius:10px;
+  border:1.5px solid var(--v-rule-2);background:var(--v-surface);font:inherit;font-size:15.5px;
+  padding:0 15px;color:var(--v-ink)}
+.vlt .vform input::placeholder{color:var(--v-faint)}
+.vlt .vform input:focus{border-color:var(--v-violet);outline:none;
+  box-shadow:0 0 0 4px rgba(155,135,245,.16)}
+.vlt .vform .vbtn{height:48px;padding:0 20px;border-radius:10px;border:0;cursor:pointer;
+  font:inherit;font-size:15px;font-weight:700;background:var(--v-lime);color:#131A05;
+  transition:filter .16s}
+.vlt .vform .vbtn:hover{filter:brightness(1.06)}
+.vlt .vform .vbtn:disabled{opacity:.55;cursor:default}
+.vlt .vnote{margin:11px 0 0;font-size:12.5px;color:var(--v-muted);max-width:52ch;
+  font-family:var(--mono);line-height:1.7}
+.vlt .vnote a{color:var(--v-violet-d)}
+.vlt .vdone{margin:0;font-size:15px;color:var(--v-lime);display:flex;align-items:center;gap:10px}
+.vlt .vdone::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--v-lime);
+  box-shadow:0 0 0 4px rgba(200,242,90,.18);flex:none}
+
+/* ── two jobs ─────────────────────────────────────────────────────────────────────── */
+.vlt .jobs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.vlt .job{background:var(--v-surface);border:1px solid var(--v-rule);border-radius:14px;
+  padding:24px 26px;display:grid;gap:10px;align-content:start}
+.vlt .job .jk{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;
+  color:var(--v-amber)}
+.vlt .job h3{font-size:19px;font-weight:700;letter-spacing:-.02em;margin:0}
+.vlt .job p{font-size:14.5px;margin:0;color:var(--v-body)}
+
+/* ── the register: the centrepiece ────────────────────────────────────────────────── */
+.vlt .reg{border:1px solid var(--v-rule);border-radius:14px;overflow:hidden;
+  background:var(--v-surface)}
+.vlt .regh{display:grid;grid-template-columns:30px 1fr 180px;gap:16px;padding:11px 20px;
+  background:var(--v-sunk);border-bottom:1px solid var(--v-rule);font-family:var(--mono);
+  font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--v-faint)}
+.vlt .rege{display:grid;grid-template-columns:30px 1fr 180px;gap:16px;padding:17px 20px;
+  border-bottom:1px solid var(--v-rule);align-items:start}
+.vlt .rege:last-child{border-bottom:0}
+.vlt .rege .rn{font-family:var(--mono);font-size:11px;color:var(--v-faint);padding-top:3px;
+  font-variant-numeric:tabular-nums}
+.vlt .rege .rw{display:grid;gap:7px}
+.vlt .rege .rt{font-size:15.5px;font-weight:650;color:var(--v-ink);letter-spacing:-.01em}
+.vlt .rege .rd{font-size:14px;color:var(--v-body);max-width:70ch}
+.vlt .rege .rs{padding-top:2px}
+.vlt .rege code{font-family:var(--mono);font-size:12px;background:var(--v-raised);
+  border:1px solid var(--v-rule-2);border-radius:4px;padding:1px 5px;color:var(--v-amber);
+  overflow-wrap:anywhere}
+.vlt .rege.open{background:linear-gradient(90deg, var(--v-amber-bg) 0%, transparent 55%)}
+.vlt .rege.open .rn{color:var(--v-amber)}
+.vlt .regfoot{padding:16px 20px;background:var(--v-sunk);border-top:1px solid var(--v-rule);
+  font-size:14px;color:var(--v-body);max-width:none}
+.vlt .regfoot b{color:var(--v-ink)}
+
+/* ── scope guards ─────────────────────────────────────────────────────────────────── */
+.vlt .guards{display:grid;gap:1px;background:var(--v-rule);border:1px solid var(--v-rule);
+  border-radius:14px;overflow:hidden;list-style:none;margin:0;padding:0}
+.vlt .guards li{background:var(--v-surface);padding:17px 22px;font-size:14.5px;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+.vlt .guards .x{font-family:var(--mono);font-size:12px;color:var(--v-amber);flex:none}
+.vlt .guards b{color:var(--v-ink);font-weight:650}
+
+/* ── close ────────────────────────────────────────────────────────────────────────── */
+.vlt .vclose{max-width:66ch;display:grid;gap:16px}
+
+@media (max-width:900px){
+  .vlt .vtop .in{grid-template-columns:1fr;gap:34px}
+  .vlt .vtop{padding:42px 0 40px}
+  .vlt .vsec{padding:46px 0}
+  .vlt .jobs{grid-template-columns:1fr}
+  .vlt .regh{display:none}
+  .vlt .rege{grid-template-columns:24px 1fr;gap:12px}
+  .vlt .rege .rs{grid-column:2}
+}
+@media (max-width:560px){
+  .vlt .xrow{grid-template-columns:1fr}
+  .vlt .xmid{width:auto;height:1px}
+  .vlt .xsafe .dated{display:none}
+}
+
+/* shared signup furniture */
+.vlt .hero{padding:56px 0 48px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+@media (max-width:940px){.vlt .hero{grid-template-columns:1fr;gap:34px;padding:38px 0 34px}}
+.vlt .hcol{display:grid;gap:20px;align-content:start}
+.vlt .hero h1{font-size:clamp(32px,5vw,54px);font-weight:800;letter-spacing:-.035em;line-height:1.03}
+.vlt .hero h1 em{font-style:normal;color:var(--lime)}
+.vlt .hero .lede{font-size:18px;color:var(--body);max-width:50ch}
+.vlt .under{font-family:var(--mono);font-size:12px;color:var(--faint);display:flex;flex-wrap:wrap;gap:6px 16px}
+.vlt .under b{font-weight:400;display:inline-flex;align-items:center;gap:6px}
+.vlt .under i{width:5px;height:5px;border-radius:50%;background:var(--lime);display:inline-block}
+.vlt .panel{border:1px solid var(--rule);border-radius:16px;background:var(--surface);overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.vlt .ph{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--sunk);
+  border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--faint)}
+.vlt .ph .nm{color:var(--ink);font-size:12.5px;font-family:var(--sans);font-weight:600}
+.vlt .ph .badge{margin-left:auto;font-size:9.5px;text-transform:uppercase;letter-spacing:.11em;
+  color:var(--lime);background:var(--lime-bg);border:1px solid var(--lime-rule);border-radius:999px;
+  padding:3px 9px}
+.vlt .pf{padding:12px 16px;background:var(--sunk);border-top:1px solid var(--rule);font-family:var(--mono);
+  font-size:11px;color:var(--muted)}
+.vlt .sec{padding:56px 0;border-top:1px solid var(--rule)}
+.vlt .shd{display:grid;gap:12px;max-width:58ch;margin-bottom:30px}
+.vlt .sec h2{font-size:clamp(24px,3.1vw,36px);font-weight:780;letter-spacing:-.03em}
+.vlt .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.vlt .pc{border:1px solid var(--rule);border-radius:14px;background:var(--surface);padding:22px 24px;
+  display:grid;gap:11px;align-content:start;position:relative;overflow:hidden}
+.vlt .pc::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--amber)}
+.vlt .pc .when{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--amber)}
+.vlt .pc h3{font-size:17.5px;font-weight:700;letter-spacing:-.02em}
+.vlt .pc p{font-size:14px;color:var(--muted)}
+.vlt .pc .now{font-family:var(--mono);font-size:11.5px;color:var(--faint);border-top:1px solid var(--rule);
+  padding-top:11px;margin-top:3px}
+@media (max-width:880px){.vlt .cards{grid-template-columns:1fr}}
+.vlt .dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.vlt .dc{border:1px solid var(--rule);border-radius:14px;background:var(--surface);padding:22px 24px;
+  display:grid;grid-template-columns:38px 1fr;gap:16px;align-items:start}
+.vlt .dc .ic{width:38px;height:38px;border-radius:10px;background:var(--lime-bg);
+  border:1px solid var(--lime-rule);display:grid;place-items:center;color:var(--lime);flex:none}
+.vlt .dc h3{font-size:16.5px;font-weight:680;margin-bottom:5px}
+.vlt .dc p{font-size:14px;color:var(--muted)}
+@media (max-width:760px){.vlt .dgrid{grid-template-columns:1fr}}
+.vlt .pstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);
+  border-radius:13px;overflow:hidden;background:var(--surface)}
+.vlt .pcell{padding:19px 22px;border-right:1px solid var(--rule);display:grid;gap:5px}
+.vlt .pcell:last-child{border-right:0}
+.vlt .pcell b{font-size:25px;font-weight:780;color:var(--lime);line-height:1;font-variant-numeric:tabular-nums;
+  letter-spacing:-.03em}
+.vlt .pcell .k{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--faint)}
+.vlt .pcell p{font-size:13px;color:var(--muted)}
+@media (max-width:820px){.vlt .pstrip{grid-template-columns:1fr}
+.vlt .pcell{border-right:0;border-bottom:1px solid var(--rule)}.vlt .pcell:last-child{border-bottom:0}}
+.vlt .obox{border:1px solid var(--violet-rule);border-radius:18px;background:
+  radial-gradient(900px 300px at 12% 0%, rgba(155,135,245,.14) 0%, transparent 62%), var(--surface);
+  overflow:hidden}
+.vlt .oin{padding:34px 36px;display:grid;grid-template-columns:1.06fr .94fr;gap:44px;align-items:center}
+@media (max-width:900px){.vlt .oin{grid-template-columns:1fr;gap:28px;padding:26px 22px}}
+.vlt .obox h2{font-size:clamp(25px,3.2vw,37px);font-weight:800;letter-spacing:-.035em}
+.vlt .perks{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px}
+.vlt .perks li{display:grid;grid-template-columns:20px 1fr;gap:12px;font-size:15px;color:var(--body);
+  align-items:start}
+.vlt .perks svg{margin-top:4px;color:var(--lime);flex:none}
+.vlt .perks b{color:var(--ink);font-weight:650}
+.vlt .spots{margin-top:22px;padding:13px 15px;border:1px dashed var(--violet-rule);border-radius:10px;
+  background:var(--violet-bg);font-size:13.5px;color:var(--violet-d)}
+.vlt .fbox{background:var(--sunk);border:1px solid var(--rule);border-radius:14px;padding:24px}
+.vlt .fbox .ft{font-size:16.5px;color:var(--ink);font-weight:680;margin-bottom:4px}
+.vlt .fbox .fs{font-size:13.5px;color:var(--muted);margin-bottom:17px}
+.vlt .frow{display:grid;gap:11px}
+.vlt .frow label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;
+  color:var(--faint);display:block;margin-bottom:6px}
+.vlt .frow input, .vlt .frow select{width:100%;height:48px;border-radius:10px;border:1.5px solid var(--rule-2);
+  background:var(--surface);font:inherit;font-size:15.5px;padding:0 14px;color:var(--ink)}
+.vlt .frow input::placeholder{color:var(--faint)}
+.vlt .frow input:focus, .vlt .frow select:focus{border-color:var(--violet);outline:none;
+  box-shadow:0 0 0 4px rgba(155,135,245,.16)}
+.vlt .frow .btn{width:100%;height:50px;font-size:15.5px}
+.vlt .fine{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--faint);line-height:1.7}
+.vlt .done{display:none;gap:10px}
+.vlt .done.on{display:grid}
+.vlt .done .big{font-size:18px;font-weight:700;color:var(--lime)}
+.vlt .done p{font-size:13.5px;color:var(--muted)}
+.vlt .small{padding:34px 0 8px;border-top:1px solid var(--rule)}
+.vlt .small details{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:0 18px;
+  max-width:80ch}
+.vlt .small summary{cursor:pointer;padding:15px 0;font-size:14.5px;color:var(--ink);font-weight:600;
+  list-style:none;display:flex;gap:10px;align-items:center}
+.vlt .small summary::-webkit-details-marker{display:none}
+.vlt .small summary::before{content:"+";font-family:var(--mono);color:var(--violet);flex:none}
+.vlt .small details[open] summary::before{content:"\2212"}
+.vlt .small .inner{padding:0 0 16px 20px;font-size:14px;color:var(--muted);display:grid;gap:9px;max-width:72ch}
+.vlt .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ── hero object 1: the version history HubSpot does not keep ──────────────────── */
+.vlt .ver{display:grid;grid-template-columns:104px 1fr auto;gap:14px;align-items:center;padding:13px 16px;
+  border-bottom:1px solid var(--v-rule);font-size:13.5px}
+.vlt .ver:last-child{border-bottom:0}
+.vlt .ver .d{font-family:var(--mono);font-size:11px;color:var(--v-faint)}
+.vlt .ver .w{color:var(--v-body)}
+.vlt .ver .w b{color:var(--v-ink);font-weight:600}
+.vlt .ver.broke{background:linear-gradient(90deg,rgba(232,180,92,.13) 0%,transparent 70%)}
+.vlt .ver.broke .d{color:var(--v-amber)}
+.vlt .ver.broke .w b{color:var(--v-amber)}
+.vlt .restore{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  background:var(--v-lime);color:#131A05;border:0;border-radius:6px;padding:6px 11px;cursor:pointer;
+  font-weight:600;white-space:nowrap}
+.vlt .restore.ghost{background:transparent;color:var(--v-faint);border:1px solid var(--v-rule-2)}
+
+/* ── hero object 2: deploy one workflow into several portals ───────────────────── */
+.vlt .src{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:15px 16px;
+  border-bottom:1px solid var(--v-rule);background:var(--v-violet-bg)}
+.vlt .src .t{display:grid;gap:2px}
+.vlt .src b{color:var(--v-ink);font-size:14.5px;font-weight:650}
+.vlt .src span{font-family:var(--mono);font-size:10.5px;color:var(--v-violet-d)}
+.vlt .arrowrow{display:flex;align-items:center;gap:10px;padding:9px 16px;background:var(--v-sunk);
+  border-bottom:1px solid var(--v-rule);font-family:var(--mono);font-size:10px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--v-faint)}
+.vlt .arrowrow .ln{flex:1;height:1px;background:var(--v-rule-2)}
+.vlt .tgt{display:grid;grid-template-columns:20px 1fr auto;gap:13px;align-items:center;padding:12px 16px;
+  border-bottom:1px solid var(--v-rule);font-size:13.5px}
+.vlt .tgt .bx{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--v-rule-2);display:grid;
+  place-items:center}
+.vlt .tgt.on .bx{background:var(--v-lime);border-color:var(--v-lime)}
+.vlt .tgt.on .bx::after{content:"";width:9px;height:5px;border-left:2px solid #131A05;
+  border-bottom:2px solid #131A05;transform:rotate(-45deg) translate(1px,-1px)}
+.vlt .tgt .nm{color:var(--v-ink);font-weight:550}
+.vlt .tgt .sub{font-family:var(--mono);font-size:10.5px;color:var(--v-faint);display:block}
+.vlt .tgt.off{opacity:.55}
+.vlt .shipbar{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--v-sunk);
+  border-top:1px solid var(--v-rule)}
+.vlt .shipbar .cnt{font-family:var(--mono);font-size:11.5px;color:var(--v-muted)}
+.vlt .ship{margin-left:auto;background:var(--v-lime);color:#131A05;border:0;border-radius:8px;
+  padding:10px 18px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+
+/* ── the strip that rides on every spec page ───────────────────────────────────── */
+.vstrip{margin:26px 0 0;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;
+  background:#0F1219;color:#AEB6C6;
+  background-image:repeating-linear-gradient(0deg,rgba(155,135,245,.05) 0 1px,transparent 1px 30px),
+    repeating-linear-gradient(90deg,rgba(155,135,245,.05) 0 1px,transparent 1px 30px)}
+.vstrip .in{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:18px 20px}
+.vstrip .k{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.13em;
+  color:#838C9D;display:block;margin-bottom:6px}
+.vstrip b{display:block;color:#EEF1F7;font-size:16px;font-weight:650;letter-spacing:-.015em;
+  margin-bottom:5px}
+.vstrip p{font-size:13.5px;color:#9CA2AD;margin:0;max-width:62ch}
+.vstrip a.go{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;background:#C8F25A;
+  color:#131A05;border-radius:9px;padding:11px 17px;font-size:14px;font-weight:700;text-decoration:none}
+.vstrip a.go:hover{filter:brightness(1.06);text-decoration:none}
+@media (max-width:720px){.vstrip .in{grid-template-columns:1fr;gap:14px}}
+
+/* ── the band on the home: the same room, seen through a doorway ──────────────────── */
+.vband{padding:60px 0;border-top:1px solid #000;border-bottom:1px solid #000;
+  box-shadow:inset 0 14px 30px -18px rgba(0,0,0,.9), inset 0 -14px 30px -18px rgba(0,0,0,.9)}
+.vband .vbin{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center}
+.vband h2{font-size:clamp(24px,3vw,35px);font-weight:780;letter-spacing:-.03em;line-height:1.1;
+  text-wrap:balance;margin:0}
+.vband .lede{font-size:16px;color:var(--v-body);max-width:56ch;margin:0}
+.vband .vwhy{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:11px;font-size:14.5px}
+.vband .vwhy li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:baseline;
+  color:var(--v-body)}
+.vband .vwhy .x{font-family:var(--mono);font-size:10.5px;color:var(--v-faint);
+  font-variant-numeric:tabular-nums}
+.vband .vwhy b{color:var(--v-ink);font-weight:650}
+.vband .vside{display:grid;gap:0;align-content:center}
+.vbtn.ghost{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 19px;border-radius:10px;
+  font-size:15px;font-weight:650;text-decoration:none;color:var(--v-ink);background:var(--v-raised);
+  border:1px solid var(--v-rule-2);width:max-content;transition:border-color .16s,background .16s}
+.vbtn.ghost:hover{border-color:var(--v-violet);background:var(--v-violet-bg);color:var(--v-violet-d);
+  text-decoration:none}
+.vbtn.ghost svg{flex:none}
+.vlt .vcol{display:grid;gap:20px;align-content:start}
+.vlt .vside{display:grid;gap:0}
+@media (max-width:900px){.vband{padding:44px 0}.vband .vbin{grid-template-columns:1fr;gap:30px}}
+/* the object has to read as a transfer, not as two boxes side by side */
+.vlt .xmid{width:1px;background:var(--v-rule);position:relative;display:grid;place-items:center}
+.vlt .xar{position:absolute;width:28px;height:28px;border-radius:50%;background:var(--v-raised);
+  border:1px solid var(--v-rule-2);display:grid;place-items:center;color:var(--v-violet-d)}
+@media (max-width:560px){.vlt .xar{transform:rotate(90deg)}}
+
+.vlt .crossline{font-size:15px;color:var(--v-body);max-width:74ch;padding:16px 18px;
+  border:1px solid var(--v-rule);border-left:3px solid var(--v-violet);border-radius:10px;
+  background:var(--v-surface)}
+.vlt .crossline b{color:var(--v-ink)}
+.vlt .crossline a{display:inline-flex;align-items:center;gap:7px;margin-left:8px;font-weight:650;
+  white-space:nowrap}
+
+/* ── drop a portal export, document it here ────────────────────────────────────── */
+.vlt .dropwrap{display:grid;gap:12px;max-width:760px}
+.vlt .drop{border:2px dashed var(--v-rule-2);border-radius:16px;background:var(--v-surface);
+  padding:40px 28px;display:grid;justify-items:center;gap:9px;text-align:center;cursor:pointer;
+  color:var(--v-muted);transition:border-color .16s,background .16s}
+.vlt .drop:hover,.vlt .drop.over{border-color:var(--v-lime);background:var(--v-sunk)}
+.vlt .drop svg{color:var(--v-violet-d)}
+.vlt .drop b{color:var(--v-ink);font-size:18px;font-weight:700}
+.vlt .drop span{font-size:13.5px;max-width:46ch}
+.vlt .status{font-family:var(--mono);font-size:12px;color:var(--v-faint);line-height:1.7}
+.vlt .status.good{color:var(--v-lime)}
+.vlt .status.bad{color:var(--v-amber)}
+.vlt .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--v-rule);
+  border-radius:13px;overflow:hidden;background:var(--v-surface)}
+.vlt .stats .st{padding:17px 19px;border-right:1px solid var(--v-rule)}
+.vlt .stats .st:last-child{border-right:0}
+.vlt .stats .st b{display:block;font-size:25px;font-weight:780;color:var(--v-lime);line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.vlt .stats .st span{display:block;margin-top:5px;font-size:12.5px;color:var(--v-muted)}
+@media (max-width:820px){.vlt .stats{grid-template-columns:1fr 1fr}}
+.vlt .outrow{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:18px}
+.vlt .outnote{font-size:13.5px;color:var(--v-muted)}
+.vlt .previewbox{margin:10px 0 0;padding:18px 20px;background:var(--v-sunk);
+  border:1px solid var(--v-rule);border-radius:12px;font-family:var(--mono);font-size:12px;
+  line-height:1.72;color:var(--v-body);max-height:440px;overflow:auto;white-space:pre-wrap;
+  overflow-wrap:anywhere}
+
+/* the light home hero and the vault hero share a class name: stop the light one painting here */
+.vlt .hero{background:none;border-bottom:0}
+.vlt .hero .sub{color:var(--v-body)}
+
+/* The vault pages use .tag, .lab, .blip and the form furniture from the signup mockups. Those
+   lived in the mockups' own stylesheet and never made it into the site's, so they rendered as
+   bare text. (26/09/2026) */
+.vlt .tag{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--v-violet-d);background:var(--v-violet-bg);
+  border:1px solid var(--v-violet-rule);border-radius:4px;padding:5px 11px;width:max-content}
+.vlt .tag .blip{width:6px;height:6px;border-radius:50%;background:var(--v-lime);flex:none;
+  box-shadow:0 0 0 3px rgba(200,242,90,.16)}
+.vlt .lab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--v-faint);display:flex;align-items:center;gap:10px}
+.vlt .lab::after{content:"";flex:1;height:1px;background:var(--v-rule)}
+.vlt .shd{display:grid;gap:12px;max-width:58ch;margin-bottom:30px}
+.vlt .sec h2,.vlt .shd h2{font-size:clamp(24px,3.1vw,36px);font-weight:780;letter-spacing:-.03em}
+.vlt .fine{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--v-faint);line-height:1.7}
+.vlt .done{display:grid;gap:8px}
+.vlt .done .big{font-size:18px;font-weight:700;color:var(--v-lime)}
+.vlt .done p{font-size:13.5px;color:var(--v-muted)}
+.vlt .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Regressions from the token remap above, caught by Lighthouse before deploy (26/09/2026).
+   Remapping --ink to a light value inside .vlt turned the lime button's label white on lime,
+   at 1.13:1. And dimming a row with opacity drags its text below 4.5:1 too, so the disabled
+   target row states its own muted colours instead. */
+.vlt .btn.lime,.vlt .btn.lime:hover,.vlt .vbtn:not(.ghost),.vlt .ship,
+.vlt .restore:not(.ghost){color:#131A05}
+/* the ghost button sits on the dark ground, so it keeps light text */
+.vbtn.ghost,.vlt .vbtn.ghost{color:var(--v-ink)}
+.vlt .restore.ghost{color:var(--v-faint)}
+.vlt .tgt.off{opacity:1}
+.vlt .tgt.off .nm{color:var(--v-muted);font-weight:500}
+.vlt .tgt.off .sub{color:var(--v-faint)}
+.vlt .tgt.off .bx{border-color:var(--v-rule)}

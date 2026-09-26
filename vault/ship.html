@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Vault: build a HubSpot workflow once, ship it to every portal</title>
+<meta name="description" content="Lift a HubSpot workflow out of one portal and put it into the others, properties and all, switched off. Stop rebuilding the same automation for every client.">
+<link rel="canonical" href="https://theworkflowlibrary.com/vault/ship.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/style.css?v=ecf84d3d">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>(function(){try{var q=new URLSearchParams(location.search),hit=false;["s","t"].forEach(function(k){if(q.has(k)){hit=true;try{sessionStorage.setItem("twl_"+k,q.get(k));}catch(e){}}});if(hit){history.replaceState(null,"",location.pathname+location.hash);}}catch(e){}})();</script><meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
+window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+try { if (localStorage.getItem('twl_consent') === 'granted') gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' }); } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2D5N3PMC84"></script>
+<script>gtag('js', new Date()); gtag('config', 'G-2D5N3PMC84', { anonymize_ip: true, page_location: location.origin + location.pathname });</script><script>
+window.twlLoadHubSpot = function () {
+  if (document.getElementById('hs-script-loader')) return;
+  var s = document.createElement('script');
+  s.id = 'hs-script-loader'; s.async = true; s.defer = true;
+  s.src = 'https://js-eu1.hs-scripts.com/149348782.js';
+  document.head.appendChild(s);
+};
+try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSpot(); } catch (e) {}
+</script>
+<meta property="og:type" content="website"><meta property="og:site_name" content="The Workflow Library"><meta property="og:title" content="The Vault: build a HubSpot workflow once, ship it to every portal"><meta property="og:description" content="Lift a HubSpot workflow out of one portal and put it into the others, properties and all, switched off. Stop rebuilding the same automation for every client."><meta property="og:image" content="https://theworkflowlibrary.com/og/home.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://theworkflowlibrary.com/og/home.png">
+</head>
+<body>
+<header class="topbar">
+  <div class="in">
+    <a class="brand" href="/" aria-label="The Workflow Library, home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a class="hidesm" href="/#shelves">Library</a>
+      <a class="hidesm" href="/bundles/">Bundles</a>
+      <div class="hidesm navdrop"><a href="/kits/" aria-haspopup="true">Kits<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a><div class="dropwrap"><div class="drop"><a href="/kits/insurance/"><b>Insurance</b><span>43 specs, 199 EUR</span></a><a href="/kits/real-estate/"><b>Real estate</b><span>43 specs, 199 EUR</span></a><a href="/kits/recruiting/"><b>Staffing and recruiting</b><span>43 specs, 199 EUR</span></a><a href="/kits/events/"><b>Events</b><span>43 specs, 199 EUR</span></a><a href="/kits/legal/"><b>Legal services</b><span>43 specs, 199 EUR</span></a><a class="all" href="/kits/">All industry kits, and what a kit contains</a></div></div></div>
+      <a class="hidesm" href="/vault.html" data-vault-link>The Vault</a>
+      <a class="hidesm" href="/#pricing">Pricing</a>
+      <a class="hidesm" href="/#faq">FAQ</a>
+      <a class="hidemd" href="/changelog.html">Changelog</a>
+      <a class="btn pri" href="/#pricing" data-cta="nav-full">Get the full library</a>
+      <details class="mnav">
+      <summary aria-label="Open the menu" role="button">
+        <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
+          <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </summary>
+      <div class="mpanel">
+        <a href="/#shelves">Library</a>
+        <a href="/bundles/">Bundles</a>
+        <a href="/kits/">Kits</a>
+        <p class="mlab">Industry kits</p><a href="/kits/insurance/"><span>Insurance</span><i>43 specs, 199 EUR</i></a><a href="/kits/real-estate/"><span>Real estate</span><i>43 specs, 199 EUR</i></a><a href="/kits/recruiting/"><span>Staffing and recruiting</span><i>43 specs, 199 EUR</i></a><a href="/kits/events/"><span>Events</span><i>43 specs, 199 EUR</i></a><a href="/kits/legal/"><span>Legal services</span><i>43 specs, 199 EUR</i></a>
+        <p class="mlab">More</p>
+        <a href="/vault.html" data-vault-link>The Vault</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/changelog.html">Changelog</a>
+      </div>
+    </details>
+    <script>document.addEventListener("click",function(e){var d=document.querySelector("details.mnav[open]");
+      if(d&&(e.target.closest("details.mnav a")||!e.target.closest("details.mnav")))d.removeAttribute("open");});</script>
+    </nav>
+  </div>
+</header>
+
+<main class="vlt">
+<section class="wrap hero">
+  <div class="hcol">
+    <span class="tag"><span class="blip"></span>Founding list open</span>
+    <h1 id="h1">Build it once.<br><em>Ship it to every portal you run.</em></h1>
+    <p class="lede">You got lead routing right for one client. Right now it is trapped in their portal, and the next client starts from a blank workflow. The Vault lifts a workflow out of one portal and puts it into the others, properties and all, switched off so you review it first.</p>
+    <p class="under"><b><i></i>Sandbox to production</b><b><i></i>One client to the next</b><b><i></i>Free for the whole beta</b></p>
+  </div>
+  <div class="panel">
+    <div class="ph"><span class="nm">Deploy a workflow</span><span class="badge">mock</span></div>
+    <div class="src"><div class="t"><b>Round-robin lead assignment</b>
+      <span>from Acme production &middot; 6 actions &middot; 2 properties</span></div>
+      <span class="chip ok">read 26 Sep</span></div>
+    <div class="arrowrow"><span>into</span><span class="ln"></span><span>4 portals</span></div>
+    <div class="tgt on"><span class="bx"></span>
+      <span class="nm">Northwind<span class="sub">portal 19920114 &middot; needs 2 properties</span></span>
+      <span class="chip ok">ready</span></div>
+    <div class="tgt on"><span class="bx"></span>
+      <span class="nm">Belmar Group<span class="sub">portal 24551902 &middot; needs 1 property</span></span>
+      <span class="chip ok">ready</span></div>
+    <div class="tgt on"><span class="bx"></span>
+      <span class="nm">Acme sandbox<span class="sub">portal 24518841 &middot; everything present</span></span>
+      <span class="chip ok">ready</span></div>
+    <div class="tgt off"><span class="bx"></span>
+      <span class="nm">Kestrel<span class="sub">portal 20114872 &middot; no owner pool to rotate to</span></span>
+      <span class="chip am">needs a choice</span></div>
+    <div class="shipbar"><span class="cnt">3 of 4 ready &middot; all arrive switched off</span>
+      <button class="ship" type="button" data-mock>Deploy to 3 portals</button></div>
+  </div>
+</section>
+
+<section class="wrap sec">
+  <div class="shd"><span class="lab">The work you do twice</span><h2>Your best automation is stuck where you built it.</h2></div>
+  <div class="cards"><div class="pc"><span class="when">Every new client</span><h3>You start from a blank canvas</h3><p>Two days getting routing, SLA timers and lifecycle right. The next client wants the same thing and none of it comes with you. You type it out again.</p><p class="now">Today: the same work, at a discount you did not intend to give.</p></div><div class="pc"><span class="when">Every go-live</span><h3>Sandbox to production, by hand</h3><p>You test properly, then rebuild the tested thing in production clicking through the same screens, hoping you match it exactly.</p><p class="now">Today: the rebuild is where the bugs come from.</p></div><div class="pc"><span class="when">Every improvement</span><h3>The fix lands in one portal</h3><p>You improve the routing for one client. The other eleven keep the old version, because rolling it out means eleven manual edits nobody has budget for.</p><p class="now">Today: your portfolio drifts apart.</p></div></div>
+</section>
+
+<section class="wrap sec">
+  <div class="shd"><span class="lab">What you get</span><h2>A workflow becomes something you can send.</h2></div>
+  <div class="dgrid"><div class="dc"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Lift it out of any portal</h3><p>Connect read-only, pick the workflow. It comes out with its actions, its branches and the properties it depends on.</p></div></div><div class="dc"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Drop it into as many as you like</h3><p>Tick the portals. Missing properties are created first, then the workflow itself, switched off in each one.</p></div></div><div class="dc"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Told in advance what will not fit</h3><p>A workflow points at owners, teams and lists that live in one portal only. You see which ones need a choice before anything is written, not after.</p></div></div><div class="dc"><span class="ic"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Roll an improvement across the portfolio</h3><p>Fix it once in the portal where you noticed, then push the same version everywhere else that runs it.</p></div></div></div>
+</section>
+
+<section class="wrap sec" style="padding:38px 0">
+  <p class="lab" style="margin-bottom:16px">Why this one will actually ship</p>
+  <div class="pstrip">
+    <div class="pcell"><span class="k">Already running</span><b>Since 17 Sep</b>
+      <p>The half that writes a workflow into a portal is live. It is what installs the library's specs
+        today.</p></div>
+    <div class="pcell"><span class="k">Already measured</span><b>60 / 60</b>
+      <p>We pulled 60 workflows straight out of a live portal on 26 September. Every one came back in
+        full.</p></div>
+    <div class="pcell"><span class="k">Already written</span><b>515 specs</b>
+      <p>We have documented 515 HubSpot workflows down to the action. We know what a workflow is made
+        of.</p></div>
+  </div>
+</section>
+
+<section class="wrap sec" id="join">
+  <div class="obox">
+    <div class="oin">
+      <div>
+        <span class="lab" style="margin-bottom:12px">The founding list</span>
+        <h2>Bring your whole portfolio into the beta.</h2>
+        <ul class="perks"><li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Free for the whole beta,</b> every portal you connect.</span></li><li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>The founding price after, locked</b> for as long as you keep it.</span></li><li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Your awkward portals get fixed first.</b> The transfers we make work are the ones on this list.</span></li><li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.4l3.2 3.2L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Two emails, ever.</b> One when the round trip is measured, one when it opens.</span></li></ul>
+        <p class="spots">We are taking <b>20 portals</b> into the beta, because each one
+          gets tested by hand before we let it near production.</p>
+      </div>
+      <div class="fbox">
+        <p class="ft">Join the founding list</p>
+        <p class="fs">Ten seconds. No card, no call.</p>
+        
+  <form class="frow" data-vault-form novalidate>
+    <div><label for="vmail-b">Work email</label>
+      <input id="vmail-b" name="email" type="email" required placeholder="you@agency.com"
+             autocomplete="email"></div>
+    <div><label for="vq-b">What would you move first</label>
+      <select id="vq-b" name="q"><option value="">Prefer not to say</option><option value="sandbox">Sandbox into production</option><option value="client">One client&#x27;s setup to another</option><option value="portfolio">The same fix across many portals</option><option value="inherit">A portal I just inherited</option></select></div>
+    <button class="btn lime lg" type="submit" data-cta="vault-join-b">Claim a founding place</button>
+  </form>
+  <p class="fine" data-vault-fine>We use the answer to decide what to test first. Nothing else, and you
+    can leave the list in one click.</p>
+  <div class="done" data-vault-done hidden><span class="big">You are on the list.</span>
+    <p>We write when the round trip is measured, and again when it opens. Nothing in between.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" style="padding:34px 0">
+  <p class="crossline">There is a second half to this. The same copies are dated, so you can also put a workflow <b>back</b> to the version that still worked.
+    <a href="/vault.html">The portal-to-portal side <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.4M8.8 4.2L12.6 8l-3.8 3.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+</section>
+
+<section class="wrap small">
+  <details>
+    <summary>Before you sign up: the one thing we have not proved yet</summary>
+    <div class="inner">
+      <p>Reading a portal is measured. Writing into a portal is live. What we have <b>not</b> done yet is
+        run one workflow all the way round, out of one portal and into another, and compare it action by
+        action against the original. Until we have that number we are not selling this, which is why the
+        list is free and why there is no card on this page.</p>
+      <p>Two more things worth knowing. Our read test ran on a developer test account, where HubSpot opens
+        features regardless of plan, so on a real portal expect this to need Marketing Hub Professional or
+        above. And a workflow points at owners, teams and lists that exist only in the portal it came
+        from, so a copy always needs those resolving at the other end.</p>
+      <p>If the round trip turns out to lose too much, we publish the number here and close the list
+        rather than ship something that quietly does less than you think.</p>
+    </div>
+  </details>
+</section>
+</main>
+<div class="consent" id="consent" hidden>
+  <p>This site uses Google Analytics and HubSpot to count visits and see which specs get built. No ads, no resale
+     of data. <a href="/legal.html#privacy">Details</a>.</p>
+  <div class="cta-row"><button class="btn pri sm" id="consent-yes" type="button">Accept analytics</button>
+    <button class="btn sm" id="consent-no" type="button">Essential only</button></div>
+</div>
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <div class="brand" style="margin-bottom:8px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="23" height="23" rx="6.5" fill="#5B3FD6"/><rect x="4.6" y="5" width="14.8" height="3.2" rx="1.1" fill="#fff"/><rect x="4.6" y="10.4" width="14.8" height="3.2" rx="1.1" fill="#C8F25A"/><rect x="4.6" y="15.8" width="9.2" height="3.2" rx="1.1" fill="#fff" opacity=".6"/></svg><span>The Workflow Library</span></div>
+      <p>Built by a collective of independent HubSpot consultants, ten years of implementations behind them.</p>
+      <p class="legal">HubSpot is a registered trademark of HubSpot, Inc. The Workflow Library is an independent
+        product and is not affiliated with, endorsed by, or sponsored by HubSpot.</p>
+    </div>
+    <div>
+      <p><a href="/#shelves">Browse the library</a></p>
+      <p><a href="/#pricing">Pricing</a></p>
+      <p><a href="/#faq">FAQ</a></p>
+      <p><a href="/changelog.html">Changelog</a></p>
+    </div>
+    <div>
+      <p><a href="/#free">Get the 10 free specs</a></p>
+      <p><a href="/legal.html">Terms and refunds</a></p>
+      <p><a href="mailto:hello@theworkflowlibrary.com">hello@theworkflowlibrary.com</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="roadmap">One-click install creates the properties and the workflow, switched off, through the
+      portal owner's own authorisation screen. It never stores your token and never turns a workflow on.</p>
+  </div>
+</footer>
+<script>window.TWL={"brand":"The Workflow Library","support":"hello@theworkflowlibrary.com","worker":"https://twl-checkout.theworkflowlibrary.workers.dev","installWorker":"https://twl-install.theworkflowlibrary.workers.dev","hsForm":{"portal":"149348782","guid":"cdaa093f-bca8-4c62-b275-7b9d33d96641"}};</script>
+<script src="/assets/library.js?v=9128e1a9" defer></script>
+<script>window.TWL_VAULT="ship";</script>
+</body>
+</html>

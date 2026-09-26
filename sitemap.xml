@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://theworkflowlibrary.com/</loc></url>
+<url><loc>https://theworkflowlibrary.com/vault.html</loc></url>
+<url><loc>https://theworkflowlibrary.com/vault/ship.html</loc></url>
+<url><loc>https://theworkflowlibrary.com/vault/document.html</loc></url>
 <url><loc>https://theworkflowlibrary.com/changelog.html</loc></url>
 <url><loc>https://theworkflowlibrary.com/legal.html</loc></url>
 <url><loc>https://theworkflowlibrary.com/w/customer-onboarding-001.html</loc></url>

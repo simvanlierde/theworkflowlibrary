@@ -211,7 +211,7 @@
     var thumb = st === "planned"
       ? '<div class="thumb plan"><div class="glyph">' + CALICON + "<b>" + fridayOf(r) + "</b></div>" +
         '<span class="flag">' + flag + "</span></div>"
-      : '<div class="thumb"><img src="/og/' + i + '-map.png" loading="lazy" decoding="async" fetchpriority="low" width="640" height="360" alt="Workflow map for ' +
+      : '<div class="thumb"><img src="/og/' + i + '-map.png" loading="lazy" decoding="async" fetchpriority="low" width="1200" height="630" alt="Workflow map for ' +
         esc(r[1]) + '"><span class="flag">' + flag + "</span></div>";
     var tag = st === "planned" ? "div" : "a";
     var href = st === "planned" ? "" : ' href="/w/' + i + '.html"';
@@ -223,6 +223,24 @@
       '<div class="tierline">' + esc(TIERS[r[3]][0]) + "</div>" +
       '<div class="incl"><span>' + r[7] + " " + sp + "</span><span>" + r[8] + " " + pp +
       "</span><span>~" + r[9] + " min</span></div></div></" + tag + ">";
+  }
+
+  /* Table view (25/09/2026): the same catalogue as the shelves, one line per spec. */
+  function row(r) {
+    var i = rid(r), st = STATUS[r[6]];
+    var tag = st === "planned" ? "div" : "a";
+    var href = st === "planned" ? "" : ' href="/w/' + i + '.html"';
+    var flag = st === "free" ? '<span class="p free">Free</span>'
+      : st === "planned" ? '<span class="p plan">' + fridayOf(r) + "</span>" : "";
+    return "<" + tag + ' class="wfrow"' + href + ">" +
+      '<span class="rid">' + esc(i) + "</span>" +
+      '<span class="rti">' + esc(r[1]) + "</span>" +
+      '<span class="rme">' + flag +
+        '<span class="p obj">' + esc(OBJS[r[2]]) + "</span>" +
+        '<span class="p">' + esc(TIERS[r[3]][1]) + "</span>" +
+        '<span class="p">' + r[7] + " steps</span>" +
+        '<span class="p">' + r[9] + " min</span>" +
+      "</span></" + tag + ">";
   }
   function fridayOf(r) {
     var d = r[10];
@@ -345,6 +363,8 @@
   if (bd) bd.addEventListener("click", closeAll);
 
   /* --------------------------------------------------------------------- render */
+  var view = "table";
+  try { view = localStorage.getItem("twl-view") || "table"; } catch (e) { /* private window */ }
   var grid = $("grid"), chipsEl = $("chips"), results = $("results"), gcount = $("gcount"),
       rescount = $("rescount"), emptyEl = $("empty"), moreWrap = $("morewrap"), moreBtn = $("more"),
       packstrip = $("packstrip"), qEl = $("q");
@@ -362,14 +382,20 @@
     return o ? o[1] : v;
   }
   function render() {
-    var on = active();
+    var on = active() || view === "table";
     shelfwrap.hidden = on;
     results.hidden = !on;
+    document.querySelectorAll("[data-view]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-view") === view);
+    });
+    grid.className = view === "table" ? "wfrows" : "grid";
+    var back = $("backshelf");
+    if (back) back.hidden = view === "table";
     var list = sorted(R.filter(match)), n = list.length;
     rescount.innerHTML = on ? "<b>" + n + "</b> of " + R.length + " specs" : "<b>" + R.length + "</b> specs on the shelves";
     if (on) {
       var shown = list.slice(0, state.page * PAGE);
-      grid.innerHTML = shown.map(card).join("");
+      grid.innerHTML = shown.map(view === "table" ? row : card).join("");
       gcount.textContent = n + " spec" + (n === 1 ? "" : "s");
       emptyEl.hidden = n > 0;
       moreWrap.style.display = n > shown.length ? "" : "none";
@@ -416,6 +442,13 @@
   });
   $("sort").addEventListener("change", function (e) { state.sort = e.target.value; state.page = 1; render(); });
   moreBtn.addEventListener("click", function () { state.page++; render(); });
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-view]");
+    if (!b) return;
+    view = b.getAttribute("data-view");
+    try { localStorage.setItem("twl-view", view); } catch (err) { /* private window */ }
+    state.page = 1; render();
+  });
   $("backshelf").addEventListener("click", function () {
     for (var f in FACETS) state[f].clear();
     state.q = ""; qEl.value = ""; state.page = 1; render();
@@ -447,5 +480,94 @@
     var before = state.cat.size;
     fromHash();
     if (state.cat.size !== before) render();
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   The Vault A/B (26/09/2026). Two pages sell two different things to the same buyer:
+     /vault.html       undo — safety, HubSpot keeps no version history
+     /vault/ship.html  ship — leverage, your best workflow is trapped in one portal
+   The coin is flipped once per visitor and remembered, then every [data-vault-link] on the
+   site points at that variant, so a visitor never sees both. The split happens on the link
+   and never by redirect, so nobody watches a page flash and swap.
+   Both pages stay indexable: they answer two different searches, whichever converts better.
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+(function () {
+  "use strict";
+  var PAGES = { undo: "/vault.html", ship: "/vault/ship.html" };
+  var KEY = "twl-vault-ab";
+
+  function variant() {
+    var v = "";
+    try { v = localStorage.getItem(KEY) || ""; } catch (e) { /* private window */ }
+    if (v !== "undo" && v !== "ship") {
+      v = Math.random() < 0.5 ? "undo" : "ship";
+      try { localStorage.setItem(KEY, v); } catch (e) { /* nothing to remember it with */ }
+    }
+    return v;
+  }
+
+  /* On a vault page the variant is whichever page was served: never reassign it under the
+     visitor's feet, or the arm they landed on stops matching the arm we record. */
+  var arm = window.TWL_VAULT || variant();
+  try { if (window.TWL_VAULT) localStorage.setItem(KEY, arm); } catch (e) {}
+
+  document.querySelectorAll("[data-vault-link]").forEach(function (a) {
+    a.setAttribute("href", PAGES[arm] || PAGES.undo);
+    a.setAttribute("data-arm", arm);
+  });
+
+  if (window.TWL_VAULT && window.gtag) {
+    window.gtag("event", "vault_view", { arm: arm });
+  }
+
+  /* The waitlist. No Worker route for it yet, so it goes straight to the HubSpot form; the
+     page URL is what separates this list from the free-pack one, and the arm rides along. */
+  var T = window.TWL || {}, h = T.hsForm || {};
+  document.querySelectorAll("[data-vault-form]").forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = (form.email.value || "").trim();
+      if (!email || email.indexOf("@") < 1) return;
+      var btn = form.querySelector("button");
+      var fine = form.parentNode.querySelector("[data-vault-fine]");
+      var done = form.parentNode.querySelector("[data-vault-done]");
+      var answer = form.q ? form.q.value : "";
+      if (btn) { btn.disabled = true; btn.textContent = "Sending..."; }
+      var url = h.portal && h.guid
+        ? "https://api.hsforms.com/submissions/v3/integration/submit/" + h.portal + "/" + h.guid : "";
+      (url ? fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fields: [{ objectTypeId: "0-1", name: "email", value: email }],
+          context: {
+            pageUri: location.href + (answer ? "?a=" + encodeURIComponent(answer) : ""),
+            pageName: "Vault waitlist, " + arm + (answer ? ", " + answer : "")
+          }
+        })
+      }).then(function (r) { if (!r.ok) throw new Error(r.status); })
+        : Promise.reject(new Error("no form"))
+      ).then(function () {
+        form.hidden = true;
+        if (fine) fine.hidden = true;
+        if (done) done.hidden = false;
+        if (window.gtag) window.gtag("event", "vault_waitlist", { arm: arm, answer: answer });
+      }).catch(function () {
+        /* nothing reached us, so say so rather than fake a confirmation */
+        if (btn) { btn.disabled = false; btn.textContent = "Try again"; }
+        if (fine) {
+          fine.hidden = false;
+          fine.innerHTML = "That did not go through, so nothing was sent. Try again in a minute, or write"
+            + ' to <a href="mailto:' + (T.support || "") + '?subject=The%20Vault%20founding%20list">'
+            + (T.support || "us") + "</a> and we add you by hand.";
+        }
+      });
+    });
+  });
+
+  /* the mock buttons on the hero screens say what they are the moment you press one */
+  document.querySelectorAll("[data-mock]").forEach(function (b) {
+    b.addEventListener("click", function () { b.textContent = "Mock only"; });
   });
 })();

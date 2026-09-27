@@ -927,22 +927,25 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 .hero .trust svg{color:var(--violet);flex:none}
 .hero .hside{display:grid;gap:14px;align-content:center}
 .hero .undercap{font-size:13.5px;color:var(--muted);max-width:46ch;margin:0}
-.panel{background:var(--ink);border-radius:18px;overflow:hidden;border:1px solid #23262F;
+/* Scoped to .hero on 27/09/2026: unscoped, these beat the light sidebar .panel at :464
+   and painted every spec sheet value dark on dark. .vlt .panel at :1180 still wins
+   inside the vault, and the home band uses .xfer, not .panel. */
+.hero .panel{background:var(--ink);border-radius:18px;overflow:hidden;border:1px solid #23262F;
   box-shadow:0 16px 40px rgba(18,20,28,.14),0 2px 6px rgba(18,20,28,.06)}
-.panel .ptop{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid #262A34;
+.hero .panel .ptop{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid #262A34;
   font-family:var(--mono);font-size:11.5px;color:#9BA3B4}
-.panel .ptop .d{width:9px;height:9px;border-radius:50%;background:#3A3F4C;flex:none}
-.panel .ptop .d.g{background:var(--lime)}
-.panel .plog{padding:15px;font-family:var(--mono);font-size:12.5px;line-height:1.85;color:#C9CFDC;
+.hero .panel .ptop .d{width:9px;height:9px;border-radius:50%;background:#3A3F4C;flex:none}
+.hero .panel .ptop .d.g{background:var(--lime)}
+.hero .panel .plog{padding:15px;font-family:var(--mono);font-size:12.5px;line-height:1.85;color:#C9CFDC;
   display:grid;gap:1px}
-.panel .plog i{font-style:normal;color:#959EB0;margin-right:9px}
-.panel .plog b{font-weight:500;color:#fff}
-.panel .plog .mut{color:#9BA3B4}
-.panel .plog .ok{color:var(--lime)}
-.panel .plog .vi{color:#B7A5FF}
-.panel .pfoot{padding:11px 15px;border-top:1px solid #262A34;font-family:var(--mono);font-size:11.5px;
+.hero .panel .plog i{font-style:normal;color:#959EB0;margin-right:9px}
+.hero .panel .plog b{font-weight:500;color:#fff}
+.hero .panel .plog .mut{color:#9BA3B4}
+.hero .panel .plog .ok{color:var(--lime)}
+.hero .panel .plog .vi{color:#B7A5FF}
+.hero .panel .pfoot{padding:11px 15px;border-top:1px solid #262A34;font-family:var(--mono);font-size:11.5px;
   color:#9BA3B4;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.panel .pfoot .tag{background:#23262F;border-radius:5px;padding:2px 7px;color:#C9CFDC}
+.hero .panel .pfoot .tag{background:#23262F;border-radius:5px;padding:2px 7px;color:#C9CFDC}
 @media (max-width:900px){.hero .hin{grid-template-columns:1fr;gap:30px;padding:36px 0 34px}
   .hero .sub{font-size:16.5px}}
 

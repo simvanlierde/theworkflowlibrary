@@ -251,7 +251,7 @@ a.card:hover .thumb img{transform:translateY(-50%) scale(1.05)}
   background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-l);padding:24px;
   margin-top:20px}
 .authorbar .log div{padding:8px 0;border-top:1px solid var(--rule);font-size:14px;color:var(--muted)}
-.authorbar .log div:first-of-type{border-top:0;padding-top:0}
+.authorbar .log details div:first-of-type{border-top:0;padding-top:0}
 .authorbar .log b{font-family:var(--mono);font-size:12px;color:var(--ink);margin-right:8px}
 
 /* ---------- pricing ---------- */
@@ -394,8 +394,9 @@ footer .roadmap{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule
 .crumb a:hover{color:var(--ink)}
 .crumb span{color:var(--ink)}
 .spec{display:grid;grid-template-columns:minmax(0,1fr) 352px;gap:0 38px;align-items:start;
-  grid-template-areas:"head side" "art side";padding-bottom:16px}
+  grid-template-areas:"head side" "lede side" "art side";padding-bottom:16px}
 .spechead{grid-area:head}
+.speclede{grid-area:lede}
 .spec>article{grid-area:art;margin-top:4px}
 .invrow .nm,.invrow .de{display:block}
 .spec h1{font-size:34px;letter-spacing:-.035em;max-width:24ch}
@@ -475,8 +476,11 @@ footer .roadmap{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule
   .spec{display:flex;flex-direction:column;gap:22px;align-items:stretch}
   .side{display:contents}
   .spechead{order:1}
-  .buybox{order:2}
-  .spec>article{order:3;margin-top:0}
+  .speclede{order:2}
+  .speclede .outcome{margin-top:0}
+  .buybox{order:3}
+  .spec>article{order:4;margin-top:0}
+  .panel{order:5}
   .panel{order:4}
 }
 @media (max-width:760px){
@@ -851,7 +855,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   .fgroup{flex:1 1 100%;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px 1px;gap:8px}
   .fgroup::-webkit-scrollbar{display:none}
   .fdd{flex:none}
-  .fbtn{height:38px;font-size:13.5px;padding:0 11px}
+  .fbtn{height:44px;font-size:13.5px;padding:0 11px}
   .rescount{display:none}
   .consent{left:8px;right:8px;bottom:8px;padding:15px 16px}
   .docpage h1{font-size:26px}
@@ -1420,3 +1424,162 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 .vlt .tgt.off .nm{color:var(--v-muted);font-weight:500}
 .vlt .tgt.off .sub{color:var(--v-faint)}
 .vlt .tgt.off .bx{border-color:var(--v-rule)}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   MOBILE REWORK, 27/09/2026. Everything below is appended on purpose: these rules have the
+   same specificity as the ones they override, and a media query adds none, so source order
+   is the only thing that decides. Merging them upwards would silently kill half of them.
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ---------- .mfold: the one disclosure primitive, shared by every page family ----------
+   The site's details/summary rules (:316-323) are unscoped, so any new <details> inherits a
+   stray border, a bold 15.5px summary and 26px-inset muted paragraphs, on desktop too. This
+   undoes that. No media query: the rules it fights have none either. */
+.mfold{border-bottom:0;padding:0}
+.mfold>summary{padding:0;font-weight:inherit;font-size:inherit;color:inherit;
+  display:flex;gap:10px;align-items:center;min-height:44px;cursor:pointer;list-style:none}
+.mfold>summary::-webkit-details-marker{display:none}
+.mfold>summary>span,.mfold>summary>h2,.mfold>summary>h3{min-width:0}
+.mfold p,.mfold li{padding:0;color:inherit;font-size:inherit}
+.mfold>summary>span{font-weight:600;color:var(--ink);font-size:15px}
+
+/* ---------- tap targets: the 44px floor, once, for the whole site ---------- */
+@media (max-width:760px){
+  .btn{min-height:44px}
+  .gtools select{height:44px}
+  .mnav>summary{width:44px;height:44px}
+  .mnav .mpanel a{min-height:44px;display:flex;align-items:center}
+  #q{height:44px}
+  /* the free email capture rendered 20px tall: .freeform goes column at 760 and flex:1
+     then resolves against the vertical axis. 16px also stops iOS zooming on focus. */
+  .freeform input{flex:0 0 auto;height:48px;font-size:16px}
+}
+@media (max-width:760px){.viewtog button{min-height:44px}}
+
+/* ---------- home, 27/09/2026 ---------- */
+/* 1.1 the add-portal row folds below the 1060px breakpoint where .tiers goes single column */
+.pricing .mfold>summary span{max-width:62ch}
+.pricing .mfold[open]>.addhead{margin-top:16px}
+@media (min-width:1061px){.pricing #addportals>summary{display:none}}
+/* 1.2 the fine print folds, the guarantee strip under the buttons does not */
+.pricing .mfold .pricenote{margin-top:6px;padding-bottom:16px}
+@media (min-width:761px){
+  .pricing .mfold .pricenote{margin-top:22px;padding-bottom:0}
+  .pricing details.mfold:not(#addportals)>summary{display:none}
+}
+/* 1.3 the transfer diagram goes, its caption stays: it carries the 60/60 figure next to a CTA */
+@media (max-width:720px){.vband .xfer{display:none}.vband .xcap{margin-top:0}}
+/* 1.4 method steps fold on phones, read normally on desktop */
+@media (max-width:760px){.mstep .mfold p{padding-top:8px}.mstep .mfold .num{margin-bottom:0}}
+@media (min-width:761px){
+  .mstep .mfold>summary{display:block;min-height:0}
+  .mstep .mfold>summary::after{content:none}
+  .authorbar .log details>summary{display:none}
+}
+/* 1.5 hero rhythm */
+@media (max-width:760px){
+  summary{padding:11px 0;font-size:15px}
+  .hero .hin{gap:22px;padding:28px 0 26px}
+  .hero .hcol{gap:14px}
+  .hero .trust{gap:5px 14px;font-size:13px}
+  .hero .panel .plog{font-size:11.5px;line-height:1.7}
+}
+/* 1.6 tier cards: the price is still the loudest thing, just not 44px of it */
+@media (max-width:760px){
+  .tier{padding:18px 16px;gap:10px}
+  .tier.hi{padding:22px 18px 20px}
+  .rib{left:18px}
+  .tier .price b{font-size:26px}
+  .tier.hi .price b{font-size:32px}
+  .tier li{font-size:13.5px;line-height:1.45;gap:8px}
+  .tier ul{gap:7px}
+}
+/* 1.7 one download line, two lengths */
+.tier li.dlrow .dlshort{display:none}
+@media (max-width:760px){
+  .tier li.dlrow .dlfull{display:none}
+  .tier li.dlrow .dlshort{display:inline}
+}
+/* 1.8 the same ten ids render again inside #free, 2,700px below */
+@media (max-width:760px){.pricing .freeids{display:none}}
+/* 1.9 the catalogue table: the id is already in the href and twice on the spec page */
+@media (max-width:560px){.wfrow{padding:9px 12px;gap:3px}.wfrow .rid{display:none}}
+
+/* ---------- vault, 27/09/2026 ---------- */
+/* 2.1 .vlt .hero/.sec/.small use the padding shorthand at 0,2,0, which resets the horizontal
+   axis and beats .wrap{padding:0 16px}. Every vault section was running edge to edge. */
+@media (max-width:760px){.vlt .hero,.vlt .sec,.vlt .small{padding-left:16px;padding-right:16px}}
+/* 2.2 the pain cards fold. display:block beats .vlt .pc{display:grid} and dodges the WebKit
+   grid-on-details bug; the marker is positioned because margin-left:auto needed a flex summary. */
+.vlt details.pc{display:block}
+.vlt details.pc>summary{display:block;padding:0 26px 0 0;position:relative}
+.vlt details.pc>summary::after{position:absolute;right:0;top:0;margin:0;color:var(--v-amber);font-size:17px}
+.vlt details.pc h3 .when{display:block;margin-bottom:11px}
+.vlt details.pc>summary .now{display:block;margin-top:14px}
+.vlt details.pc>p{margin-top:11px}
+/* 2.3 three numbers stay across even at 560: the eyebrow size is what makes them fit */
+@media (max-width:560px){
+  .vlt .pstrip{grid-template-columns:1fr 1fr 1fr}
+  .vlt .pcell{border-right:1px solid var(--v-rule);border-bottom:0;padding:13px 12px}
+  .vlt .pcell:last-child{border-right:0}
+  .vlt .pcell b{font-size:20px}
+  .vlt .pcell .k{font-size:9.5px;letter-spacing:.06em}
+}
+/* 2.4 section rhythm. Longhands: 2.1 owns the horizontal axis. */
+@media (max-width:760px){
+  .vlt .sec{padding-top:38px;padding-bottom:38px}
+  .vlt .hero{padding-top:28px;padding-bottom:26px;gap:24px}
+  .vlt .shd{margin-bottom:20px;gap:9px}
+  .vlt .cards,.vlt .dgrid{gap:12px}
+}
+/* 2.5 box padding, and 28px of width back to the signup input after 2.1 */
+@media (max-width:560px){
+  .vlt .pc{padding:17px 16px;gap:9px}
+  .vlt .dc{padding:17px 16px;gap:13px;grid-template-columns:30px 1fr}
+  .vlt .dc .ic{width:30px;height:30px;border-radius:8px}
+  .vlt .pcell{padding:15px 16px}
+  .vlt .crossline{padding:14px 15px;font-size:14.5px}
+  .vlt .oin{padding:20px 16px;gap:20px}
+  .vlt .fbox{padding:18px 16px}
+}
+/* 2.6 the hero mocks keep three rows; the date column was pinned at 104px and wrapped the rest */
+@media (max-width:760px){
+  .vlt .panel .ver:nth-child(n+4){display:none}
+  .vlt .panel .tgt:nth-child(5),.vlt .panel .tgt:nth-child(6){display:none}
+  .vlt .ver{grid-template-columns:1fr auto}
+  .vlt .ver .d{grid-column:1/-1}
+}
+/* 2.7 */
+@media (max-width:560px){.vlt .hero .lede{font-size:16px}}
+
+/* ---------- spec pages, 27/09/2026 ---------- */
+/* 4.1a the sheet repeated the nine-section counts that inventory() already gives with text */
+@media (max-width:760px){.panel.nine{display:none}}
+/* 4.5 the paywall terms are already in the buy box, on locked pages only */
+@media (max-width:760px){.lockcut .unlock .fine{display:none}}
+/* 4.6 the map frame: :not(.mono) keeps the spec id, which rides the same line once the
+   subtitle goes. nth-child(3) names the reassurance swatch by position so it cannot drift. */
+@media (max-width:760px){
+  .wfmap .head>span.muted:not(.mono){display:none}
+  .wfmap .legend i:nth-child(3){display:none}
+  .wfmap .head{padding:10px 14px}
+  .wfmap .legend{padding:10px 14px}
+  .buybox .p b{font-size:28px}
+}
+
+/* 4.2 the paywall rows fold. summary::after must be suppressed on desktop: inside a grid
+   summary the global marker becomes a fourth grid item and opens an extra row. */
+.invrow{display:block}
+.invrow>summary{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:13px;align-items:start}
+.invrow>summary::after{content:none}
+.invrow>.de{margin-top:3px;margin-left:35px;display:block}
+@media (max-width:760px){
+  .invrow>summary{grid-template-columns:20px minmax(0,1fr) auto;gap:10px}
+  .invrow>.de{margin-left:30px}
+  .invrow:not([open])>summary::after{content:"+";color:var(--violet);font-weight:600;font-size:19px;line-height:1}
+}
+/* 4.4 */
+.buybox .finefold{margin-top:12px;border-top:1px solid var(--rule)}
+.buybox .finefold>summary{font-size:13px;font-weight:600;color:var(--body)}
+.buybox .finefold .fine{margin-top:0;padding:0 0 12px;border-top:0}
+@media (min-width:761px){.buybox .finefold>summary{display:none}}

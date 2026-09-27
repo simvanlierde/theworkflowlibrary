@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=b36ba089">
+<link rel="stylesheet" href="/assets/style.css?v=44e86b8c">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <style>
 .bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-violet-d:#4830AE;--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:#FBF1DC;--bb-amber-ink:#8A5B00;--bb-sunk:#F3F4F8;--bb-sans:var(--sans,"Sora",system-ui,sans-serif);
@@ -28,7 +28,7 @@
 .chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
 .chip.warn{background:var(--bb-amber);color:var(--bb-amber-ink)}
 .bgrid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:36px;align-items:start;margin-top:22px}
-@media (max-width:900px){.bgrid{grid-template-columns:1fr}.buy{position:static}}
+@media (max-width:900px){.bgrid{grid-template-columns:minmax(0,1fr)}.buy{position:static}}
 .buy{position:sticky;top:20px;border:1.5px solid var(--bb-violet);border-radius:16px;padding:20px;background:#fff;box-shadow:0 14px 34px rgba(18,20,28,.10)}
 .buy .n{font-size:.8rem;color:var(--bb-muted);font-weight:600}
 .buy .price{font-size:2.2rem;font-weight:800;line-height:1.05;margin-top:4px}
@@ -48,7 +48,20 @@
 .inv .tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .inv .tags span{font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-sunk);color:var(--bb-body);white-space:nowrap}
 .inv .tags span.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}.inv .tags span.free{background:var(--bb-violet);color:#fff}.inv .tags span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
-@media (max-width:640px){.inv .row{grid-template-columns:1fr}.inv .tags{justify-content:flex-start}}
+details.brief{margin:18px 0}
+details.brief>summary{font-size:.95rem;font-weight:700;color:var(--bb-violet);
+  border-top:1px solid var(--bb-rule);border-bottom:1px solid var(--bb-rule);padding:11px 0;
+  min-height:44px;display:flex;align-items:center}
+details.brief>summary>h2{margin:0;font-size:1rem}
+@media (min-width:901px){details.brief>summary{display:none}details.brief{margin:0}}
+@media (max-width:640px){
+.inv .row{grid-template-columns:minmax(0,1fr)}
+.inv .tags{justify-content:flex-start}
+.inv{padding-left:0;padding-right:0}
+.inv .row,.inv .grp{padding:8px 14px}
+.inv .row .o{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.inv .grp span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-width:0}
+}
 .legend{font-size:.8rem;color:var(--bb-muted);margin:0 0 4px}
 .props td.pl{font-family:var(--mono,ui-monospace,monospace);font-size:.78rem;color:var(--bb-muted);line-height:1.5}
 .props td.n{font-weight:700;text-align:right;white-space:nowrap}
@@ -58,7 +71,7 @@
 .proof{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;align-items:center;border:1px solid var(--bb-rule);border-radius:14px;padding:18px;background:#fff;margin:8px 0}
 .proof img{width:100%;border:1px solid var(--bb-rule);border-radius:8px;box-shadow:0 8px 24px rgba(18,20,28,.10)}
 .proof ul{margin:8px 0 0}.proof li{margin:3px 0;font-size:.95rem}
-@media (max-width:640px){.proof{grid-template-columns:1fr}}
+@media (max-width:640px){.proof{grid-template-columns:minmax(0,1fr)}}
 /* breaks */
 .breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:8px 0 8px}
 .brk{border:1px solid var(--bb-rule);border-top:4px solid var(--bb-violet);border-radius:12px;padding:14px 16px;background:#fff}
@@ -130,19 +143,22 @@
   <div class="inv"><div class="grp"><b>Get the association in place</b><span>Matches a contact&#x27;s email domain against an existing company and creates the link, so there is something to copy from.</span></div><a class="row" href="/w/data-quality-006.html"><div><div class="t">Company auto-association from contact email domain</div><div class="o">New contacts with a business email get linked to the matching company record automatically, instead of sitting unassociated until a rep notices...</div></div><div class="tags"><span class="tier">Data Hub Pro</span><span>contact</span></div></a><div class="grp"><b>Decide which company is primary</b><span>Flags contacts tied to two or more companies with no primary set, and routes them to a human instead of guessing.</span></div><a class="row" href="/w/data-quality-016.html"><div><div class="t">Primary company association enforcement on contact</div><div class="o">Contacts linked to more than one company always have a clear primary company on record, instead of leaving reports and account-based routing to...</div></div><div class="tags"><span class="tier">Data Hub Pro</span><span>contact</span></div></a><div class="grp"><b>Copy the value down to the contact</b><span>Mirrors a company field onto the contact so contact-only lists and exports stop needing a company lookup.</span></div><a class="row" href="/w/data-quality-020.html"><div><div class="t">Format action: copy a field value between contact and associated company</div><div class="o">A property value from a contact&#x27;s associated company appears directly on the contact record, so list segmentation and exports that only read...</div></div><div class="tags"><span class="tier">Data Hub Pro</span><span>contact</span></div></a><div class="grp"><b>Copy the value across to the deal</b><span>Puts a company attribute on the deal so pipeline reports can group by account size without a join.</span></div><a class="row" href="/w/data-quality-021.html"><div><div class="t">Format action: copy a field value between deal and associated company</div><div class="o">A company-level value, such as employee count, appears directly on the deal record, so pipeline reports and forecasting views that only read deal...</div></div><div class="tags"><span class="tier">Data Hub Pro</span><span>deal</span></div></a><div class="grp"><b>Copy an owner, not just a field</b><span>Reads the owner off an associated open deal and writes it to the company, with a manual queue when several deals compete.</span></div><a class="row" href="/w/lead-routing-028.html"><div><div class="t">Route company-level lead to whoever owns an associated open deal</div><div class="o">A new, unowned company that already has an open deal in progress goes straight to that deal&#x27;s owner, instead of a fresh round-robin pick who has...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>company</span></div></a></div>
 
   
-  <h2>What a spec looks like</h2>
+  <details class="brief mfold" data-fold="900">
+    <summary>What a spec looks like, 9 sections, the same every time</summary>
   <div class="proof">
     <div>
       <p>Every spec follows the same nine sections, so a team reads one and knows how to read all of them.</p>
       <ul><li><b>Outcome</b>, when to use it and when not to</li><li><b>Prerequisites</b>: properties, lists, tiers, with the JSON to create them</li><li><b>Enrollment</b> and re-enrollment, then every <b>step</b> with its parameters</li><li><b>Known pitfalls</b>, a <b>test plan</b>, variants, and the YAML build spec</li></ul>
     </div>
-    <img src="/assets/spec-preview.png" alt="First page of a spec" loading="lazy">
+    <img src="/assets/spec-preview.png" alt="First page of a spec" loading="lazy"
+         width="880" height="1180">
   </div>
+  </details><script>(function(){var d=document.currentScript.previousElementSibling;try{if(d&&matchMedia("(max-width:"+d.dataset.fold+"px)").matches)d.open=false}catch(e){}})();</script>
 
-  <h2>What breaks, and how the specs prevent it</h2>
-  <div class="breaks"><div class="brk"><b>The copy fires once and the value goes stale</b><p>The copy action runs on enrollment, not continuously. If re-enrollment is off, or if it only watches the destination property, a later edit on the company never reaches the contact. Wire re-enrollment to the source side, then check the workflow history for a second enrollment after you change the company value.</p></div><div class="brk"><b>A contact on two companies copies the wrong one</b><p>The copy action reads a single primary association. A contact linked to a former employer as well as a current one mirrors whichever company holds the primary flag, silently. Run the primary-company check first and park the ambiguous records in a review list rather than letting the copy pick for you.</p></div><div class="brk"><b>A picklist copied into a text field stops matching</b><p>Industry is an enumeration on the company and often a plain text field on the contact. The copy succeeds, but a later change to the company picklist options leaves the contact value orphaned and your reports drift apart. Mirror the same option set on the destination property when the field feeds reporting.</p></div></div>
+  <details class="brief mfold" data-fold="900" open><summary><h2>The 3 things that break this, and how the specs stop them</h2></summary><div class="breaks"><div class="brk"><b>The copy fires once and the value goes stale</b><p>The copy action runs on enrollment, not continuously. If re-enrollment is off, or if it only watches the destination property, a later edit on the company never reaches the contact. Wire re-enrollment to the source side, then check the workflow history for a second enrollment after you change the company value.</p></div><div class="brk"><b>A contact on two companies copies the wrong one</b><p>The copy action reads a single primary association. A contact linked to a former employer as well as a current one mirrors whichever company holds the primary flag, silently. Run the primary-company check first and park the ambiguous records in a review list rather than letting the copy pick for you.</p></div><div class="brk"><b>A picklist copied into a text field stops matching</b><p>Industry is an enumeration on the company and often a plain text field on the contact. The copy succeeds, but a later change to the company picklist options leaves the contact value orphaned and your reports drift apart. Mirror the same option set on the destination property when the field feeds reporting.</p></div></div></details><script>(function(){var d=document.currentScript.previousElementSibling;try{if(d&&matchMedia("(max-width:"+d.dataset.fold+"px)").matches)d.open=false}catch(e){}})();</script>
 
-  <div class="brief">
+  <details class="brief mfold" data-fold="900" open>
+    <summary>The full brief, in words</summary>
     <h2>What this bundle builds</h2><p>You have a value that lives on the company, industry, employee count,
 owner, and you need it on the contact or on the deal, because the list,
 the view or the export you actually work from only reads that object.
@@ -206,8 +222,8 @@ data cleanup rather than this one job, since duplicates, formatting and
 required fields sit in the data quality category, and the full library
 costs less than three packs.</p>
 
-    
-  </div>
+  </details><script>(function(){var d=document.currentScript.previousElementSibling;try{if(d&&matchMedia("(max-width:"+d.dataset.fold+"px)").matches)d.open=false}catch(e){}})();</script>
+  
 
   <h2>Questions admins ask</h2><div class="faq"><details><summary>Why does my copy workflow only fire once?</summary><p>Because re-enrollment is either off or pointed at the wrong property. A workflow enrolled on the destination being unknown stops matching the moment it writes a value. Set re-enrollment on the source side, on the company property or the association change, and accept that some portals only expose that as a company-side trigger.</p></details><details><summary>Should the workflow be contact-based or company-based?</summary><p>Company-based, for the company to contact direction. This is the single detail people get wrong most often. Re-enrollment then needs two criteria together: Company owner is known, and Number of associated contacts is known. Without the second one, contacts added to the company later never receive the value.</p></details><details><summary>Can I copy a company property to a contact without Data Hub Professional?</summary><p>Not with the native Copy property value action across an association, which is where the tier gate sits. The workarounds are a custom coded action, which needs the same tier, or an integration that writes the value from outside. Verify the action list in your own portal first, since this has moved between tiers before.</p></details><details><summary>How do I copy a deal property to the associated contact?</summary><p>That spec is not written yet. It is the most-asked direction in the Community and it is on the list for this bundle, so buyers get it as a free update when it lands. The deal to company version exists today and uses the same mechanics.</p></details><details><summary>Does copying the company owner to the contact owner work the same way?</summary><p>Owner is an owner-type property, not text, so confirm your portal lets the copy action write it before you plan around it. The pattern in this bundle takes the safer route: read the owner from an associated open deal, write it to the record, and send anything ambiguous to a manual queue.</p></details></div>
   <h2>Related</h2><div class="relb"><a href="/bundles/round-robin-lead-routing/">How do I set up round robin lead assignment in HubSpot?</a><a href="/bundles/no-ops-hub-needed/">Which HubSpot workflows can I build without Data Hub Professional (formerly Operations Hub Professional)?</a><a href="/#library?cat=data-quality">Data quality category</a><a href="/#library?cat=lead-routing">Lead routing category</a></div>

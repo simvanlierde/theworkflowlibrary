@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=b36ba089">
+<link rel="stylesheet" href="/assets/style.css?v=44e86b8c">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <style>
 .bwrap{--bb-ink:var(--ink,#12141C);--bb-body:var(--body,#2B2F3B);--bb-muted:var(--muted,#5F6472);--bb-rule:var(--rule,#DEE2EA);--bb-tint:var(--violet-tint,#EFEBFD);--bb-violet:var(--violet,#5B3FD6);--bb-violet-d:#4830AE;--bb-lime:var(--lime-soft,#E9FBBE);--bb-lime-ink:#3F5A00;--bb-amber:#FBF1DC;--bb-amber-ink:#8A5B00;--bb-sunk:#F3F4F8;--bb-sans:var(--sans,"Sora",system-ui,sans-serif);
@@ -28,7 +28,7 @@
 .chip.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}
 .chip.warn{background:var(--bb-amber);color:var(--bb-amber-ink)}
 .bgrid{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:36px;align-items:start;margin-top:22px}
-@media (max-width:900px){.bgrid{grid-template-columns:1fr}.buy{position:static}}
+@media (max-width:900px){.bgrid{grid-template-columns:minmax(0,1fr)}.buy{position:static}}
 .buy{position:sticky;top:20px;border:1.5px solid var(--bb-violet);border-radius:16px;padding:20px;background:#fff;box-shadow:0 14px 34px rgba(18,20,28,.10)}
 .buy .n{font-size:.8rem;color:var(--bb-muted);font-weight:600}
 .buy .price{font-size:2.2rem;font-weight:800;line-height:1.05;margin-top:4px}
@@ -48,7 +48,20 @@
 .inv .tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .inv .tags span{font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bb-sunk);color:var(--bb-body);white-space:nowrap}
 .inv .tags span.tier{background:var(--bb-lime);color:var(--bb-lime-ink)}.inv .tags span.free{background:var(--bb-violet);color:#fff}.inv .tags span.soon{background:var(--bb-amber);color:var(--bb-amber-ink)}
-@media (max-width:640px){.inv .row{grid-template-columns:1fr}.inv .tags{justify-content:flex-start}}
+details.brief{margin:18px 0}
+details.brief>summary{font-size:.95rem;font-weight:700;color:var(--bb-violet);
+  border-top:1px solid var(--bb-rule);border-bottom:1px solid var(--bb-rule);padding:11px 0;
+  min-height:44px;display:flex;align-items:center}
+details.brief>summary>h2{margin:0;font-size:1rem}
+@media (min-width:901px){details.brief>summary{display:none}details.brief{margin:0}}
+@media (max-width:640px){
+.inv .row{grid-template-columns:minmax(0,1fr)}
+.inv .tags{justify-content:flex-start}
+.inv{padding-left:0;padding-right:0}
+.inv .row,.inv .grp{padding:8px 14px}
+.inv .row .o{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.inv .grp span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-width:0}
+}
 .legend{font-size:.8rem;color:var(--bb-muted);margin:0 0 4px}
 .props td.pl{font-family:var(--mono,ui-monospace,monospace);font-size:.78rem;color:var(--bb-muted);line-height:1.5}
 .props td.n{font-weight:700;text-align:right;white-space:nowrap}
@@ -58,7 +71,7 @@
 .proof{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px;align-items:center;border:1px solid var(--bb-rule);border-radius:14px;padding:18px;background:#fff;margin:8px 0}
 .proof img{width:100%;border:1px solid var(--bb-rule);border-radius:8px;box-shadow:0 8px 24px rgba(18,20,28,.10)}
 .proof ul{margin:8px 0 0}.proof li{margin:3px 0;font-size:.95rem}
-@media (max-width:640px){.proof{grid-template-columns:1fr}}
+@media (max-width:640px){.proof{grid-template-columns:minmax(0,1fr)}}
 /* breaks */
 .breaks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:8px 0 8px}
 .brk{border:1px solid var(--bb-rule);border-top:4px solid var(--bb-violet);border-radius:12px;padding:14px 16px;background:#fff}
@@ -129,19 +142,22 @@
   <div class="inv"><div class="grp"><b>The stage change as a trigger</b><span>A deal entering a stage fires the tasks and the checklist that stage is supposed to produce.</span></div><a class="row" href="/w/deal-hygiene-002.html"><div><div class="t">Task creation when a deal enters a pipeline stage</div><div class="o">Every time a deal moves into a defined stage, the right next-action task is created automatically, so reps stop guessing what to do next.</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span></div></a><a class="row" href="/w/sales-ops-040.html"><div><div class="t">Generate a playbook checklist of tasks automatically when a deal enters a new stage</div><div class="o">Every deal gets the right checklist of tasks the moment it enters a new stage, instead of the rep guessing what &quot;doing this stage properly&quot; means...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span></div></a><div class="grp"><b>Moving the deal on time, or nudging whoever should</b><span>An event-based wait with a 14 day expiry, plus the activity-based alert for deals nobody touched.</span></div><a class="row" href="/w/deal-hygiene-006.html"><div><div class="t">Wait until deal stage advances (14-day expiry), else nudge owner</div><div class="o">A deal that does not advance out of a target stage within 14 days gets an owner nudge automatically, using an event-based wait instead of a fixed...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span></div></a><a class="row" href="/w/deal-hygiene-001.html"><div><div class="t">Stale deal alert: no activity in 14 days</div><div class="o">Reps and their managers get notified automatically when an open deal has had no logged activity for 14 days, so deals stop dying quietly in the...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span><span class="free">free, complete</span></div></a><div class="grp"><b>Knowing how long, and in which direction</b><span>One date property per deal for time in the current stage, plus regression and stage-skip detection.</span></div><a class="row" href="/w/deal-hygiene-021.html"><div><div class="t">Days-in-current-stage property tracker</div><div class="o">Every deal carries a single, always-current &quot;date entered current stage&quot; property, so a report or list filter can flag deals sitting too long in...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span></div></a><a class="row" href="/w/deal-hygiene-020.html"><div><div class="t">Deal stage regression alert (moved backward)</div><div class="o">The deal owner and manager get notified when a deal moves backward in the pipeline, so a regression gets a reason logged instead of vanishing...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span></div></a><a class="row" href="/w/deal-hygiene-032.html"><div><div class="t">Stage-skip detection (deal jumped stages)</div><div class="o">A deal that jumps more than one stage forward in a single move gets flagged, so pipeline reports stop assuming every deal actually passed through...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span></div></a><div class="grp"><b>What the stage writes on the deal</b><span>Probability by stage for the forecast, and a loss reason that does not stay blank on Closed Lost.</span></div><a class="row" href="/w/deal-hygiene-011.html"><div><div class="t">Deal probability auto-set by stage (weighted forecast)</div><div class="o">Every deal carries a probability percentage that updates automatically as it moves through the pipeline, giving forecast rollups a consistent...</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span></div></a><a class="row" href="/w/deal-hygiene-004.html"><div><div class="t">Require and capture win/loss reason on Closed Lost</div><div class="o">No deal reaches Closed Lost without a standardized loss reason on file, so loss analysis is based on real data instead of guesswork.</div></div><div class="tags"><span class="tier">Sales Hub Pro</span><span>deal</span></div></a></div>
 
   
-  <h2>What a spec looks like</h2>
+  <details class="brief mfold" data-fold="900">
+    <summary>What a spec looks like, 9 sections, the same every time</summary>
   <div class="proof">
     <div>
       <p>Every spec follows the same nine sections, so a team reads one and knows how to read all of them.</p>
       <ul><li><b>Outcome</b>, when to use it and when not to</li><li><b>Prerequisites</b>: properties, lists, tiers, with the JSON to create them</li><li><b>Enrollment</b> and re-enrollment, then every <b>step</b> with its parameters</li><li><b>Known pitfalls</b>, a <b>test plan</b>, variants, and the YAML build spec</li></ul>
     </div>
-    <img src="/assets/spec-preview.png" alt="First page of a spec" loading="lazy">
+    <img src="/assets/spec-preview.png" alt="First page of a spec" loading="lazy"
+         width="880" height="1180">
   </div>
+  </details><script>(function(){var d=document.currentScript.previousElementSibling;try{if(d&&matchMedia("(max-width:"+d.dataset.fold+"px)").matches)d.open=false}catch(e){}})();</script>
 
-  <h2>What breaks, and how the specs prevent it</h2>
-  <div class="breaks"><div class="brk"><b>Renaming a stage breaks every branch that names it</b><p>Branch conditions hold the stage you picked when you built the workflow. Rename that stage in Settings and the condition stops matching, with no error and no warning. The deal simply falls through, the task never appears, and nobody notices until someone asks why the checklist stopped. Deleting a stage leaves the same dangling condition behind.</p></div><div class="brk"><b>Workflows cannot rank stages or subtract numbers</b><p>A branch compares a property to a value or to another property. It cannot tell that Negotiation sits after Demo, and it cannot compute a difference. That is why three of these specs maintain a Stage Order number and a snapshot property: direction of movement is detected by comparing two numbers you wrote yourself, and every valid skip pair has to be enumerated as its own branch.</p></div><div class="brk"><b>The previous stage task stays open forever</b><p>There is no native action that completes the task from the stage a deal just left. It sits open in the rep queue until someone closes it by hand. Worse, re-enrollment on stage change means a deal that bounces back and forward regenerates the same checklist, with no dedupe against the task still open from last time.</p></div></div>
+  <details class="brief mfold" data-fold="900" open><summary><h2>The 3 things that break this, and how the specs stop them</h2></summary><div class="breaks"><div class="brk"><b>Renaming a stage breaks every branch that names it</b><p>Branch conditions hold the stage you picked when you built the workflow. Rename that stage in Settings and the condition stops matching, with no error and no warning. The deal simply falls through, the task never appears, and nobody notices until someone asks why the checklist stopped. Deleting a stage leaves the same dangling condition behind.</p></div><div class="brk"><b>Workflows cannot rank stages or subtract numbers</b><p>A branch compares a property to a value or to another property. It cannot tell that Negotiation sits after Demo, and it cannot compute a difference. That is why three of these specs maintain a Stage Order number and a snapshot property: direction of movement is detected by comparing two numbers you wrote yourself, and every valid skip pair has to be enumerated as its own branch.</p></div><div class="brk"><b>The previous stage task stays open forever</b><p>There is no native action that completes the task from the stage a deal just left. It sits open in the rep queue until someone closes it by hand. Worse, re-enrollment on stage change means a deal that bounces back and forward regenerates the same checklist, with no dedupe against the task still open from last time.</p></div></div></details><script>(function(){var d=document.currentScript.previousElementSibling;try{if(d&&matchMedia("(max-width:"+d.dataset.fold+"px)").matches)d.open=false}catch(e){}})();</script>
 
-  <div class="brief">
+  <details class="brief mfold" data-fold="900" open>
+    <summary>The full brief, in words</summary>
     <h2>What this bundle builds</h2><p>Nine specs for the pipeline where deals move because someone
 remembered, not because the process moved them. The starting point is an
 honest one: HubSpot has no action called advance to the next stage. What
@@ -200,8 +216,8 @@ ticked. Those two specs are not written yet and this page will not
 pretend otherwise. If you want the same discipline on tickets rather
 than deals, the SLA and escalation bundle is the closer fit.</p>
 
-    
-  </div>
+  </details><script>(function(){var d=document.currentScript.previousElementSibling;try{if(d&&matchMedia("(max-width:"+d.dataset.fold+"px)").matches)d.open=false}catch(e){}})();</script>
+  
 
   <h2>Questions admins ask</h2><div class="faq"><details><summary>Can a workflow move a deal to the next stage when a task is completed?</summary><p>Not with the nine specs on this page. They create tasks, they do not read task completion, and that gap is the single most asked version of this question. Two specs are being written for it, one for a single task and one for a full task set, and they will be added here when they are done. Until then the honest answer is that this collection times the stage move or nudges the owner, it does not consume a completed task.</p></details><details><summary>How do I move a deal automatically after a set number of days in a stage?</summary><p>Use the wait until event pattern. The workflow waits for the deal stage to stop being the target stage and expires after 14 days. If the deal advances first, the workflow exits and nobody is bothered. If the expiry hits, it sets a guard property, creates a task and notifies the owner, then waits another 7 days before escalating. A fixed delay plus a re-check branch does the same job if your editor does not expose the wait.</p></details><details><summary>Why does my deal sit in a delay and never come out?</summary><p>An event-based wait only watches the exact property named in its condition. If the deal is deleted or merged while it waits, the instance ends silently with no notification. A deal that leaves the stage and comes back restarts the wait from zero, which hides deals that are genuinely stuck across several short visits. Check the History tab rather than assuming the delay is still counting.</p></details><details><summary>Can I stop a rep from marking a deal Closed Lost without a reason?</summary><p>Not with a workflow. A workflow is reactive: it notices the blank field after the stage already changed, then chases it with a notification, a task and a manager escalation one business day later. The preventive control is the native required property rule on the stage itself, set in the pipeline editor. Use both, the rule to block and the workflow to chase what slips through.</p></details><details><summary>Can I get a weighted forecast amount from these workflows?</summary><p>No. Multiplying amount by probability is arithmetic between two properties, and workflow actions do not do that. You get the probability written onto the deal by stage, which feeds a report. For a true weighted amount, use the native Forecast tool, which already computes it at pipeline level, or a calculated property on Data Hub.</p></details></div>
   <h2>Related</h2><div class="relb"><a href="/bundles/slack-and-notifications/">How do I send Slack notifications from HubSpot workflows?</a><a href="/bundles/ticket-sla-escalation/">How do I build SLA escalation workflows for HubSpot tickets?</a><a href="/bundles/ops-hub-power-pack/">What can custom coded actions do in HubSpot workflows?</a><a href="/#library?cat=deal-hygiene">Deal hygiene category</a><a href="/#library?cat=sales-ops">Sales ops category</a></div>

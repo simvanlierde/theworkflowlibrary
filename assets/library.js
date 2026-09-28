@@ -466,20 +466,37 @@
     $("shelves").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
-  function fromHash() {
+  /* "#shelves?cat=lead-routing" matches no element id, so the browser scrolls nowhere and
+     the visitor lands on the hero with a 149 EUR card, 1116px above the 50 results he just
+     asked for. Every breadcrumb, category badge and "All 50" tile on the 515 spec pages
+     points here. Measured and reproduced on 27/09/2026. */
+  function fromHash(scroll) {
+    var hit = false;
+    var qm = /[?&]q=([^&]*)/.exec(location.hash);
+    if (qm) {
+      var q = decodeURIComponent(qm[1].replace(/\+/g, " ")).trim();
+      if (q) { state.q = q; if (qEl) qEl.value = q; hit = true; }
+    }
     var m = /[?&]cat=([a-z-]+)/.exec(location.hash);
-    if (!m) return;
-    var i = CATS.findIndex(function (c) { return c[0] === m[1]; });
-    if (i >= 0) { state.cat.clear(); state.cat.add(String(i)); }
+    var i = m ? CATS.findIndex(function (c) { return c[0] === m[1]; }) : -1;
+    if (i >= 0) { state.cat.clear(); state.cat.add(String(i)); hit = true; }
+    if (!hit) return false;
+    state.page = 1;
+    if (scroll) {
+      var t = $("shelves");
+      if (t) requestAnimationFrame(function () {
+        t.scrollIntoView({ behavior: "auto", block: "start" });
+      });
+    }
+    return true;
   }
-  fromHash();
+  fromHash(true);
   if (shelfwrap.getAttribute("data-ssr")) wireSeeAll();
   else buildShelves();
   render();
   window.addEventListener("hashchange", function () {
-    var before = state.cat.size;
-    fromHash();
-    if (state.cat.size !== before) render();
+    var before = state.q + "|" + Array.from(state.cat).join(",");
+    if (fromHash(true) && state.q + "|" + Array.from(state.cat).join(",") !== before) render();
   });
 })();
 
@@ -569,5 +586,22 @@
   /* the mock buttons on the hero screens say what they are the moment you press one */
   document.querySelectorAll("[data-mock]").forEach(function (b) {
     b.addEventListener("click", function () { b.textContent = "Mock only"; });
+  });
+})();
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   Spec-page search (28/09/2026). A spec page contained zero <input>: the catalogue search
+   lives only in #shelves on the home, 1116px down. The visitor this site is built for
+   arrives from Google on one spec, and if it is not his, he has nothing. This hands the
+   query to the home's own filter through the hash, so there is one search, not two.
+   ═══════════════════════════════════════════════════════════════════════════════════ */
+(function () {
+  var f = document.getElementById("specfind");
+  if (!f) return;
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = (f.querySelector("input").value || "").trim();
+    location.href = v ? "/#shelves?q=" + encodeURIComponent(v) : "/#shelves";
   });
 })();

@@ -412,6 +412,16 @@ footer .roadmap{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule
   min-height:260px;display:flex;align-items:center;justify-content:center}
 .wfmap .mermaid{width:100%;display:flex;justify-content:center}
 .wfmap .fallback{display:none}
+/* .pans is set by fitmap() in the mermaid module once the svg exists: the map is wider
+   than its frame at a legible label size, so it scrolls sideways rather than shrink.
+   Centring has to go with it, a centred flex child cannot be scrolled back to. */
+.wfmap.pans .canvas{justify-content:flex-start;overflow-x:auto;overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;touch-action:pan-x pan-y}
+.wfmap.pans .canvas>.mermaid{width:auto;flex:none}
+.wfmap .panhint{display:none}
+.wfmap.pans .panhint{display:inline-flex;margin-left:auto;color:var(--violet);
+  align-items:center;gap:6px;white-space:nowrap}
+.wfmap.pans .panhint::after{content:"\2192";font-size:13px;line-height:1}
 .wfmap .legend{padding:11px 18px;border-top:1px solid var(--rule);background:#FAFBFD;
   font-family:var(--mono);font-size:11.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
 .wfmap .legend i{font-style:normal;display:inline-flex;align-items:center;gap:6px}
@@ -767,6 +777,8 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-l);padding:18px 20px;
   box-shadow:var(--sh-h);font-size:13.5px;color:var(--body);line-height:1.6}
 .consent .cta-row{margin-top:13px}
+.consent .short{display:none}
+.consent .btn .short{display:none}
 
 /* ---------- prose rendered from markdown (free spec, changelog, terms) ---------- */
 .prose>h2:first-child,.prose>h1:first-child{margin-top:0}
@@ -857,7 +869,18 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   .fdd{flex:none}
   .fbtn{height:44px;font-size:13.5px;padding:0 11px}
   .rescount{display:none}
-  .consent{left:8px;right:8px;bottom:8px;padding:15px 16px}
+  /* 28/09/2026: measured at 151px, 18% of a 390x844 viewport, sitting on top of the
+     price and of the only line that says what the product is, and staying there until
+     the visitor clicks. It becomes a bar: one line of text, buttons beside it. */
+  .consent{left:0;right:0;bottom:0;max-width:none;border-radius:0;border-left:0;border-right:0;
+    border-bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    display:flex;align-items:center;gap:10px;font-size:12.5px;line-height:1.35}
+  .consent .long{display:none}
+  .consent .short,.consent .btn .short{display:inline}
+  .consent p{flex:1 1 auto;min-width:0;margin:0}
+  .consent .cta-row{margin-top:0;flex:none;display:flex;gap:7px}
+  .consent .btn.sm{height:38px;padding:0 11px;font-size:12.5px;white-space:nowrap}
+  .consent #consent-no{padding:0 9px}
   .docpage h1{font-size:26px}
   .prose pre{font-size:11.5px;padding:13px 14px}
   .prose>ol>li{padding:11px 13px}
@@ -903,9 +926,19 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   .topbar .in{position:relative}
   .topnav{gap:8px}
 }
+/* 28/09/2026. Cette regle cachait le nom du site pour garder le bouton d'achat entier,
+   exactement a la largeur d'ecran du visiteur vise. Resultat mesure : sur une fiche,
+   "The Workflow Library" n'apparaissait plus qu'une fois, ligne 213 sur 228, dans la
+   mention legale. Un visiteur venu de Google ne pouvait pas nommer le site ou il etait.
+   C'est le bouton qui raccourcit maintenant, pas la marque. */
 @media (max-width:430px){
-  .brand span{display:none}          /* a cette largeur, le logo suffit et le bouton d'achat reste entier */
+  .brand{font-size:13px;gap:7px}
   .topnav .btn.pri{padding-left:12px;padding-right:12px;font-size:13.5px}
+}
+.topnav .btn.pri .short{display:none}
+@media (max-width:560px){
+  .topnav .btn.pri .long{display:none}
+  .topnav .btn.pri .short{display:inline}
 }
 
 /* ---------------------------------------------------------------- hero (C, 25/09/2026)
@@ -1573,13 +1606,126 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 .invrow>summary{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:13px;align-items:start}
 .invrow>summary::after{content:none}
 .invrow>.de{margin-top:3px;margin-left:35px;display:block}
+/* 4.3 counts sit on their own title's line, 28/09/2026. The rule at :501 sent .ct to
+   column 2 row 2 with 7px of margin: measured, that put each pill 19px below its own
+   title and flush against the next one, so all seven rows read their value against the
+   wrong label. It is the one block whose job is to say what the 149 EUR buys.
+   The fourth column is for the "+" marker, which is a grid item like any other and
+   wrapped to a new row while the grid had three. */
 @media (max-width:760px){
-  .invrow>summary{grid-template-columns:20px minmax(0,1fr) auto;gap:10px}
+  .invrow>summary{grid-template-columns:20px minmax(0,1fr) auto auto;gap:10px;
+    align-items:center;min-height:48px}
+  .invrow .ct{grid-column:auto;justify-self:end;margin-top:0;white-space:nowrap;font-size:11px}
   .invrow>.de{margin-left:30px}
-  .invrow:not([open])>summary::after{content:"+";color:var(--violet);font-weight:600;font-size:19px;line-height:1}
+  .invrow:not([open])>summary::after{content:"+";color:var(--violet);font-weight:600;
+    font-size:19px;line-height:1;justify-self:end}
 }
 /* 4.4 */
 .buybox .finefold{margin-top:12px;border-top:1px solid var(--rule)}
 .buybox .finefold>summary{font-size:13px;font-weight:600;color:var(--body)}
 .buybox .finefold .fine{margin-top:0;padding:0 0 12px;border-top:0}
 @media (min-width:761px){.buybox .finefold>summary{display:none}}
+
+
+/* ---------- 28/09/2026 audit, chantier 2c ---------- */
+/* Who wrote this, before the price. The claim lived once per page, at 89% scroll depth,
+   under the paywall, while the home puts the same sentence in its first screen. A cold
+   visitor from Google reached the price with no author, no company and no proof. */
+.buybox .whomade{font-size:12.5px;line-height:1.5;color:var(--muted);
+  padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--rule)}
+
+
+/* ---------- 28/09/2026 audit, chantier 3 ---------- */
+/* A cold visitor from Google lands here, not on the home. One quiet line naming the
+   catalogue, between the breadcrumb and the title. */
+.whereami{font-size:13.5px;color:var(--muted);margin:-8px 0 14px;line-height:1.5}
+
+/* The caveat used to be the first prose on the page: a 132px amber slab warning about a
+   second subscription, 511px above the one line that says what the workflow does. It
+   keeps its anti-refund job, it loses the priority. */
+details.xhub{margin:14px 0 0;border-radius:0 8px 8px 0}
+details.xhub>summary{font-size:13.5px;font-weight:600;line-height:1.45;cursor:pointer;
+  list-style:none;display:flex;gap:8px;align-items:flex-start}
+details.xhub>summary::-webkit-details-marker{display:none}
+details.xhub>summary::after{content:"+";margin-left:auto;font-weight:600;font-size:17px;
+  line-height:1;flex:none}
+details.xhub[open]>summary::after{content:"\2212"}
+details.xhub>p{margin:9px 0 0;font-size:13.5px;line-height:1.55}
+@media (max-width:760px){
+  .whereami{font-size:13px;margin:-6px 0 12px}
+  .speclede .outcome{margin-top:0}
+}
+
+
+/* ---------- 28/09/2026 audit, chantier 4 ---------- */
+/* The one thing a visitor who landed on the wrong spec could not do. */
+.specfind{margin-top:40px;padding:22px 24px;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--r-l)}
+.specfind label{display:block;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:12px}
+.specfind .row{display:flex;gap:10px;flex-wrap:wrap}
+.specfind input{flex:1 1 240px;min-width:0;height:48px;padding:0 15px;font:inherit;font-size:16px;
+  color:var(--ink);background:var(--surface);border:1px solid var(--rule-2);border-radius:var(--r-s)}
+.specfind input:focus-visible{outline:2px solid var(--violet);outline-offset:1px;border-color:var(--violet)}
+.specfind .btn{flex:0 0 auto;height:48px}
+
+@media (max-width:760px){
+  .specfind{margin-top:30px;padding:18px 16px;border-radius:var(--r)}
+  .specfind label{font-size:15px}
+  .specfind .btn{flex:1 1 100%}
+
+  /* The shelf was a 2020px rail inside 390px: 4.4 screen widths of blind sideways swipe,
+     with .arrows already hidden below 760px, and it opened with a 39 EUR button before
+     the visitor had seen a single card. List first, price after. */
+  .related{grid-template-columns:1fr;grid-template-areas:"head" "rail" "act"}
+  .related>.act{margin:16px 0 0;width:100%;flex-wrap:wrap}
+  .related>.act .btn.pri{flex:1 1 100%;justify-content:center}
+  .related .rail{grid-auto-flow:row;grid-auto-columns:auto;gap:12px;overflow-x:visible;
+    padding:2px 0 0;margin:0;scroll-snap-type:none}
+  .related .rail>*{scroll-snap-align:none}
+}
+
+/* .act left .shead so it can follow the list on a phone. A grid puts it back on the
+   header line from the tablet up, without a second copy in the markup. */
+.related{display:grid;grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"head act" "rail rail";align-items:end;column-gap:18px}
+.related>.shead{grid-area:head;margin-bottom:14px}
+.related>.act{grid-area:act;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin-bottom:14px}
+.related>.rail{grid-area:rail}
+
+
+/* ---------- 28/09/2026 audit, chantier 5 ---------- */
+/* One colour, one job. The saturated lime was at once the "Free" badge, the "Open" badge,
+   the "1 free" pill and the primary button, so the same green said "this is unlocked" and
+   "click here". State keeps the soft tint, action keeps the saturated one. */
+.b.free{background:var(--lime-soft);border-color:var(--lime-rule);color:#3A4A08}
+.countline em{background:var(--lime-soft);color:#3A4A08}
+
+@media (max-width:760px){
+  /* Four bordered cards for four sentences, 581px of scroll. One card, four lines. */
+  .wlist{gap:0;background:var(--surface);border:1px solid var(--rule);
+    border-radius:var(--r);overflow:hidden}
+  .wlist li{border:0;border-bottom:1px solid var(--rule);border-radius:0;
+    padding:12px 14px;background:transparent}
+  .wlist li:last-child{border-bottom:0}
+}
+
+
+/* ---------- 28/09/2026, the cost of chantier 4 ---------- */
+/* Unrolling the rail into a list traded 4.4 screens of blind sideways swipe for 2474px of
+   vertical stack, 37% of the page. Three cards and the count are enough to prove the
+   section exists; the tile that filters the library carries the rest. */
+@media (max-width:760px){
+  .related .rail>.card:nth-child(n+4){display:none}
+}
+
+/* Navigation controls under the 44px floor. Breadcrumb and brand are how a visitor who
+   arrived on one spec moves anywhere else, and they were 16 and 24px tall. */
+.crumb{display:flex;flex-wrap:wrap;align-items:center;gap:2px}
+.crumb a{display:inline-flex;align-items:center;min-height:44px;padding:0 2px}
+.crumb span{display:inline-flex;align-items:center;min-height:44px}
+.brand{min-height:44px}
+.unlock .alt a,.buybox .alt a{display:inline-block;padding:6px 0}
+@media (max-width:760px){
+  .crumb{padding:6px 0 10px}
+}

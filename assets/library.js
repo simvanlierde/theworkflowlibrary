@@ -222,7 +222,7 @@
       esc(OBJS[r[2]]) + '</span><span class="b meta">' + DIFF[r[4]] + "</span></div>" +
       '<div class="tierline">' + esc(TIERS[r[3]][0]) + "</div>" +
       '<div class="incl"><span>' + r[7] + " " + sp + "</span><span>" + r[8] + " " + pp +
-      "</span><span>~" + r[9] + " min</span></div></div></" + tag + ">";
+      '</span><span class="oneclick">one click</span></div></div></' + tag + ">";
   }
 
   /* Table view (25/09/2026): the same catalogue as the shelves, one line per spec. */
@@ -239,7 +239,7 @@
         '<span class="p obj">' + esc(OBJS[r[2]]) + "</span>" +
         '<span class="p">' + esc(TIERS[r[3]][1]) + "</span>" +
         '<span class="p">' + r[7] + " steps</span>" +
-        '<span class="p">' + r[9] + " min</span>" +
+        '<span class="p oneclick">one click</span>' +
       "</span></" + tag + ">";
   }
   function fridayOf(r) {

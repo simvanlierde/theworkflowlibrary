@@ -1676,22 +1676,30 @@ details.xhub>p{margin:9px 0 0;font-size:13.5px;line-height:1.55}
   /* The shelf was a 2020px rail inside 390px: 4.4 screen widths of blind sideways swipe,
      with .arrows already hidden below 760px, and it opened with a 39 EUR button before
      the visitor had seen a single card. List first, price after. */
-  .related{grid-template-columns:1fr;grid-template-areas:"head" "rail" "act"}
   .related>.act{margin:16px 0 0;width:100%;flex-wrap:wrap}
   .related>.act .btn.pri{flex:1 1 100%;justify-content:center}
+  .related>.act .sellline{flex:1 1 100%}
   .related .rail{grid-auto-flow:row;grid-auto-columns:auto;gap:12px;overflow-x:visible;
     padding:2px 0 0;margin:0;scroll-snap-type:none}
   .related .rail>*{scroll-snap-align:none}
 }
 
 /* .act left .shead so it can follow the list on a phone. A grid puts it back on the
-   header line from the tablet up, without a second copy in the markup. */
-.related{display:grid;grid-template-columns:minmax(0,1fr) auto;
-  grid-template-areas:"head act" "rail rail";align-items:end;column-gap:18px}
-.related>.shead{grid-area:head;margin-bottom:14px}
-.related>.act{grid-area:act;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  margin-bottom:14px}
+   header line from the tablet up, without a second copy in the markup.
+   28/09/2026: this block shipped unconditional and sat after its own max-width override
+   at the end of the file. A media query carries no extra specificity, so the two-column
+   desktop grid applied at 390px too: the heading wrapped one word per line and the CTA
+   landed on top of the count. Scoped to min-width, which is where it belongs. */
+.related{display:grid;grid-template-areas:"head" "rail" "act"}
+.related>.shead{grid-area:head}
+.related>.act{grid-area:act;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .related>.rail{grid-area:rail}
+@media (min-width:761px){
+  .related{grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"head act" "rail rail";align-items:end;column-gap:18px}
+  .related>.shead{margin-bottom:14px}
+  .related>.act{margin-bottom:14px}
+}
 
 
 /* ---------- 28/09/2026 audit, chantier 5 ---------- */
@@ -1729,3 +1737,12 @@ details.xhub>p{margin:9px 0 0;font-size:13.5px;line-height:1.55}
 @media (max-width:760px){
   .crumb{padding:6px 0 10px}
 }
+
+
+/* ---------- 28/09/2026: build time out, installer in ---------- */
+/* "~40 min to build" told a buyer the spec costs him an evening. The installer is the
+   product, so the badge row says that instead. */
+.b.inst{display:inline-flex;align-items:center;gap:5px;background:var(--violet-tint);
+  border-color:var(--violet-rule);color:var(--violet-d);font-weight:600}
+.b.inst svg{width:12px;height:12px;flex:none}
+.incl .oneclick,.wfrow .p.oneclick{color:var(--violet-d);font-weight:600}

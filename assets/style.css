@@ -1746,3 +1746,15 @@ details.xhub>p{margin:9px 0 0;font-size:13.5px;line-height:1.55}
   border-color:var(--violet-rule);color:var(--violet-d);font-weight:600}
 .b.inst svg{width:12px;height:12px;flex:none}
 .incl .oneclick,.wfrow .p.oneclick{color:var(--violet-d);font-weight:600}
+
+
+/* ---------- 29/09/2026: the view toggle belongs to both views ---------- */
+/* It lived inside #results, and render() hides #results whenever the shelves are on
+   screen with no filter. So the one control that switches away from the shelves vanished
+   exactly in the state it was needed. It now sits in .fbar, the only strip on the page
+   that is never hidden. */
+.frow .viewtog{margin-left:auto;flex:none}
+@media (max-width:760px){
+  .frow .viewtog{order:3;margin-left:auto}
+  .frow .viewtog button{min-height:44px;padding:0 15px;font-size:14px}
+}

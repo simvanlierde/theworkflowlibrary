@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=621b7f0e">
+<link rel="stylesheet" href="/assets/style.css?v=ab999cce">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var q=new URLSearchParams(location.search),hit=false;["s","t"].forEach(function(k){if(q.has(k)){hit=true;try{sessionStorage.setItem("twl_"+k,q.get(k));}catch(e){}}});if(hit){history.replaceState(null,"",location.pathname+location.hash);}}catch(e){}})();</script><meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -123,6 +123,10 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
       </div>
       <div class="fgroup"><div class="fdd" data-f="cat"><button class="fbtn" type="button" aria-expanded="false">Category <span class="car">&#9662;</span></button></div><div class="fdd" data-f="status"><button class="fbtn" type="button" aria-expanded="false">Status <span class="car">&#9662;</span></button></div><div class="fdd" data-f="obj"><button class="fbtn" type="button" aria-expanded="false">Object <span class="car">&#9662;</span></button></div><div class="fdd" data-f="lvl"><button class="fbtn" type="button" aria-expanded="false">Tier <span class="car">&#9662;</span></button></div><div class="fdd" data-f="diff"><button class="fbtn" type="button" aria-expanded="false">Level <span class="car">&#9662;</span></button></div></div>
       <p class="rescount" id="rescount" aria-live="polite"><b>515</b> specs on the shelves</p>
+      <div class="viewtog" role="group" aria-label="How to show the catalogue">
+      <button type="button" data-view="table" aria-pressed="true">Table</button>
+      <button type="button" data-view="shelves" aria-pressed="false">Shelves</button>
+    </div>
     </div>
     <div class="chips" id="chips" hidden></div>
   </div>
@@ -149,10 +153,6 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
   <div class="gtools">
     <h2 id="gcount">515 specs</h2>
     <div class="sp"></div>
-    <div class="viewtog" role="group" aria-label="How to show the catalogue">
-      <button type="button" data-view="table" aria-pressed="true">Table</button>
-      <button type="button" data-view="shelves" aria-pressed="false">Shelves</button>
-    </div>
     <label class="sr" for="sort">Sort by</label>
     <select id="sort">
       <option value="rec">Live specs first</option>

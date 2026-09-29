@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=6854c6ff">
+<link rel="stylesheet" href="/assets/style.css?v=9f3c1f7f">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var q=new URLSearchParams(location.search),hit=false;["s","t"].forEach(function(k){if(q.has(k)){hit=true;try{sessionStorage.setItem("twl_"+k,q.get(k));}catch(e){}}});if(hit){history.replaceState(null,"",location.pathname+location.hash);}}catch(e){}})();</script><meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -225,18 +225,27 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
     </div>
     <div class="vside">
       <div class="xfer">
-  <div class="xrow">
-    <div class="xend"><span class="k">Source portal</span><span class="n">The one that has them</span>
-      <span class="s">read, never written</span></div>
-    <div class="xmid"><span class="xar"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.4M8.8 4.2L12.6 8l-3.8 3.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-    <div class="xend"><span class="k">Target portal</span><span class="n">The one that needs them</span>
-      <span class="s">created switched off</span></div>
+  <div class="shuttle" aria-hidden="true">
+    <div class="sh-track"></div>
+    <div class="sh-node sh-src">
+      <div class="sh-port"><span class="sh-dot"></span><span class="sh-dot"></span><span class="sh-dot"></span></div>
+      <span class="sh-k">Source portal</span><span class="sh-s">read, never written</span>
+    </div>
+    <div class="sh-node sh-vault">
+      <div class="sh-safe"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.6" y="4" width="14.8" height="12.6" rx="2.2" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10.3" r="3.1" stroke="currentColor" stroke-width="1.5"/><path d="M10 7.2v-1M10 14.4v-1M12.9 10.3h1M6.1 10.3h-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="sh-copies"><i></i><i></i><i></i></span>
+      </div>
+      <span class="sh-k">The vault</span><span class="sh-s">every copy dated</span>
+    </div>
+    <div class="sh-node sh-tgt">
+      <div class="sh-port off"><span class="sh-sw"></span></div>
+      <span class="sh-k">Target portal</span><span class="sh-s">created switched off</span>
+    </div>
+    <span class="sh-chip a"><b>lead-routing-018</b></span>
+    <span class="sh-chip b"><b>lead-routing-018</b></span>
   </div>
-  <div class="xsafe">
-    <span class="ic"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.6" y="4" width="14.8" height="12.6" rx="2.2" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10.3" r="3.1" stroke="currentColor" stroke-width="1.5"/><path d="M10 7.2v-1M10 14.4v-1M12.9 10.3h1M6.1 10.3h-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-    <span class="t"><b>The vault, in between</b><span>every copy kept with its date, yours to export</span></span>
-    <span class="dated">2026-09-26 09:14<br>2026-09-19 09:14</span>
-  </div>
+  <p class="xcap">One workflow, read out of the portal that has it, kept with its date, put into the
+    portal that needs it. Switched off, every time.</p>
   <div class="steps6"><div class="st6"><span class="no">01</span><span class="wh"><b>Connect the source portal</b>, read-only</span><span class="chip ok">Proven</span></div><div class="st6"><span class="no">02</span><span class="wh"><b>List the workflows it runs</b></span><span class="chip ok">Proven</span></div><div class="st6"><span class="no">03</span><span class="wh"><b>Read each one into a dated copy</b></span><span class="chip ok">Measured</span></div><div class="st6"><span class="no">04</span><span class="wh"><b>Connect the target portal</b></span><span class="chip ok">Proven</span></div><div class="st6"><span class="no">05</span><span class="wh"><b>Create the properties it needs</b></span><span class="chip ok">Proven</span></div><div class="st6 pending"><span class="no">06</span><span class="wh"><b>Replay the workflow, switched off</b></span><span class="chip am">Round trip untested</span></div></div>
 </div>
       <p class="xcap">Reading was measured on 26 September: 60 workflows out of a portal, 60 read. What is

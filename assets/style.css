@@ -9,6 +9,7 @@
   --lime:#C8F25A; --lime-soft:#E9FBBE; --lime-rule:#B4DE45;
   --amber:#8A5B00; --amber-tint:#FBF1DC; --amber-rule:#E9D8AF;
   --r-s:8px; --r:12px; --r-l:18px;
+  --sec:104px;   /* l'espace entre deux sections de premier niveau */
   --sh:0 1px 2px rgba(18,20,28,.05);
   --sh-m:0 4px 14px rgba(18,20,28,.07);
   --sh-h:0 14px 34px rgba(18,20,28,.12), 0 2px 6px rgba(18,20,28,.05);
@@ -33,8 +34,12 @@ input,select,button{font-family:inherit}
 :focus-visible{outline:2.5px solid var(--violet);outline-offset:2px;border-radius:5px}
 /* 29/09/2026: .wrap owns the side gutter and nothing else may write it with a `padding`
    shorthand. Seven sections did, which zeroed the sides and left the home with three
-   different text edges and a hero flush to the screen. Use padding-block for rhythm. */
-.wrap{max-width:1280px;margin:0 auto;padding:0 28px}
+   different text edges and a hero flush to the screen. Use padding-block for rhythm.
+   And .wrap itself declares padding-inline, not the shorthand: written `padding:0 28px`
+   it zeroed the block axis of every section it touched, which is how the phone lost the
+   whole vertical rhythm of pricing, freepack and faq. The gutter is one axis, the rhythm
+   is the other, and neither may write the other's. */
+.wrap{max-width:1280px;margin:0 auto;padding-inline:28px}
 .muted{color:var(--muted)}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:-.01em}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -351,7 +356,7 @@ footer .roadmap{margin-top:26px;padding-top:18px;border-top:1px solid var(--rule
 @media (max-width:760px){
   h1{font-size:30px}
   h2{font-size:22px}
-  .wrap{padding:0 16px}
+  .wrap{padding-inline:16px}
   .topbar .in{padding:0 16px;gap:12px}
   .hidesm{display:none}
   .brand{font-size:13.5px;gap:8px}
@@ -1504,7 +1509,14 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   .pricing details.mfold:not(#addportals)>summary{display:none}
 }
 /* 1.3 the transfer diagram goes, its caption stays: it carries the 60/60 figure next to a CTA */
-@media (max-width:720px){.vband .xfer{display:none}.vband .xcap{margin-top:0}}
+/* 29/09/2026 : le panneau entier etait masque sous 720px, donc la bande Vault n'etait
+   plus que du texte sur telephone. C'etaient les six lignes d'etapes qui pesaient, pas
+   la navette. La navette reste, les etapes partent. */
+@media (max-width:720px){
+  .vband .xfer .steps6{display:none}
+  .vband .xfer{background:transparent;border:0;box-shadow:none}
+  .vband .xcap{padding-bottom:0}
+}
 /* 1.4 method steps fold on phones, read normally on desktop */
 @media (max-width:760px){.mstep .mfold p{padding-top:8px}.mstep .mfold .num{margin-bottom:0}}
 @media (min-width:761px){
@@ -1760,4 +1772,107 @@ details.xhub>p{margin:9px 0 0;font-size:13.5px;line-height:1.55}
 @media (max-width:760px){
   .frow .viewtog{order:3;margin-left:auto}
   .frow .viewtog button{min-height:44px;padding:0 15px;font-size:14px}
+}
+
+
+/* ---------- 29/09/2026: le rythme vertical des sections ---------- */
+/* Il etait ecrit section par section, en haut seulement, et jamais deux fois pareil :
+   40/10, 44/44, 60/8, 56/0, 58/10. Les ecarts mesures entre sections allaient de 56 a
+   121px sur desktop, et le raccourci .wrap{padding:0 16px} les mettait tous a zero sous
+   760px. Un seul token, moitie en haut moitie en bas, donc l'ecart entre deux sections
+   vaut exactement --sec quelle que soit la paire. */
+.shelves,.results,.method,.pricing,.freepack,.faq{
+  padding-block:calc(var(--sec) / 2)}
+/* le catalogue suit la barre de filtres collante, qui separe deja : moitie moins en haut */
+.shelves,.results{padding-block:calc(var(--sec) / 4) calc(var(--sec) / 2)}
+/* la bande Vault est teintee et bordee : elle respire plus a l'interieur, et les sections
+   voisines lui donnent leur demi-ecart, ce qui l'isole visiblement du reste */
+.vband{padding-block:calc(var(--sec) * .72)}
+footer.site{margin-top:0}
+@media (max-width:760px){
+  :root{--sec:68px}
+  .method{padding-top:calc(var(--sec) / 2)}
+}
+
+/* ---------- 29/09/2026: la navette du Vault ---------- */
+/* La bande disait le produit en six lignes de texte. Elle le montre maintenant : une fiche
+   sort du portail qui l'a, se depose datee dans le coffre, repart dans le portail qui en a
+   besoin, interrupteur eteint. Au repos, et sous prefers-reduced-motion, la premiere image
+   raconte deja tout : des copies datees dans le coffre, une fiche installee a droite. */
+.vlt .shuttle{position:relative;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:10px;padding:46px 8px 16px;isolation:isolate}
+.vlt .shuttle .sh-track{position:absolute;left:16%;right:16%;top:64px;height:2px;z-index:0;
+  background:linear-gradient(90deg,transparent,#2A3040 14%,#2A3040 86%,transparent)}
+.vlt .shuttle .sh-node{position:relative;z-index:1;display:grid;justify-items:center;gap:4px;text-align:center}
+.vlt .shuttle .sh-k{font-size:11.5px;font-weight:600;color:#E7E9F0}
+.vlt .shuttle .sh-s{font-family:var(--mono);font-size:9.5px;color:#7E869B;line-height:1.3}
+
+/* les deux portails */
+.vlt .shuttle .sh-port{width:56px;height:38px;border-radius:7px;border:1px solid #333A4D;
+  background:#171B26;display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:6px}
+.vlt .shuttle .sh-port .sh-dot{width:18px;height:3px;border-radius:2px;background:#4A5266}
+.vlt .shuttle .sh-port .sh-dot:first-child{background:#5B3FD6}
+.vlt .shuttle .sh-port.off{border-style:dashed;border-color:#3D4557}
+.vlt .shuttle .sh-port .sh-sw{width:24px;height:13px;border-radius:99px;background:#2A3040;
+  border:1px solid #3D4557;position:relative}
+.vlt .shuttle .sh-port .sh-sw::after{content:"";position:absolute;left:2px;top:1.5px;width:8px;height:8px;
+  border-radius:50%;background:#6B7488}
+
+/* le coffre */
+.vlt .shuttle .sh-safe{position:relative;width:56px;height:38px;border-radius:7px;
+  border:1px solid #7B62E8;background:#1B1730;display:flex;align-items:center;
+  justify-content:center;margin-bottom:6px;color:#C7B8FF}
+.vlt .shuttle .sh-safe svg{width:18px;height:18px}
+.vlt .shuttle .sh-copies{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);display:flex;gap:3px}
+.vlt .shuttle .sh-copies i{width:9px;height:3px;border-radius:2px;background:#4B3E86}
+
+/* la fiche qui voyage. Le deplacement s'ecrit sur `left`, pas sur translate : un
+   pourcentage dans translate se calcule sur la taille de l'element, donc la fiche ne
+   parcourait que 33% de ses 100px au lieu d'un tiers de la bande. */
+.vlt .shuttle .sh-chip{position:absolute;z-index:2;top:4px;left:50%;
+  font-family:var(--mono);font-size:9px;color:#DDE1EC;background:#242A3A;
+  border:1px solid #3B4256;border-radius:5px;padding:3px 7px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(0,0,0,.5);opacity:0;transform:translate(-50%,0)}
+.vlt .shuttle .sh-chip b{font-weight:500}
+
+@media (prefers-reduced-motion:no-preference){
+  .vlt .shuttle .sh-chip.a{animation:wfout 7s cubic-bezier(.55,.05,.3,1) infinite}
+  .vlt .shuttle .sh-chip.b{animation:wfin 7s cubic-bezier(.55,.05,.3,1) infinite}
+  .vlt .shuttle .sh-copies i:nth-child(3){animation:wfstack 7s ease infinite}
+  .vlt .shuttle .sh-port.off .sh-sw::after{animation:wfsettle 7s ease infinite}
+}
+/* 0 a 3,5s : le portail source vers le coffre */
+@keyframes wfout{
+  0%       {left:16.6%;opacity:0;transform:translate(-50%,0) scale(.92)}
+  6%       {left:16.6%;opacity:1;transform:translate(-50%,0) scale(1)}
+  36%      {left:50%;  opacity:1;transform:translate(-50%,0) scale(1)}
+  44%      {left:50%;  opacity:0;transform:translate(-50%,30px) scale(.72)}
+  100%     {left:50%;  opacity:0;transform:translate(-50%,30px) scale(.72)}
+}
+/* 3,5 a 7s : le coffre vers le portail cible */
+@keyframes wfin{
+  0%,50%   {left:50%;  opacity:0;transform:translate(-50%,30px) scale(.72)}
+  56%      {left:50%;  opacity:1;transform:translate(-50%,0) scale(1)}
+  86%      {left:83.4%;opacity:1;transform:translate(-50%,0) scale(1)}
+  94%,100%{left:83.4%;opacity:0;transform:translate(-50%,0) scale(.92)}
+}
+/* la troisieme copie datee apparait quand la fiche se depose */
+@keyframes wfstack{0%,40%{opacity:0;transform:translateY(-5px)}50%,100%{opacity:1;transform:none}}
+/* l'interrupteur du portail cible clignote quand la fiche arrive, puis reste eteint */
+@keyframes wfsettle{0%,84%{box-shadow:none}88%{box-shadow:0 0 0 4px rgba(91,63,214,.30)}96%,100%{box-shadow:none}}
+
+.vlt .xcap{margin:2px 0 0;font-size:12.5px;line-height:1.55;color:#7E869B;
+  padding:0 4px 14px;text-align:center}
+
+@media (max-width:760px){
+  .vlt .shuttle{padding-top:38px}
+  .vlt .shuttle .sh-track{top:57px}           /* 38 de padding + 19, la moitie d'une boite */
+}
+@media (max-width:420px){
+  .vlt .shuttle{padding:34px 2px 14px;gap:5px}
+  .vlt .shuttle .sh-track{top:50px}           /* 34 + 16 */
+  .vlt .shuttle .sh-port,.vlt .shuttle .sh-safe{width:46px;height:32px}
+  .vlt .shuttle .sh-k{font-size:10.5px}
+  .vlt .shuttle .sh-s{font-size:9px}
+  .vlt .shuttle .sh-chip{font-size:8px;padding:2px 5px}
 }

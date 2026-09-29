@@ -31,6 +31,9 @@ img{max-width:100%;display:block}
 ul{margin:0;padding:0;list-style:none}
 input,select,button{font-family:inherit}
 :focus-visible{outline:2.5px solid var(--violet);outline-offset:2px;border-radius:5px}
+/* 29/09/2026: .wrap owns the side gutter and nothing else may write it with a `padding`
+   shorthand. Seven sections did, which zeroed the sides and left the home with three
+   different text edges and a hero flush to the screen. Use padding-block for rhythm. */
 .wrap{max-width:1280px;margin:0 auto;padding:0 28px}
 .muted{color:var(--muted)}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:-.01em}
@@ -163,7 +166,7 @@ input,select,button{font-family:inherit}
 .rescount b{color:var(--ink)}
 
 /* ---------- shelves ---------- */
-.shelves{padding:30px 0 6px}
+.shelves{padding-block:30px 6px}
 .shelf{margin-bottom:30px}
 .shead{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:14px}
 .shead .t{min-width:0}
@@ -223,7 +226,7 @@ a.card:hover .thumb img{transform:translateY(-50%) scale(1.05)}
 .seeall .go{color:var(--violet-d);font-weight:600;font-size:14px}
 
 /* ---------- filtered grid ---------- */
-.results{padding:26px 0 8px}
+.results{padding-block:26px 8px}
 .gtools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .gtools h2{font-size:22px}
 .gtools .sp{margin-left:auto}
@@ -239,7 +242,7 @@ a.card:hover .thumb img{transform:translateY(-50%) scale(1.05)}
 .packstrip .sp{margin-left:auto}
 
 /* ---------- method ---------- */
-.method{padding:56px 0 10px}
+.method{padding-block:56px 10px}
 .msteps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
 .mstep{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:20px}
 .mstep .num{font-family:var(--mono);font-size:12px;color:var(--violet-d);background:var(--violet-tint);
@@ -255,7 +258,7 @@ a.card:hover .thumb img{transform:translateY(-50%) scale(1.05)}
 .authorbar .log b{font-family:var(--mono);font-size:12px;color:var(--ink);margin-right:8px}
 
 /* ---------- pricing ---------- */
-.pricing{padding:60px 0 8px}
+.pricing{padding-block:60px 8px}
 .freerow{display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:var(--lime-soft);
   border:1px solid var(--lime-rule);border-radius:var(--r-l);padding:20px 24px;margin-bottom:18px}
 .freerow .p{font-size:27px;font-weight:800;color:var(--ink);letter-spacing:-.035em;line-height:1}
@@ -296,7 +299,7 @@ a.card:hover .thumb img{transform:translateY(-50%) scale(1.05)}
 .pricenote b{color:var(--ink)}
 
 /* ---------- free band ---------- */
-.freepack{padding:56px 0 0}
+.freepack{padding-block:56px 0}
 .fp{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:36px;
   background:var(--ink);color:#D5D8E2;border-radius:var(--r-l);padding:34px}
 .fp h2{color:#fff;font-size:27px}
@@ -311,7 +314,7 @@ a.card:hover .thumb img{transform:translateY(-50%) scale(1.05)}
 .fp .freedone{color:var(--lime)}
 
 /* ---------- faq ---------- */
-.faq{padding:58px 0 10px}
+.faq{padding-block:58px 10px}
 .faqgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;margin-top:20px}
 details{border-bottom:1px solid var(--rule);padding:4px 0}
 summary{cursor:pointer;list-style:none;padding:13px 0;font-weight:600;color:var(--ink);font-size:15.5px;
@@ -946,7 +949,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 .hero{border-bottom:1px solid var(--rule);background:
   radial-gradient(1100px 380px at 8% -10%, var(--violet-tint) 0%, transparent 62%), var(--surface)}
 .hero .hin{display:grid;grid-template-columns:1.06fr .94fr;gap:44px;align-items:center;
-  padding:52px 0 46px}
+  padding-block:52px 46px}
 .hero .hcol{display:grid;gap:19px;align-content:start}
 .hero h1{font-size:clamp(31px,4.6vw,49px);font-weight:780;letter-spacing:-.025em;line-height:1.1;
   text-wrap:balance;margin:0}
@@ -983,7 +986,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 .hero .panel .pfoot{padding:11px 15px;border-top:1px solid #262A34;font-family:var(--mono);font-size:11.5px;
   color:#9BA3B4;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .hero .panel .pfoot .tag{background:#23262F;border-radius:5px;padding:2px 7px;color:#C9CFDC}
-@media (max-width:900px){.hero .hin{grid-template-columns:1fr;gap:30px;padding:36px 0 34px}
+@media (max-width:900px){.hero .hin{grid-template-columns:1fr;gap:30px;padding-block:36px 34px}
   .hero .sub{font-size:16.5px}}
 
 /* ------------------------------------------------- pricing row of three (C, 25/09/2026) */
@@ -1076,7 +1079,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   box-shadow:0 0 0 3px rgba(200,242,90,.16)}
 
 /* sections */
-.vlt .vsec{padding:64px 0;border-top:1px solid var(--v-rule)}
+.vlt .vsec{padding-block:64px;border-top:1px solid var(--v-rule)}
 .vlt .vsec:first-of-type{border-top:0}
 .vlt .vhead{display:grid;gap:13px;max-width:64ch;margin-bottom:32px}
 .vlt .vsec h2{font-size:clamp(23px,3vw,35px);font-weight:780;letter-spacing:-.03em;line-height:1.1;
@@ -1084,7 +1087,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 .vlt .vsec .lede{font-size:16px;color:var(--v-body);max-width:62ch;margin:0}
 
 /* ── hero ─────────────────────────────────────────────────────────────────────────── */
-.vlt .vtop{padding:64px 0 60px}
+.vlt .vtop{padding-block:64px 60px}
 .vlt .vtop .in{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
 .vlt .vtop h1{font-size:clamp(33px,5vw,54px);font-weight:800;letter-spacing:-.035em;line-height:1.04;
   text-wrap:balance;margin:0}
@@ -1113,7 +1116,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   text-align:right;line-height:1.7}
 
 /* the six steps, the only real sequence on the page, so the only thing numbered */
-.vlt .steps6{padding:6px 0 8px}
+.vlt .steps6{padding-block:6px 8px}
 .vlt .st6{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;
   padding:9px 18px;font-size:13.5px}
 .vlt .st6 + .st6{border-top:1px solid var(--v-rule)}
@@ -1194,8 +1197,8 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 
 @media (max-width:900px){
   .vlt .vtop .in{grid-template-columns:1fr;gap:34px}
-  .vlt .vtop{padding:42px 0 40px}
-  .vlt .vsec{padding:46px 0}
+  .vlt .vtop{padding-block:42px 40px}
+  .vlt .vsec{padding-block:46px}
   .vlt .jobs{grid-template-columns:1fr}
   .vlt .regh{display:none}
   .vlt .rege{grid-template-columns:24px 1fr;gap:12px}
@@ -1208,8 +1211,8 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 }
 
 /* shared signup furniture */
-.vlt .hero{padding:56px 0 48px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-@media (max-width:940px){.vlt .hero{grid-template-columns:1fr;gap:34px;padding:38px 0 34px}}
+.vlt .hero{padding-block:56px 48px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+@media (max-width:940px){.vlt .hero{grid-template-columns:1fr;gap:34px;padding-block:38px 34px}}
 .vlt .hcol{display:grid;gap:20px;align-content:start}
 .vlt .hero h1{font-size:clamp(32px,5vw,54px);font-weight:800;letter-spacing:-.035em;line-height:1.03}
 .vlt .hero h1 em{font-style:normal;color:var(--lime)}
@@ -1227,7 +1230,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
   padding:3px 9px}
 .vlt .pf{padding:12px 16px;background:var(--sunk);border-top:1px solid var(--rule);font-family:var(--mono);
   font-size:11px;color:var(--muted)}
-.vlt .sec{padding:56px 0;border-top:1px solid var(--rule)}
+.vlt .sec{padding-block:56px;border-top:1px solid var(--rule)}
 .vlt .shd{display:grid;gap:12px;max-width:58ch;margin-bottom:30px}
 .vlt .sec h2{font-size:clamp(24px,3.1vw,36px);font-weight:780;letter-spacing:-.03em}
 .vlt .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -1290,7 +1293,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 .vlt .done.on{display:grid}
 .vlt .done .big{font-size:18px;font-weight:700;color:var(--lime)}
 .vlt .done p{font-size:13.5px;color:var(--muted)}
-.vlt .small{padding:34px 0 8px;border-top:1px solid var(--rule)}
+.vlt .small{padding-block:34px 8px;border-top:1px solid var(--rule)}
 .vlt .small details{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:0 18px;
   max-width:80ch}
 .vlt .small summary{cursor:pointer;padding:15px 0;font-size:14.5px;color:var(--ink);font-weight:600;
@@ -1512,7 +1515,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 /* 1.5 hero rhythm */
 @media (max-width:760px){
   summary{padding:11px 0;font-size:15px}
-  .hero .hin{gap:22px;padding:28px 0 26px}
+  .hero .hin{gap:22px;padding-block:28px 26px}
   .hero .hcol{gap:14px}
   .hero .trust{gap:5px 14px;font-size:13px}
   .hero .panel .plog{font-size:11.5px;line-height:1.7}
@@ -1539,9 +1542,9 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 @media (max-width:560px){.wfrow{padding:9px 12px;gap:3px}.wfrow .rid{display:none}}
 
 /* ---------- vault, 27/09/2026 ---------- */
-/* 2.1 .vlt .hero/.sec/.small use the padding shorthand at 0,2,0, which resets the horizontal
-   axis and beats .wrap{padding:0 16px}. Every vault section was running edge to edge. */
-@media (max-width:760px){.vlt .hero,.vlt .sec,.vlt .small{padding-left:16px;padding-right:16px}}
+/* 2.1 RESOLU le 29/09/2026 a la source. Le correctif du 27/09 ne remettait la gouttiere
+   que sous 760px, donc le vault desktop continuait a courir bord a bord. Toutes les
+   sections .vlt passent en padding-block, qui ne touche pas l'axe horizontal de .wrap. */
 /* 2.2 the pain cards fold. display:block beats .vlt .pc{display:grid} and dodges the WebKit
    grid-on-details bug; the marker is positioned because margin-left:auto needed a flex summary. */
 .vlt details.pc{display:block}

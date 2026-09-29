@@ -1369,7 +1369,10 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 /* ── the band on the home: the same room, seen through a doorway ──────────────────── */
 .vband{padding:60px 0;border-top:1px solid #000;border-bottom:1px solid #000;
   box-shadow:inset 0 14px 30px -18px rgba(0,0,0,.9), inset 0 -14px 30px -18px rgba(0,0,0,.9)}
-.vband .vbin{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center}
+.vband .vbin{display:grid;grid-template-columns:1.02fr .98fr;gap:20px 48px;align-items:start}
+.vband .vhead,.vband .shuttle,.vband .xcap.lead{grid-column:1 / -1}
+.vband .vhead{max-width:60ch}
+.vband .vcol,.vband .vside{align-self:start;margin-top:14px}
 .vband h2{font-size:clamp(24px,3vw,35px);font-weight:780;letter-spacing:-.03em;line-height:1.1;
   text-wrap:balance;margin:0}
 .vband .lede{font-size:16px;color:var(--v-body);max-width:56ch;margin:0}
@@ -1388,7 +1391,7 @@ pre.yaml{margin-top:14px;background:var(--ink);color:#C9CEDA;border-radius:var(-
 .vbtn.ghost svg{flex:none}
 .vlt .vcol{display:grid;gap:20px;align-content:start}
 .vlt .vside{display:grid;gap:0}
-@media (max-width:900px){.vband{padding:44px 0}.vband .vbin{grid-template-columns:1fr;gap:30px}}
+@media (max-width:900px){.vband .vbin{grid-template-columns:1fr;gap:26px}}
 /* the object has to read as a transfer, not as two boxes side by side */
 .vlt .xmid{width:1px;background:var(--v-rule);position:relative;display:grid;place-items:center}
 .vlt .xar{position:absolute;width:28px;height:28px;border-radius:50%;background:var(--v-raised);
@@ -1876,3 +1879,46 @@ footer.site{margin-top:0}
   .vlt .shuttle .sh-s{font-size:9px}
   .vlt .shuttle .sh-chip{font-size:8px;padding:2px 5px}
 }
+
+
+/* ---------- 29/09/2026 : la navette passe en tete de bande ---------- */
+/* Elle etait un detail dans le panneau de droite. C'est elle qui raconte le produit,
+   elle prend donc toute la largeur, au-dessus des deux colonnes. */
+.shuttle.big{padding:58px 24px 26px;}
+.vband .shuttle.big{margin:22px 0 0;
+  background:rgba(255,255,255,.022);border:1px solid #242A3A;border-radius:18px}
+.shuttle.big .sh-track{top:84px;left:18%;right:18%}  /* 58 de padding + 26, la moitie d une boite */
+.shuttle.big .sh-port,.shuttle.big .sh-safe{width:78px;height:52px;border-radius:9px}
+.shuttle.big .sh-safe svg{width:24px;height:24px}
+.shuttle.big .sh-port .sh-dot{width:26px;height:4px}
+.shuttle.big .sh-port .sh-sw{width:32px;height:17px}
+.shuttle.big .sh-port .sh-sw::after{width:11px;height:11px;top:2px}
+.shuttle.big .sh-copies i{width:13px;height:4px}
+.shuttle.big .sh-k{font-size:14px}
+.shuttle.big .sh-s{font-size:11px}
+.shuttle.big .sh-chip{top:10px;font-size:11px;padding:5px 10px}
+.vband .xcap.lead{margin:14px 0 0;font-size:14.5px;line-height:1.6;color:#9AA2B6;
+  text-align:center;max-width:62ch;justify-self:center;padding:0}
+
+@media (max-width:760px){
+  .shuttle.big{padding:46px 10px 20px}
+  .vband .shuttle.big{margin-top:16px;border-radius:14px}
+  .shuttle.big .sh-track{top:65px;left:15%;right:15%}  /* 46 + 19 */
+  .shuttle.big .sh-port,.shuttle.big .sh-safe{width:56px;height:38px}
+  .shuttle.big .sh-safe svg{width:18px;height:18px}
+  .shuttle.big .sh-port .sh-dot{width:18px;height:3px}
+  .shuttle.big .sh-k{font-size:12px}
+  .shuttle.big .sh-s{font-size:9.5px}
+  .shuttle.big .sh-chip{font-size:9px;padding:3px 7px;top:6px}
+  .vband .xcap.lead{font-size:13.5px;text-align:left}
+  /* le panneau ne contient plus que les six etapes, qui restent hors telephone */
+  .vband .xfer,.vband .vside{display:none}
+}
+
+/* la meme navette sur les pages Vault : la page est deja sombre, elle n'a pas besoin du
+   cadre que la bande dessine pour se detacher du reste de la home */
+.vlt .shsec{border-top:0;padding-block:calc(var(--sec) / 2) 0}
+.vlt .shsec .shuttle.big{margin:0;background:rgba(255,255,255,.02);border:1px solid var(--v-rule)}
+.vlt .shsec .xcap.lead{margin:16px auto 0;font-size:14.5px;line-height:1.6;color:var(--v-muted);
+  text-align:center;max-width:62ch;padding:0}
+@media (max-width:760px){.vlt .shsec .xcap.lead{text-align:left}}

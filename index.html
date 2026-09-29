@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=9f3c1f7f">
+<link rel="stylesheet" href="/assets/style.css?v=f50ff431">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>(function(){try{var q=new URLSearchParams(location.search),hit=false;["s","t"].forEach(function(k){if(q.has(k)){hit=true;try{sessionStorage.setItem("twl_"+k,q.get(k));}catch(e){}}});if(hit){history.replaceState(null,"",location.pathname+location.hash);}}catch(e){}})();</script><meta name="google-site-verification" content="nlj-5QeCFuTZiHPEVpP3p-W0hPIemD4RQZ2EIhj3uks"><script>
 window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
@@ -206,26 +206,11 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
 
 <section class="vlt vband" id="vault" aria-labelledby="vaulth">
   <div class="wrap vbin">
-    <div class="vcol">
+    <div class="vhead">
       <span class="tag"><span class="blip"></span>In the workshop &middot; founding list open</span>
       <h2 id="vaulth">The workflows you already have, kept safe and moved in one click.</h2>
-      <p class="lede">The library writes our specs into your portal. The Vault goes the other way: it
-        reads the workflows a portal already runs, keeps a dated copy of each, and puts any of them into
-        another portal, switched off, the same way the installer works today.</p>
-      <ul class="vwhy">
-        <li><span class="x">01</span><span><b>HubSpot has no undo.</b> A workflow someone edits or
-          deletes is gone, with no version to go back to.</span></li>
-        <li><span class="x">02</span><span><b>A sandbox is not a portal.</b> What you built to test still
-          has to be rebuilt by hand in production.</span></li>
-        <li><span class="x">03</span><span><b>Client A's build is client B's starting point,</b> and
-          today that means retyping it.</span></li>
-      </ul>
-      <a class="vbtn ghost" href="/vault.html" data-vault-link data-cta="vault-band">Join the founding
-        list <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.4M8.8 4.2L12.6 8l-3.8 3.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
-    <div class="vside">
-      <div class="xfer">
-  <div class="shuttle" aria-hidden="true">
+    <div class="shuttle big" aria-hidden="true">
     <div class="sh-track"></div>
     <div class="sh-node sh-src">
       <div class="sh-port"><span class="sh-dot"></span><span class="sh-dot"></span><span class="sh-dot"></span></div>
@@ -244,8 +229,24 @@ try { if (localStorage.getItem('twl_consent') === 'granted') window.twlLoadHubSp
     <span class="sh-chip a"><b>lead-routing-018</b></span>
     <span class="sh-chip b"><b>lead-routing-018</b></span>
   </div>
-  <p class="xcap">One workflow, read out of the portal that has it, kept with its date, put into the
-    portal that needs it. Switched off, every time.</p>
+    <p class="xcap lead">One workflow, read out of the portal that has it, kept with its date, put into the portal that needs it. Switched off, every time.</p>
+    <div class="vcol">
+      <p class="lede">The library writes our specs into your portal. The Vault goes the other way: it
+        reads the workflows a portal already runs, keeps a dated copy of each, and puts any of them into
+        another portal, switched off, the same way the installer works today.</p>
+      <ul class="vwhy">
+        <li><span class="x">01</span><span><b>HubSpot has no undo.</b> A workflow someone edits or
+          deletes is gone, with no version to go back to.</span></li>
+        <li><span class="x">02</span><span><b>A sandbox is not a portal.</b> What you built to test still
+          has to be rebuilt by hand in production.</span></li>
+        <li><span class="x">03</span><span><b>Client A's build is client B's starting point,</b> and
+          today that means retyping it.</span></li>
+      </ul>
+      <a class="vbtn ghost" href="/vault.html" data-vault-link data-cta="vault-band">Join the founding
+        list <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.4M8.8 4.2L12.6 8l-3.8 3.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="vside">
+      <div class="xfer">
   <div class="steps6"><div class="st6"><span class="no">01</span><span class="wh"><b>Connect the source portal</b>, read-only</span><span class="chip ok">Proven</span></div><div class="st6"><span class="no">02</span><span class="wh"><b>List the workflows it runs</b></span><span class="chip ok">Proven</span></div><div class="st6"><span class="no">03</span><span class="wh"><b>Read each one into a dated copy</b></span><span class="chip ok">Measured</span></div><div class="st6"><span class="no">04</span><span class="wh"><b>Connect the target portal</b></span><span class="chip ok">Proven</span></div><div class="st6"><span class="no">05</span><span class="wh"><b>Create the properties it needs</b></span><span class="chip ok">Proven</span></div><div class="st6 pending"><span class="no">06</span><span class="wh"><b>Replay the workflow, switched off</b></span><span class="chip am">Round trip untested</span></div></div>
 </div>
       <p class="xcap">Reading was measured on 26 September: 60 workflows out of a portal, 60 read. What is

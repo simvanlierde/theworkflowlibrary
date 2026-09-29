@@ -91,8 +91,14 @@
     }).then(function (r) { if (!r.ok) throw new Error(r.status); return {}; });
   }
   /* Worker first, then the form API, then a local confirmation. Never a dead end. */
+  /* Deux Workers, deux roles. /free vit sur l'installeur, tout le reste sur le checkout.
+     Poste sur le checkout, /free tombait sur sa reponse par defaut : HTTP 200, text/plain,
+     "The Workflow Library checkout worker". post() ne jette que sur !r.ok, donc 200 passait,
+     r.json() echouait, le .catch rendait {} et wireForm lisait ca comme un succes. Le
+     visiteur voyait "Check your inbox" alors que rien n'etait parti et que son adresse
+     n'etait meme pas enregistree. Verifie et corrige le 29/09/2026. */
   function capture(route, payload) {
-    var w = T.worker;
+    var w = route === "/free" ? (T.installWorker || T.worker) : T.worker;
     var first = w ? post(w + route, payload) : Promise.reject(new Error("no worker"));
     return first.catch(function () { return hsSubmit(payload.email, payload.spec || "site"); });
   }
@@ -124,7 +130,22 @@
           var a = done.querySelector("[data-dl]");
           if (a) { a.href = d.download; a.hidden = false; }
         }
-        track(event, { source: body.source });
+        /* Le Worker sait ce qui s'est vraiment passe, la page ne doit pas raconter autre
+           chose. Les installs gratuites restent fermees tant que l'app HubSpot n'est pas
+           listee, et il le dit : on affiche sa phrase, pas la notre. */
+        if (d && d.message) {
+          var m = done.querySelector("[data-msg]");
+          if (m) m.textContent = d.message;
+        }
+        if (d && d.token_sent === false) {
+          var t = done.querySelector("[data-title]");
+          if (t) t.textContent = "Noted.";
+        }
+        if (d && d.install_open === false) {
+          var o = done.querySelector("[data-insopen]");
+          if (o) o.hidden = true;
+        }
+        track(event, { source: body.source, open: d && d.install_open });
       }).catch(function () {
         /* nothing reached us: say so and give a route that works. Never a fake confirmation. */
         if (btn) { btn.disabled = false; btn.textContent = "Try again"; }
